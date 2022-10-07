@@ -7,6 +7,8 @@ import SignUp from "./components/SignUp/SignUp";
 import CanvasBg from "./components/THREE/Background/CanvasBg";
 import Profile from "./components/Profile/Profile";
 import Test from "./Test";
+import TestGame from "./components/TestGame/TestGame";
+import Leaderboards from "./components/Leaderboards/Leaderboards";
 function App() {
 
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path='/login' element={<LogIn />} />
           <Route path='/landing' element={<Landing />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/game' element={<TestGame />} />
+          <Route path='/leaderboards' element={<Leaderboards />} />
         </Routes>
       </AuthProvider>
     </>

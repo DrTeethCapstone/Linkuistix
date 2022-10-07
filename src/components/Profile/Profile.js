@@ -6,32 +6,55 @@ import Sidebar from '../Landing/Sidebar'
 
 
 function Profile() {
-    const [data, setData] = useState({})
+    const [userData, setUserData] = useState({})
+    const [scoreData, setScoreData] = useState([])
     const { getUserData, currentUser } = useAuth()
 
     useEffect(() => {
-        const getData = async () => {
+        const getUserData = async () => {
             const q = query(collection(db, 'users'), where('email', '==', currentUser.email))
-            const querySnapshot = await getDocs(q)
+            const queryUsers = await getDocs(q)
 
-            querySnapshot.forEach((doc) => {
-                setData(doc.data())
+            queryUsers.forEach((doc) => {
+                setUserData(doc.data())
             })
         }
-        // console.log(getData())
-        getData()
+        const getScoreData = async () => {
+            const q = query(collection(db, 'scores'), where('userEmail', '==', currentUser.email))
+            const queryScores = await getDocs(q)
+
+            queryScores.forEach((doc) => {
+                console.log(doc.data().score)
+                scoreData.push(doc.data().score)
+            })
+
+        }
+        getScoreData()
+        getUserData()
 
     }, [])
-    console.log(data)
+    console.log('userData', userData)
+    console.log('scoreData', scoreData)
     // const dataMap = data.forEach((doc) => {
     //     console.log(doc.data())
     // })
+    const arr = [1, 2, 3, 4, 5]
 
     return (
         <>
             <Sidebar />
             <div className='profile-container'>
-                <h1>username: {data.username}</h1>
+                <h1>username: {userData.username}</h1>
+                <div>
+                    <h3>Player Scores:</h3>
+                    {scoreData.sort((a, b) =>
+                        b - a
+                    ).map(ele =>
+                        <>
+                            <p>{ele}</p>
+                        </>
+                    )}
+                </div>
             </div>
         </>
 

@@ -23,10 +23,10 @@ function Sidebar() {
                 <p><Link to='/profile'>profile</Link></p>
             </div>
             <div>
-                <p>icon</p>
+                <p><Link to='/game'>game</Link></p>
             </div>
             <div>
-                <p>icon</p>
+                <p><Link to='/leaderboards'>leaderboards</Link></p>
             </div>
             <div>
                 <p>icon</p>
