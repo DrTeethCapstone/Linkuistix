@@ -2,7 +2,6 @@
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
 }
-
 .canvas-container {
   position: absolute;
   height: 100vh;
@@ -10,8 +9,7 @@
   z-index: -1;
   width: 100vw;
 }
-
-.form-container>div {
+.form-container > div {
   position: relative;
   top: 20vh;
   background-color: rgba(255, 255, 255, 0.8);
@@ -22,30 +20,25 @@
   align-items: center;
   padding-bottom: 40px;
 }
-
 .form-container h2 {
   margin-top: 6vh;
   font-size: 2em;
 }
-
 .form-container p {
   margin-top: 1vh;
 }
-
 .form-container form {
   margin-top: 2vh;
   display: flex;
   flex-direction: column;
   width: 12vw;
 }
-
 .form-container form input {
   margin: 1vh 0;
   height: 4vh;
   border: none;
   padding: 0 15px;
 }
-
 .form-container form button {
   margin-top: 1vh;
   height: 3.8vh;
@@ -54,29 +47,24 @@
   font-size: 1.3em;
   font-weight: 600;
 }
-
 .splash-container {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .header-container {
   margin-top: 15vh;
   font-size: 2.4em;
   animation: 0.8s 0s 1 slideInFromTop;
   animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
 }
-
 .header-container h1 {
   text-shadow: -2px 0 aqua, 0 2px aqua, 2px 0 aqua, 0 -2px aqua;
 }
-
 .header-container h6 {
   color: white;
 }
-
 .play-container {
   display: flex;
   flex-direction: row;
@@ -84,39 +72,32 @@
   animation: 0.8s 0s 1 slideInFromBottom;
   animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
 }
-
 .play-container h3 {
   font-size: 2.2em;
   color: aqua;
 }
-
 .play-container hr {
   border: 2px solid aqua;
 }
-
 .play-container p {
   margin-top: 10px;
   color: aqua;
 }
-
-.play-container>div {
+.play-container > div {
   margin: 0 10vw;
 }
-
-.play-container>div button {
+.play-container > div button {
   background-color: grey;
   margin: 0 5px;
   border: 3px solid #00ffff;
   height: 5vh;
   margin: 5px 0;
 }
-
 .play-container .button-container {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
 }
-
 .sidebar-container {
   position: absolute;
   top: 10vh;
@@ -124,7 +105,6 @@
   animation: 2.8s 0s 1 slideInFromRight;
   animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
 }
-
 .sidebar-container div {
   text-align: center;
   background-color: rgba(0, 255, 255, 0.5);
@@ -133,11 +113,48 @@
   border-radius: 50px;
   margin: 25px 0;
 }
-
 .sidebar-container p {
   padding-top: 15px;
 }
-
+.game-container {
+  position: relative;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 35vw;
+  height: 50vh;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.profile-container {
+  position: relative;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 35vw;
+  height: 50vh;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.8);
+}
 .profile-container h1 {
-  color: white;
+  color: black;
+}
+.leaderboards-container {
+  position: relative;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 35vw;
+  height: 50vh;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.leaderboards-container h1 {
+  color: black;
 }
