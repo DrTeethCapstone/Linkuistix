@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
+
+
 function SignUp() {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -11,9 +13,12 @@ function SignUp() {
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
+    // const docRef = doc(db, 'users', currentUser.uid)
+    // await setDoc(docRef, {
+    //     username: username
+    // })
 
-
-    const { signup } = useAuth()
+    const { signup, addUserToDb } = useAuth()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -23,10 +28,11 @@ function SignUp() {
         try {
             setError('')
             setLoading(true)
-            await signup(email, password)
-            // await signup(email, password, username)
+            // await signup(email, password)
+            signup(email, password, username)
+            // await addUserToDb(email, username)
             // await addUserToDb(username)
-            navigate('/profile')
+            navigate('/landing')
         } catch (error) {
             console.log(error)
             setError('failed to create account')

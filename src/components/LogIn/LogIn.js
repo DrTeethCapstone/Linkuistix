@@ -18,7 +18,7 @@ function LogIn() {
             setError('')
             setLoading(true)
             await login(email, password)
-            navigate('/profile')
+            navigate('/landing')
         } catch (error) {
             setError('failed to log in')
         }
