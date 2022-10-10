@@ -17,7 +17,6 @@ function Profile() {
             console.log(queryUsers)
             queryUsers.forEach((doc) => {
                 console.log(doc.data())
-
                 setUserData(doc.data())
             })
         }
