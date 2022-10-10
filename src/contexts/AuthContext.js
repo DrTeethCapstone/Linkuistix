@@ -77,3 +77,18 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     )
 }
+
+
+
+// db before
+// users collection - scores collection
+//users - email, username
+//scores - email, score
+
+// db refactor goal
+// users collection only
+// users - email, username, scores
+//      username: will
+//      email: will@gmail.com
+//      scores field - [{score, date}, {score, date}]
+//          --- {score: 400, date: 4/13/22-12:23pm}
