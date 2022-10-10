@@ -6,9 +6,9 @@ import { useAuth } from '../../contexts/AuthContext'
 
 function Landing() {
     const [chatState, setChatState] = useState(false)
-    console.log(chatState)
-    // const { currentUser } = useAuth()
-    // console.log(currentUser.email)
+    // console.log(chatState)
+    const { currentUser } = useAuth()
+    console.log(currentUser)
     return (
         <>
             <Sidebar />

@@ -12,14 +12,17 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
+    const [scoreState, setScoreState] = useState(0)
 
     //auth functions
     const signup = async (email, password, username) => {
         createUserWithEmailAndPassword(auth, email, password)
         await addDoc(collection(db, 'users'), {
             email: email,
-            username: username
+            username: username,
+            scores: []
         })
+        console.log('hit')
     }
     // const addUserToDb = async (email, username) => {
     //     const docRef = doc(db, 'users')
@@ -63,7 +66,9 @@ export const AuthProvider = ({ children }) => {
         login,
         signup,
         logout,
-        getUserData
+        getUserData,
+        setScoreState,
+        scoreState
     }
 
     return (

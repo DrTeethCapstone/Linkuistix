@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { WordsContainer } from "./WordsContainer";
 import { Word } from "./Words";
 import { InputText } from "./InputText";
+import React, { useState } from 'react'
 
 //ADD SCORING SYSTEM
 // 60 base line
@@ -21,6 +22,8 @@ export class Sketch {
     });
 
     this.time = 0;
+
+    this.score = 420
 
     document.body.appendChild(this.app.view);
     this.wordsContainer = new WordsContainer();

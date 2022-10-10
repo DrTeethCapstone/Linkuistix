@@ -24,6 +24,8 @@ function Leaderboards() {
     }, [leaderboards])
     console.log(leaderboards)
 
+
+
     return (
         <>
             <Sidebar />
@@ -39,11 +41,6 @@ function Leaderboards() {
                                 <p>{ele.score} by {ele.userEmail}</p>
                             </>
                         )
-                        // leaderboards.map(ele =>
-                        //     <>
-                        //         <p>{ele.score} by {ele.userEmail}</p>
-                        //     </>
-                        // )
                     }
                 </div>
             </div>

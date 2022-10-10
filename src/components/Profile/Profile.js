@@ -9,13 +9,15 @@ function Profile() {
     const [userData, setUserData] = useState({})
     const [scoreData, setScoreData] = useState([])
     const { getUserData, currentUser } = useAuth()
-
+    console.log(currentUser)
     useEffect(() => {
         const getUserData = async () => {
             const q = query(collection(db, 'users'), where('email', '==', currentUser.email))
             const queryUsers = await getDocs(q)
-
+            console.log(queryUsers)
             queryUsers.forEach((doc) => {
+                console.log(doc.data())
+
                 setUserData(doc.data())
             })
         }

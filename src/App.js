@@ -9,11 +9,10 @@ import Profile from "./components/Profile/Profile";
 import Test from "./Test";
 import TestGame from "./components/TestGame/TestGame";
 import Leaderboards from "./components/Leaderboards/Leaderboards";
-function App() {
 
+function App() {
   return (
     <>
-
       <AuthProvider>
         <CanvasBg />
         {/* <Test /> */}

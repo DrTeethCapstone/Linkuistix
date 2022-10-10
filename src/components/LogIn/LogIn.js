@@ -9,8 +9,8 @@ function LogIn() {
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
-    const { login } = useAuth()
-
+    const { login, currentUser } = useAuth()
+    console.log(currentUser)
     const handleSubmit = async (event) => {
         event.preventDefault()
 
