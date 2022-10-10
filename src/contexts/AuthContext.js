@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         await addDoc(collection(db, 'users'), {
             email: email,
             username: username,
-            scores: []
+            // scores: []
         })
         console.log('hit')
     }
