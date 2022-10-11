@@ -10,8 +10,10 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
+
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
+
     const [scoreState, setScoreState] = useState(0)
 
     //auth functions
@@ -44,31 +46,33 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)
+   
         })
-
+       
         return unsubscribe
     }, [])
 
     // database functions
 
-    const getUserData = async () => {
-        const userDataRef = collection(db, '/users')
-        const q = query(collection(db, 'users'), where('email', '==', currentUser.email))
-        await getDocs(q)
-        // console.log(data.doc)
-
-        // return data
-    }
+    // const getUserDataThunk = async () => {
+    //     const q = query(collection(db, 'users'), where('email', '==', currentUser.email))
+    //     const queryUsers = await getDocs(q)
+    //     queryUsers.forEach((doc) => {
+    //         console.log(doc.data())
+    //                 setUserData(doc.data())
+    //             })
+    // }
 
 
     const value = {
         currentUser,
+  
         login,
         signup,
         logout,
-        getUserData,
+
         setScoreState,
-        scoreState
+        scoreState,
     }
 
     return (
