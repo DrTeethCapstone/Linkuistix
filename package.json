@@ -22,13 +22,10 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.0.8",
     "three": "^0.145.0",
-<<<<<<< HEAD
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
-=======
-    "web-vitals": "^2.1.4"
->>>>>>> 34c70530a076e16609cb9e61a7ac55e911f9ea7c
   },
   "scripts": {
     "start": "react-scripts start",

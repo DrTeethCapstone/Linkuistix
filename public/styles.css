@@ -27,25 +27,14 @@
 .form-container p {
   margin-top: 1vh;
 }
+.form-container div {
+  border-radius: 5px;
+}
 .form-container form {
   margin-top: 2vh;
   display: flex;
   flex-direction: column;
   width: 12vw;
-}
-.form-container form input {
-  margin: 1vh 0;
-  height: 4vh;
-  border: none;
-  padding: 0 15px;
-}
-.form-container form button {
-  margin-top: 1vh;
-  height: 3.8vh;
-  border: none;
-  background-color: yellow;
-  font-size: 1.3em;
-  font-weight: 600;
 }
 .splash-container {
   text-align: center;
@@ -115,6 +104,9 @@
 }
 .sidebar-container p {
   padding-top: 15px;
+}
+.sidebar-container a {
+  color: white;
 }
 .game-container {
   position: relative;
