@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
         login,
         signup,
         logout,
-        getUserDataThunk,
+
         setScoreState,
         scoreState,
     }
