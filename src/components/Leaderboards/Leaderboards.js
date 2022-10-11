@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '../../contexts/AuthContext'
-import { collection, getDocs, doc, query, where, orderBy, limitToLast, limit, startAfter, endBefore, startAt } from 'firebase/firestore'
+import { collection, getDocs, query, orderBy, limitToLast, limit, startAfter, endBefore, } from 'firebase/firestore'
 import { db } from '../../firebase'
 import Sidebar from '../Landing/Sidebar'
 
@@ -8,12 +7,9 @@ import Sidebar from '../Landing/Sidebar'
 
 function Leaderboards() {
     const [leaderboard, setLeaderboard] = useState([])
-    const [scoreData, setScoreData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [button, setButton] = useState(false)
     const [message, setMessage] = useState('')
 
-    const { currentUser } = useAuth()
 
     useEffect(() => {
         const getData = async () => {
@@ -50,8 +46,6 @@ function Leaderboards() {
 
     }
 
-    //main arr of 100 scores
-
 
     const handlePrev = async () => {
         const firstVisible = leaderboard[0]
@@ -60,7 +54,7 @@ function Leaderboards() {
             endBefore(firstVisible.score),
             limitToLast(10)
         )
-        console.log(leaderboard)
+
         const nextDoc = await getDocs(next)
         if (nextDoc.docs.length) {
             setMessage('')
@@ -76,25 +70,6 @@ function Leaderboards() {
 
     }
 
-    //next -> called by next button -> setleaderboard to new 10 scores
-
-    // console.log(scoreData)
-    // if (scoreData.length > 0) {
-    //     const orderedScores = scoreData.sort((a, b) =>
-    //         b.score.score - a.score.score
-    //     ).map((ele) =>
-    //         <>
-    //             <p>{ele.score.score} by {ele.user}</p>
-    //         </>
-    //     )
-    //     console.log(orderedScores)
-    //     let paginationScores
-    // }
-    // take scoredata -> newarr = scoredata from [0] - [9]
-    // newarrmap to display stats
-    // '
-
-    console.log(leaderboard)
 
     return (
         <>
@@ -139,25 +114,3 @@ export default Leaderboards
 
 
 
-// useEffect(() => {
-//     const getScoreData = async () => {
-//         // const allUsersCollection = collection(db, 'users')
-//         // const userDocRef = await getDocs(allUsersCollection)
-//         // userDocRef.forEach((doc) =>
-//         //     // console.log(doc.data().scores)
-//         //     doc.data().scores.forEach((scores) =>
-//         //         scoreData.push({ score: scores, user: doc.data().username })
-//         //     )
-//         // )
-
-//         const first = query(collection(db, 'users'), where('scores', 'array-contains', 'time'), limit(23))
-//         const docSnap = await getDocs(first)
-//         console.log(docSnap)
-//         docSnap.forEach((doc) =>
-//             console.log(doc.data())
-//         )
-
-//         setLoading(false)
-//     }
-//     getScoreData()
-// }, [scoreData])
