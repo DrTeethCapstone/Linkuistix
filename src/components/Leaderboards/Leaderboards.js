@@ -46,8 +46,6 @@ function Leaderboards() {
 
     }
 
-    //main arr of 100 scores
-
 
     const handlePrev = async () => {
         const firstVisible = leaderboard[0]

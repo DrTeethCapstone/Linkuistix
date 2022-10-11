@@ -11,7 +11,6 @@ function Profile() {
     const { currentUser, userLogin } = useAuth()
     const [userData, setUserData] = useState({})
 
-    console.log(userLogin)
     useEffect(()=>{
         const getUserData = async () => {
                     const q = query(collection(db, 'users'), where('email', '==', currentUser.email))
@@ -43,11 +42,8 @@ function Profile() {
            const endIndex = startIndex + 10
            return data.slice(startIndex,endIndex)
         }
-     
-    
     let sortedData = scoreData.length ? scoreData.sort((a,b)=>b-a) : null
     let showData = scoreData.length ? getPaginationData(sortedData) : null
-
     return (
         <>
             <Sidebar />
