@@ -9,23 +9,32 @@ function Sidebar() {
 
   const { currentUser } = useAuth();
 
+  const userName = currentUser.userName;
+
   const handleLogout = async () => {
     setError('');
     try {
       await logout();
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       setError('failed to log out');
     }
   };
+
   return (
     <div className="sidebar-container">
-      <div>
-        <p>
+      {currentUser?.isAnonymous ? (
+        <div>
           {' '}
-          <Link to="/registerGuest">Save</Link>
-        </p>
-      </div>
+          <p>
+            {' '}
+            <Link to="/registerGuest">Save</Link>
+          </p>
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div>
         <p>
           <Link to="/profile">profile</Link>
