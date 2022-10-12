@@ -5,6 +5,9 @@ import {
   fetchSignInMethodsForEmail,
   onAuthStateChanged,
   signOut,
+  signInAnonymously,
+  getAuth,
+  updateProfile,
 } from 'firebase/auth';
 import {
   collection,
@@ -15,8 +18,10 @@ import {
   getDocs,
   where,
   query,
+  Timestamp,
 } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { getDatabase, ref, set } from 'firebase/database';
 
 const AuthContext = React.createContext();
 
@@ -63,10 +68,27 @@ export const AuthProvider = ({ children }) => {
       } else {
         //if the email is unique to our db, proceed with signup
         await createUserWithEmailAndPassword(auth, email, password);
-        await addDoc(collection(db, 'users'), {
-          email: email,
-          username: username,
-          // scores: []
+        await onAuthStateChanged(auth, (user) => {
+          if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+
+            //create a user in our users table
+            setDoc(doc(db, 'users/', user.uid), {
+              email: email,
+              username: username,
+              uid: user.uid,
+              userCreatedAt: Timestamp.fromDate(new Date()),
+            });
+
+            //add username as displayName to auth user
+            updateProfile(user, { displayName: username });
+
+            // ...
+          } else {
+            // User is signed out
+            // ...
+          }
         });
         //The signup page needs a 'true' status to continue the signup
         return { status: true, reason: 'success' };
@@ -85,6 +107,26 @@ export const AuthProvider = ({ children }) => {
 
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const loginAsGuest = async () => {
+    try {
+      console.log('trying guest login');
+      await signInAnonymously(auth);
+      await onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          updateProfile(user, { displayName: 'guest' });
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const logout = () => {
@@ -120,6 +162,7 @@ export const AuthProvider = ({ children }) => {
 
     setScoreState,
     scoreState,
+    loginAsGuest,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

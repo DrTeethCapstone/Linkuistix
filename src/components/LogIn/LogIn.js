@@ -31,22 +31,20 @@ function LogIn() {
 
   if (loginError !== '') toast.error(loginError);
 
-  const { login, currentUser } = useAuth();
+  const { login, currentUser, loginAsGuest } = useAuth();
 
   // console.log(currentUser);
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
 
-  //   try {
-  //     setError('');
-  //     setLoading(true);
-  //     await login(email, password);
-  //     navigate('/landing');
-  //   } catch (error) {
-  //     setError('failed to log in');
-  //   }
-  //   setLoading(false);
-  // };
+  const guestLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      await loginAsGuest();
+      navigate('/landing');
+    } catch (error) {
+      setError('failed to log in');
+    }
+  };
 
   return (
     <>
@@ -148,6 +146,14 @@ function LogIn() {
           <p>
             <Link to="/">Sign Up</Link>
           </p>
+          <Button
+            type="button"
+            variant="primary"
+            className="my-4"
+            onClick={guestLogin}
+          >
+            Guest Sign In
+          </Button>
         </div>
       </div>
     </>
