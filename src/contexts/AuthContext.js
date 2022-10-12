@@ -13,17 +13,15 @@ import {
 } from 'firebase/auth';
 import {
   collection,
-  addDoc,
   doc,
   setDoc,
-  getDoc,
   getDocs,
+  updateDoc,
   where,
   query,
   Timestamp,
 } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import { getDatabase, ref, set } from 'firebase/database';
 
 const AuthContext = React.createContext();
 
@@ -37,7 +35,14 @@ export const AuthProvider = ({ children }) => {
 
   const [scoreState, setScoreState] = useState(0);
 
-  //auth functions
+  //----------------------auth functions--------------------------------
+
+  /* 
+
+SIGNUP
+
+*/
+
   const signup = async (email, password, username) => {
     try {
       //first, we see if the username is already registered
@@ -99,6 +104,12 @@ export const AuthProvider = ({ children }) => {
       console.log('signup error: ', error);
     }
   };
+
+  /* 
+
+GUEST => REGISTERED USER
+
+*/
 
   //if a guest wants to save their scores, then can convert
   //to a registered user
@@ -166,6 +177,22 @@ export const AuthProvider = ({ children }) => {
             //add username as displayName to auth user, replacing 'guest'
             updateProfile(user, { displayName: username });
 
+            //update the username in the user's score entries
+            async function updateScores() {
+              const scoreQ = query(
+                collection(db, 'scores'),
+                where('uid', '==', user.uid)
+              );
+              const scoresSnapshot = await getDocs(scoreQ);
+              scoresSnapshot.forEach(async (document) => {
+                console.log('doccies! ', document.id);
+                const docRef = doc(db, 'scores', document.id);
+                console.log('DN: ', user.displayName);
+                await updateDoc(docRef, { username: username });
+              });
+            }
+            updateScores();
+
             // ...
           } else {
             // User is signed out
@@ -179,17 +206,22 @@ export const AuthProvider = ({ children }) => {
       console.log('signup error: ', error);
     }
   };
-  // const addUserToDb = async (email, username) => {
-  //     const docRef = doc(db, 'users')
-  //     await setDoc(docRef, {
-  //         email: email,
-  //         username: username
-  //     })
-  // }
+
+  /* 
+
+LOG IN
+
+*/
 
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
+
+  /* 
+
+LOGIN AS GUEST
+
+*/
 
   const loginAsGuest = async () => {
     try {
@@ -211,6 +243,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  /* 
+
+LOG OUT
+
+*/
+
   const logout = () => {
     return signOut(auth);
   };
@@ -223,17 +261,6 @@ export const AuthProvider = ({ children }) => {
 
     return unsubscribe;
   }, []);
-
-  // database functions
-
-  // const getUserDataThunk = async () => {
-  //     const q = query(collection(db, 'users'), where('email', '==', currentUser.email))
-  //     const queryUsers = await getDocs(q)
-  //     queryUsers.forEach((doc) => {
-  //         console.log(doc.data())
-  //                 setUserData(doc.data())
-  //             })
-  // }
 
   const value = {
     currentUser,
@@ -250,16 +277,3 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-// db before
-// users collection - scores collection
-//users - email, username
-//scores - email, score
-
-// db refactor goal
-// users collection only
-// users - email, username, scores
-//      username: will
-//      email: will@gmail.com
-//      scores field - [{score, date}, {score, date}]
-//          --- {score: 400, date: 4/13/22-12:23pm}
