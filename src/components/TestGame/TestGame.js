@@ -40,6 +40,7 @@ function TestGame() {
           await addDoc(collection(db, 'scores'), {
             score: score,
             uid: currentUser.uid,
+            username: currentUser.displayName,
             scoreCreatedAt: Timestamp.fromDate(new Date()),
           });
         };

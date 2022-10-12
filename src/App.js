@@ -6,6 +6,7 @@ import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
 import CanvasBg from './components/THREE/Background/CanvasBg';
 import Profile from './components/Profile/Profile';
+import RegisterGuest from './components/RegisterGuest/RegisterGuest';
 import Test from './Test';
 import TestGame from './components/TestGame/TestGame';
 import Leaderboards from './components/Leaderboards/Leaderboards';
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route exact index path="/" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/registerGuest" element={<RegisterGuest />} />
           <Route path="/landing" element={<Landing />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/game" element={<TestGame />} />

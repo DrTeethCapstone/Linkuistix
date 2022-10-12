@@ -77,7 +77,7 @@ function Leaderboards() {
     }
   };
 
-  console.log(leaderboard);
+  // console.log(leaderboard);
 
   return (
     <>
