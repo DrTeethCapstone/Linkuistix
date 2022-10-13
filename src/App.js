@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from 'react'
+
 import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-
+import { Sketch } from "./game/app";
 import Landing from './components/Landing/Landing';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
@@ -16,17 +18,24 @@ import 'react-toastify/dist/ReactToastify.css';
 import WordGame from './components/WordGame/WordGame';
 
 function App() {
+  const [sketch, setSketch] = useState({})
+
+  useEffect(() => {
+    setSketch(new Sketch())
+  }, [])
+  console.log(sketch)
+
   return (
     <>
       <AuthProvider>
-        <LoopBg />
+
         <Routes>
           <Route exact index path="/" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/registerGuest" element={<RegisterGuest />} />
-          <Route path="/landing" element={<Landing />} />
+          <Route path="/landing" element={<Landing sketch={sketch} />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/game" element={<WordGame />} />
+          {/* <Route path="/game" element={<WordGame />} /> */}
           <Route path="/leaderboards" element={<Leaderboards />} />
         </Routes>
       </AuthProvider>

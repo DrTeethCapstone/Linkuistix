@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
+import { Sketch } from '../../game/app'
 
-function Landing() {
+function Landing({ sketch }) {
   const [chatState, setChatState] = useState(false);
   const { currentUser } = useAuth();
   const [zoomState, setZoomState] = useState('splash-container')
   const navigate = useNavigate();
-
+  console.log('undefined', sketch)
   const handleAnimation = () => {
     setZoomState('splash-container zoomout-splash')
     setTimeout(() => {
       navigate('/game')
     }, 1900)
+    sketch.setPlaying(true)
+    sketch.checkPlaying()
   }
 
   return (

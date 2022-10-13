@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { GameContainer } from "./GameContainer/GameContainer";
-import { GameMenu } from "./GameMenu";
+import { GameMenu } from "./Background/GameMenu";
 //ANIMATION PLUGINS
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
@@ -16,14 +16,17 @@ export class Sketch {
       resolution: window.devicePixelRatio || 1,
       resizeTo: window,
     });
+    this.playingGame = false
 
     document.body.appendChild(this.app.view);
+    this.GameMenu = new GameMenu();
+    // this.setupWordsContainer();
+    this.app.stage.addChild(this.GameMenu);
+
+
 
     //CREATE GAME CONTAINER AND STORE ALL GAME CONTAINERS/ELEMENTS INSIDE
-    this.gameContainer = new GameContainer(this.app.stage);
-    this.gameContainer.position.set(this.width / 2, 0);
 
-    this.time = 0;
 
     // const test = new GameMenu(this.app.stage);
 
@@ -42,5 +45,17 @@ export class Sketch {
       //   console.log("gameover!!!");
       //   this.app.stop();
     });
+  }
+  checkPlaying() {
+    if (this.playingGame) {
+      console.log('hit')
+      this.gameContainer = new GameContainer(this.app.stage);
+      this.gameContainer.position.set(this.width / 2, 0);
+      this.time = 0;
+    }
+  }
+  setPlaying(torf) {
+    console.log(torf)
+    this.playingGame = torf
   }
 }
