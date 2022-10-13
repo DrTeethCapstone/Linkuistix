@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GameMenu } from "./animation/app";
+import { Sketch } from "./animation/app";
 import { useAuth } from './contexts/AuthContext'
 
 function Test() {
@@ -8,7 +8,7 @@ function Test() {
     console.log(state)
     console.log(scoreState)
     useEffect(() => {
-        const test = new GameMenu()
+        const test = new Sketch()
         setScoreState(test.score)
         setState(test.score)
         console.log(test)
