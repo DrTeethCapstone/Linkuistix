@@ -39,31 +39,47 @@ const SignupSchema = Yup.object().shape({
   }),
 });
 
-function SignUp() {
+function RegisterGuest() {
+  // const [username, setUsername] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
   const [signupError, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  // const docRef = doc(db, 'users', currentUser.uid)
+  // await setDoc(docRef, {
+  //     username: username
+  // })
 
-  const { signup, loginAsGuest } = useAuth();
+  const { registerGuest } = useAuth();
 
-  //guest login handler
-  const guestLogin = async (event) => {
-    event.preventDefault();
-
-    try {
-      await loginAsGuest();
-      navigate('/landing');
-    } catch (error) {
-      setError('failed to log in');
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (password !== confirmPassword) {
+  //     return setError('password no matchy');
+  //   }
+  //   try {
+  //     setError('');
+  //     setLoading(true);
+  //     // await signup(email, password)
+  //     signup(email, password, username);
+  //     // await addUserToDb(email, username)
+  //     // await addUserToDb(username)
+  //     navigate('/landing');
+  //   } catch (error) {
+  //     console.log(error);
+  //     setError('failed to create account');
+  //   }
+  //   setLoading(false);
+  // };
 
   return (
     <>
       <div className="eightBitForm">
         <div>
-          <h2>Sign Up</h2>
+          <h2>Guest {'>'} Player</h2>
           {/* {signupError && window.alert(signupError)} */}
           <Formik
             initialValues={{
@@ -90,7 +106,7 @@ function SignUp() {
 
                 //we try to authenticate the user
                 // if the user exists, signupSuccess returns false
-                const signupSuccess = await signup(
+                const signupSuccess = await registerGuest(
                   castValues.email,
                   castValues.password,
                   castValues.username
@@ -127,7 +143,7 @@ function SignUp() {
                   <Form.Control
                     type="email"
                     name="email"
-                    placeholder="me@web.com"
+                    placeholder="email"
                     // autoFocus
                     autoComplete="email"
                     autoCapitalize="off"
@@ -220,14 +236,6 @@ function SignUp() {
               </Form>
             )}
           </Formik>
-          <Button
-            type="button"
-            variant="primary"
-            className="my-4"
-            onClick={guestLogin}
-          >
-            Guest Sign In
-          </Button>
           <p>Already Have An Account?</p>
           <p>
             <Link to="/login">Log In</Link>
@@ -238,4 +246,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default RegisterGuest;
