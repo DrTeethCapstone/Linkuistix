@@ -64,6 +64,8 @@
 }
 .eightBitForm div {
   border-radius: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .eightBitForm > div {
   position: relative;
