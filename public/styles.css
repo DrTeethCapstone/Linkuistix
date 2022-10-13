@@ -91,6 +91,9 @@ canvas {
   padding-bottom: 40px;
   padding-top: 40px;
 }
+.zoomout-splash {
+  animation: zoomOut 2s;
+}
 .splash-container {
   text-align: center;
   display: flex;
@@ -240,5 +243,15 @@ canvas {
   }
   100% {
     transform: scale(1);
+  }
+}
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    margin-top: 0;
+  }
+  100% {
+    transform: scale(0);
+    margin-top: 25vh;
   }
 }
