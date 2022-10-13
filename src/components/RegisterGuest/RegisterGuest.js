@@ -79,7 +79,7 @@ function RegisterGuest() {
     <>
       <div className="eightBitForm">
         <div>
-          <h2>Guest {'>'} User</h2>
+          <h2>Guest {'>'} Player</h2>
           {/* {signupError && window.alert(signupError)} */}
           <Formik
             initialValues={{
@@ -136,7 +136,7 @@ function RegisterGuest() {
               handleSubmit,
               isSubmitting,
             }) => (
-              <Form onSubmit={handleSubmit} className="row g-3">
+              <Form onSubmit={handleSubmit} className="row g-3 w-100">
                 {/* email */}
                 <Form.Group controlId="formEmail" className="mb-0">
                   <Form.Label>Email</Form.Label>

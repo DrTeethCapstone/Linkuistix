@@ -87,7 +87,7 @@ function LogIn() {
               handleSubmit,
               isSubmitting,
             }) => (
-              <Form onSubmit={handleSubmit} className="row g-3 ">
+              <Form onSubmit={handleSubmit} className="row g-3 w-100">
                 {/* email */}
                 <Form.Group controlId="formEmail" className="mb-0">
                   <Form.Label>Email</Form.Label>
