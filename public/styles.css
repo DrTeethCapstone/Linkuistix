@@ -20,6 +20,14 @@
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
 }
+canvas {
+  position: absolute;
+  height: 100vh;
+  background-color: black;
+  z-index: -1;
+  top: 0;
+  width: 100vw;
+}
 .eightBitForm h2 {
   font-family: 'Press Start 2P';
   color: white;
@@ -74,8 +82,8 @@
 }
 .eightBitForm > div {
   position: relative;
-  top: 20vh;
-  background-color: rgba(138, 11, 131, 0.8);
+  top: 8vh;
+  background-color: rgba(11, 179, 224, 0.8);
   width: 25vw;
   margin: auto;
   display: flex;
@@ -83,13 +91,6 @@
   align-items: center;
   padding-bottom: 40px;
   padding-top: 40px;
-}
-.canvas-container {
-  position: absolute;
-  height: 100vh;
-  background-color: black;
-  z-index: -1;
-  width: 100vw;
 }
 .splash-container {
   text-align: center;
