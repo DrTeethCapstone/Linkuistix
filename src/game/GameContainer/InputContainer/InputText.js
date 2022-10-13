@@ -124,10 +124,10 @@ export class InputText extends PIXI.Text {
   }
 
   //TODO: MAYBE STORE THIS SOMEWHERE BEFORE USING SPEAK TO TENSOR
-  async createTensorWordList(words) {
-    await this.model.embed(words);
-    return tf.slice(embeddingsFromWords, [j, 0], [1]);
-  }
+  // async createTensorWordList(words) {
+  //   await this.model.embed(words);
+  //   return tf.slice(embeddingsFromWords, [j, 0], [1]);
+  // }
 
   //USER INTERACTION WITH TENSOR
   async speakToTensor(target, words, wordObjects, guessObj) {

@@ -20,7 +20,7 @@ export class GameContainer extends PIXI.Container {
   constructor(parent) {
     super();
     this.stage = parent;
-    this.tensorModel;
+    // this.tensorModel;
 
     // this.wordsInStringArray = randomWords(500);
     // this.wordsInObjectArray = this.convertWords(this.wordsInStringArray);
