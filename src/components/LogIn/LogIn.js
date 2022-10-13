@@ -141,10 +141,6 @@ function LogIn() {
               </Form>
             )}
           </Formik>
-          <p>Don't Have An Account?</p>
-          <p>
-            <Link to="/">Sign Up</Link>
-          </p>
           <Button
             type="button"
             variant="primary"
@@ -153,6 +149,10 @@ function LogIn() {
           >
             Guest Sign In
           </Button>
+          <p>Don't Have An Account?</p>
+          <p>
+            <Link to="/">Sign Up</Link>
+          </p>
         </div>
       </div>
     </>

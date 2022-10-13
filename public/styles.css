@@ -53,11 +53,13 @@
 }
 .eightBitForm button:hover {
   font-family: 'Silkscreen';
-  background-color: #c2d1a0;
+  background-color: yellow;
+  color: blueviolet;
 }
 .eightBitForm p {
   font-family: 'Silkscreen';
   color: white;
+  font-size: 1rem;
 }
 .eightBitForm a {
   font-family: 'Silkscreen';
@@ -66,6 +68,9 @@
   border-radius: 15px;
   padding-left: 10px;
   padding-right: 10px;
+  font-family: 'Press Start 2P';
+  font-size: 0.7rem;
+  color: yellow;
 }
 .eightBitForm > div {
   position: relative;
