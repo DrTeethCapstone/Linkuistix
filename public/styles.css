@@ -18,7 +18,6 @@
 }
 * {
   margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
 }
 canvas {
   position: absolute;
@@ -100,22 +99,24 @@ canvas {
 }
 .header-container {
   margin-top: 15vh;
-  font-size: 2.4em;
-  animation: 0.8s 0s 1 slideInFromTop;
-  animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
+  animation: slideDown 2s cubic-bezier(0, 1, 0.49, 0.99);
 }
 .header-container h1 {
+  font-size: 3.4em;
+  font-family: 'Press Start 2P';
   text-shadow: -2px 0 aqua, 0 2px aqua, 2px 0 aqua, 0 -2px aqua;
 }
 .header-container h6 {
   color: white;
 }
 .play-container {
-  display: flex;
-  flex-direction: row;
   margin-top: 25vh;
-  animation: 0.8s 0s 1 slideInFromBottom;
-  animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
+  font-family: 'Press Start 2P';
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 3px solid #0eb3e1;
+  padding: 4vh 0;
+  animation: slideUp 2s cubic-bezier(0, 1, 0.49, 0.99);
+  align-items: center;
 }
 .play-container h3 {
   font-size: 2.2em;
@@ -132,16 +133,25 @@ canvas {
   margin: 0 10vw;
 }
 .play-container > div button {
-  background-color: grey;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #0eb3e1;
   margin: 0 5px;
   border: 3px solid #00ffff;
   height: 5vh;
   margin: 5px 0;
+  transition: ease-in-out 0.4s;
+  width: fit-content;
+  padding: 0 2vw;
+}
+.play-container > div button:hover {
+  background-color: rgba(11, 179, 224, 0.8);
+  color: black;
+  transition: ease-in-out 0.4s;
+  font-weight: 500;
+  animation: pulse 2s ease-in-out infinite;
 }
 .play-container .button-container {
   margin-top: 10px;
-  display: flex;
-  flex-direction: column;
 }
 .sidebar-container {
   position: absolute;
@@ -204,4 +214,31 @@ canvas {
 }
 .leaderboards-container h1 {
   color: black;
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-1000px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(1000px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

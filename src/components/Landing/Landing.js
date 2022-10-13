@@ -5,9 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 
 function Landing() {
   const [chatState, setChatState] = useState(false);
-  // console.log(chatState)
   const { currentUser } = useAuth();
-  //   console.log(currentUser);
 
   return (
     <>
@@ -19,27 +17,15 @@ function Landing() {
         </div>
         <div className="play-container">
           <div>
-            <h3>ARCADE</h3>
+            <h3>TIME ATTACK</h3>
             <hr></hr>
             <div>
               <p>Think fast.</p>
               <p>type fast!</p>
             </div>
             <div className="button-container">
-              <button>PLAY ARCADE</button>
-              <button>SKIP TUTORIAL</button>
-            </div>
-          </div>
-          <div>
-            <h3>ARCADE</h3>
-            <hr></hr>
-            <div>
-              <p>Think fast.</p>
-              <p>type fast!</p>
-            </div>
-            <div className="button-container">
-              <button>PLAY ARCADE</button>
-              <button>SKIP TUTORIAL</button>
+              <button>PLAY</button>
+              {/* <button>SKIP TUTORIAL</button> */}
             </div>
           </div>
         </div>
