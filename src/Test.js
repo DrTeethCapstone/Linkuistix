@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Sketch } from "./animation/app";
+import { Sketch } from "./game/app";
 import { useAuth } from './contexts/AuthContext'
 
 function Test() {
