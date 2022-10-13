@@ -77,7 +77,7 @@ function RegisterGuest() {
 
   return (
     <>
-      <div className="form-container">
+      <div className="eightBitForm">
         <div>
           <h2>Guest {'>'} User</h2>
           {/* {signupError && window.alert(signupError)} */}

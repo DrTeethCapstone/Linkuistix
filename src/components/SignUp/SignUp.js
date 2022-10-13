@@ -61,7 +61,7 @@ function SignUp() {
 
   return (
     <>
-      <div className="form-container">
+      <div className="eightBitForm">
         <div>
           <h2>Sign Up</h2>
           {/* {signupError && window.alert(signupError)} */}
@@ -127,7 +127,7 @@ function SignUp() {
                   <Form.Control
                     type="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="me@web.com"
                     // autoFocus
                     autoComplete="email"
                     autoCapitalize="off"

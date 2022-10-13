@@ -10,7 +10,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 //define the Yup validation schema for LOGIN
 const LoginSchema = Yup.object().shape({
@@ -48,7 +47,7 @@ function LogIn() {
 
   return (
     <>
-      <div className="form-container">
+      <div className="eightBitForm">
         <div>
           <h2>Login</h2>
           {/* {loginError && loginError} */}
@@ -88,14 +87,14 @@ function LogIn() {
               handleSubmit,
               isSubmitting,
             }) => (
-              <Form onSubmit={handleSubmit} className="row g-3">
+              <Form onSubmit={handleSubmit} className="row g-3 ">
                 {/* email */}
                 <Form.Group controlId="formEmail" className="mb-0">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="me@web.com"
                     autoFocus
                     onChange={handleChange}
                     // onBlur={handleBlur}

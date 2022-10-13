@@ -1,6 +1,81 @@
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivY.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JXjfVPf62XiF7kO-i9YLNlbg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JUjfVPf62XiF7kO-i9aAhAfmyi3Q.ttf) format('truetype');
+}
 * {
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
+}
+.eightBitForm h2 {
+  font-family: 'Press Start 2P';
+  color: white;
+}
+.eightBitForm form {
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  width: 12vw;
+}
+.eightBitForm input {
+  font-family: 'Silkscreen';
+  background-color: rgba(138, 11, 131, 0.8);
+  color: white;
+}
+.eightBitForm input:focus {
+  background-color: rgba(138, 11, 131, 0.8);
+  color: white;
+}
+.eightBitForm input::placeholder {
+  color: rgba(199, 224, 141, 0.8);
+}
+.eightBitForm label {
+  font-family: 'Press Start 2P';
+  font-size: 0.8rem;
+  color: white;
+}
+.eightBitForm button {
+  font-family: 'Silkscreen';
+  background-color: #89aa3d;
+}
+.eightBitForm button:hover {
+  font-family: 'Silkscreen';
+  background-color: #c2d1a0;
+}
+.eightBitForm p {
+  font-family: 'Silkscreen';
+  color: white;
+}
+.eightBitForm a {
+  font-family: 'Silkscreen';
+}
+.eightBitForm div {
+  border-radius: 15px;
+}
+.eightBitForm > div {
+  position: relative;
+  top: 20vh;
+  background-color: rgba(138, 11, 131, 0.8);
+  width: 25vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 40px;
+  padding-top: 40px;
 }
 .canvas-container {
   position: absolute;
@@ -8,33 +83,6 @@
   background-color: black;
   z-index: -1;
   width: 100vw;
-}
-.form-container > div {
-  position: relative;
-  top: 20vh;
-  background-color: rgba(255, 255, 255, 0.8);
-  width: 16vw;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 40px;
-}
-.form-container h2 {
-  margin-top: 6vh;
-  font-size: 2em;
-}
-.form-container p {
-  margin-top: 1vh;
-}
-.form-container div {
-  border-radius: 5px;
-}
-.form-container form {
-  margin-top: 2vh;
-  display: flex;
-  flex-direction: column;
-  width: 12vw;
 }
 .splash-container {
   text-align: center;
