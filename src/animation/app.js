@@ -1,15 +1,5 @@
 import * as PIXI from "pixi.js";
-import { WordsContainer } from "./WordsContainer";
-import { Word } from "./Words";
-import { InputText } from "./InputText";
-import React, { useState } from 'react'
-
-//ADD SCORING SYSTEM
-// 60 base line
-//timer
-//sort list based on likiness
-//game over when words hit the top
-//remove words
+import { GameMenu } from "./GameMenu";
 
 export class Sketch {
   constructor() {
@@ -26,26 +16,26 @@ export class Sketch {
     this.score = 420
 
     document.body.appendChild(this.app.view);
-    this.wordsContainer = new WordsContainer();
-    this.setupWordsContainer();
-    this.app.stage.addChild(this.wordsContainer);
-    this.app.stage.on("pointerdown", (e) => console.log("omg"));
-    this.render();
+    this.GameMenu = new GameMenu();
+    // this.setupWordsContainer();
+    this.app.stage.addChild(this.GameMenu);
+    // this.app.stage.on("pointerdown", (e) => console.log("omg"));
+    // this.render();
   }
 
-  setupWordsContainer() {
-    new InputText(this.wordsContainer);
-    this.wordsContainer.positionChildren();
-  }
+  // setupWordsContainer() {
+  //   new InputText(this.wordsContainer);
+  //   this.wordsContainer.positionChildren();
+  // }
 
-  render() {
-    this.app.ticker.add((delta) => {
-      this.time += 0.1;
-      if (Math.floor(this.time) === 10) {
-        // this.wordsContainer.addWord();
-        this.time = 0;
-      }
-      this.wordsContainer.positionChildren();
-    });
-  }
+  // render() {
+  //   this.app.ticker.add((delta) => {
+  //     this.time += 0.1;
+  //     if (Math.floor(this.time) === 10) {
+  //       // this.wordsContainer.addWord();
+  //       this.time = 0;
+  //     }
+  //     this.wordsContainer.positionChildren();
+  //   });
+  // }
 }
