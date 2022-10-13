@@ -84,6 +84,18 @@
   padding-bottom: 40px;
   padding-top: 40px;
 }
+@media screen and (max-width: 800px) {
+  .eightBitForm > div {
+    top: 10vh;
+    width: 75%;
+  }
+}
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+  .eightBitForm > div {
+    top: 20vh;
+    width: 40%;
+  }
+}
 .canvas-container {
   position: absolute;
   height: 100vh;
