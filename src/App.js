@@ -19,8 +19,8 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <CanvasBg />
-        {/* <Test /> */}
+        {/* <CanvasBg /> */}
+        <Test />
         <Routes>
           <Route exact index path="/" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
