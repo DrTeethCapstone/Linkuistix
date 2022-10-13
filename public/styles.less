@@ -2,16 +2,27 @@
 @import url(https://fonts.googleapis.com/css?family=Silkscreen:regular,700);
 
 @electric-blue: #0eb3e1;
+@electric-blue-transparent: rgba(11, 179, 224, 0.8);
 @sun-yellow: #ebd25b;
+@sun-yellow-transparent: rgba(235, 210, 91, 0.8);
+@sunset-purp: #260941;
 
 * {
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-body {}
+canvas {
+  position: absolute;
+  height: 100vh;
+  background-color: black;
+  z-index: -1;
+  top: 0;
+  width: 100vw;
+}
 
 .eightBitForm {
+
   h2 {
     font-family: 'Press Start 2P';
     color: white;
@@ -77,8 +88,8 @@ body {}
 
   >div {
     position: relative;
-    top: 20vh;
-    background-color: rgba(138, 11, 131, 0.8);
+    top: 8vh;
+    background-color: @electric-blue-transparent;
     width: 25vw;
     margin: auto;
     display: flex;
@@ -89,13 +100,15 @@ body {}
   }
 }
 
-.canvas-container {
-  position: absolute;
-  height: 100vh;
-  background-color: black;
-  z-index: -1;
-  width: 100vw;
-}
+// .canvas-container {
+//   position: absolute;
+//   height: 100vh;
+//   background-color: black;
+//   z-index: -1;
+//   width: 100vw;
+// }
+
+
 
 .splash-container {
   text-align: center;
