@@ -108,7 +108,9 @@ canvas {
 //   width: 100vw;
 // }
 
-
+.zoomout-splash {
+  animation: zoomOut 2s;
+}
 
 .splash-container {
   text-align: center;
@@ -291,5 +293,19 @@ canvas {
 
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    margin-top: 0;
+
+  }
+
+  100% {
+    transform: scale(0);
+    margin-top: 25vh;
+
   }
 }

@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
 
 function Landing() {
   const [chatState, setChatState] = useState(false);
   const { currentUser } = useAuth();
+  const [zoomState, setZoomState] = useState('splash-container')
+  const navigate = useNavigate();
+
+  const handleAnimation = () => {
+    setZoomState('splash-container zoomout-splash')
+    setTimeout(() => {
+      navigate('/game')
+    }, 1900)
+  }
 
   return (
     <>
       <Sidebar />
-      <div className="splash-container">
+      <div className={zoomState}>
         <div className="header-container">
           <h1>NOT SEMANTRIS</h1>
           <h6>Word association games powered by machine learning and teeth</h6>
@@ -24,7 +33,7 @@ function Landing() {
               <p>type fast!</p>
             </div>
             <div className="button-container">
-              <button>PLAY</button>
+              <button onClick={handleAnimation}>PLAY</button>
               {/* <button>SKIP TUTORIAL</button> */}
             </div>
           </div>

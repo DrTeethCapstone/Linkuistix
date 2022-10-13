@@ -84,7 +84,7 @@ function Leaderboards() {
       <Sidebar />
       <div className="leaderboards-container">
         <h1>Leaderboards</h1>
-        <div>
+        <div className='leaderboard-list'>
           {/* {loading ? <p>loading...</p>
                         :
                         leaderboards.sort((a, b) => {
