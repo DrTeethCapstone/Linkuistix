@@ -63,6 +63,11 @@
 }
 .eightBitForm a {
   font-family: 'Silkscreen';
+  color: #89aa3d;
+}
+.eightBitForm a:hover {
+  font-family: 'Silkscreen';
+  color: yellow;
 }
 .eightBitForm div {
   border-radius: 15px;
