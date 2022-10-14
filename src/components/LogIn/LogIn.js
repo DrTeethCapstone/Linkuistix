@@ -47,116 +47,215 @@ function LogIn() {
 
   return (
     <>
-      <div className="eightBitForm">
-        <div>
-          <h2>Login</h2>
-          {/* {loginError && loginError} */}
-          <Formik
-            initialValues={{
-              password: '',
-              email: '',
-            }}
-            validationSchema={LoginSchema}
-            validateOnChange={false}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              setSubmitting(true);
-              //using Yup to cast the validated inputs so we can send that to the db
-              const castValues = LoginSchema.cast(values);
-              //dispatch our authentication thunk
+      <div className="form-container">
+        <h2>Login</h2>
+        {/* {loginError && loginError} */}
+        <Formik
+          initialValues={{
+            password: '',
+            email: '',
+          }}
+          validationSchema={LoginSchema}
+          validateOnChange={false}
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
+            //using Yup to cast the validated inputs so we can send that to the db
+            const castValues = LoginSchema.cast(values);
+            //dispatch our authentication thunk
 
-              resetForm();
-              setSubmitting(false);
+            resetForm();
+            setSubmitting(false);
 
-              try {
-                setError('');
-                setLoading(true);
-                await login(castValues.email, castValues.password);
-                navigate('/landing');
-              } catch (error) {
-                setError('failed to log in');
-              }
-              setLoading(false);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-            }) => (
-              <Form onSubmit={handleSubmit} className="row g-3 w-100">
-                {/* email */}
-                <Form.Group controlId="formEmail" className="mb-0">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    placeholder="me@web.com"
-                    autoFocus
-                    onChange={handleChange}
-                    // onBlur={handleBlur}
-                    value={values.email}
-                    autoComplete="email"
-                    autoCapitalize="off"
-                    className={touched.email && errors.email ? 'error' : null}
-                  />
-                  {errors.email && touched.email ? (
-                    <div className="error-message">{errors.email}</div>
-                  ) : null}
-                </Form.Group>
-                {/* password */}
-                <Form.Group controlId="formPassword" className="mb-0">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={handleChange}
-                    // onBlur={handleBlur}
-                    value={values.password}
-                    autoComplete="current-password"
-                    autoCapitalize="off"
-                    className={
-                      touched.password && errors.password ? 'error' : null
-                    }
-                  />
-                  {errors.password && touched.password ? (
-                    <div className="error-message">{errors.password}</div>
-                  ) : null}
-                </Form.Group>
-                {/* buttons */}
-                <Form.Group controlId="submit" className="col-12">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="my-4 w-100"
-                    disabled={isSubmitting}
-                  >
-                    Sign In
-                  </Button>
-                </Form.Group>
-              </Form>
-            )}
-          </Formik>
-          <Button
-            type="button"
-            variant="primary"
-            className="my-4"
-            onClick={guestLogin}
-          >
-            Guest Sign In
-          </Button>
-          <p>Don't Have An Account?</p>
-          <p>
-            <Link to="/">Sign Up</Link>
-          </p>
-        </div>
+            try {
+              setError('');
+              setLoading(true);
+              await login(castValues.email, castValues.password);
+              navigate('/landing');
+            } catch (error) {
+              setError('failed to log in');
+            }
+            setLoading(false);
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form onSubmit={handleSubmit} className="row g-3 w-100">
+              {/* email */}
+
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="me@web.com"
+                autoFocus
+                onChange={handleChange}
+                // onBlur={handleBlur}
+                value={values.email}
+                autoComplete="email"
+                autoCapitalize="off"
+                className={touched.email && errors.email ? 'error' : null}
+              />
+              {errors.email && touched.email ? (
+                <div className="error-message">{errors.email}</div>
+              ) : null}
+
+              {/* password */}
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="password"
+                onChange={handleChange}
+                // onBlur={handleBlur}
+                value={values.password}
+                autoComplete="current-password"
+                autoCapitalize="off"
+                className={
+                  touched.password && errors.password ? 'error' : null
+                }
+              />
+              {errors.password && touched.password ? (
+                <div className="error-message">{errors.password}</div>
+              ) : null}
+              {/* buttons */}
+              <button
+                type="submit"
+                variant="primary"
+                className="my-4 w-100"
+                disabled={isSubmitting}
+              >
+                Sign In
+              </button>
+            </form>
+          )}
+        </Formik>
+        <button
+          type="button"
+          variant="primary"
+          // className="my-4"
+          onClick={guestLogin}
+        >
+          Guest Sign In
+        </button>
+        <p>Don't Have An Account?</p>
+        <p>
+          <Link to="/">Sign Up</Link>
+        </p>
       </div>
     </>
   );
 }
 
 export default LogIn;
+
+{/* <div className="eightBitForm">
+  <div>
+    <h2>Login</h2>
+    {loginError && loginError}
+    <Formik
+      initialValues={{
+        password: '',
+        email: '',
+      }}
+      validationSchema={LoginSchema}
+      validateOnChange={false}
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
+        setSubmitting(true);
+        //using Yup to cast the validated inputs so we can send that to the db
+        const castValues = LoginSchema.cast(values);
+        //dispatch our authentication thunk
+
+        resetForm();
+        setSubmitting(false);
+
+        try {
+          setError('');
+          setLoading(true);
+          await login(castValues.email, castValues.password);
+          navigate('/landing');
+        } catch (error) {
+          setError('failed to log in');
+        }
+        setLoading(false);
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+      }) => (
+        <form onSubmit={handleSubmit} className="row g-3 w-100">
+          email
+
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="me@web.com"
+            autoFocus
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.email}
+            autoComplete="email"
+            autoCapitalize="off"
+            className={touched.email && errors.email ? 'error' : null}
+          />
+          {errors.email && touched.email ? (
+            <div className="error-message">{errors.email}</div>
+          ) : null}
+
+          password
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
+            autoComplete="current-password"
+            autoCapitalize="off"
+            className={
+              touched.password && errors.password ? 'error' : null
+            }
+          />
+          {errors.password && touched.password ? (
+            <div className="error-message">{errors.password}</div>
+          ) : null}
+          buttons
+          <button
+            type="submit"
+            variant="primary"
+            className="my-4 w-100"
+            disabled={isSubmitting}
+          >
+            Sign In
+          </button>
+        </form>
+      )}
+    </Formik>
+    <Button
+      type="button"
+      variant="primary"
+      className="my-4"
+      onClick={guestLogin}
+    >
+      Guest Sign In
+    </Button>
+    <p>Don't Have An Account?</p>
+    <p>
+      <Link to="/">Sign Up</Link>
+    </p>
+  </div>
+</div> */}

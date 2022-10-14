@@ -17,6 +17,7 @@ function Profile() {
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser, userLogin } = useAuth();
   const [userData, setUserData] = useState({});
+  console.log(currentUser)
 
   //   useEffect(() => {
   //     const getUserData = async () => {
