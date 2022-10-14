@@ -240,6 +240,10 @@ function RegisterGuest() {
           <p>
             <Link to="/login">Log In</Link>
           </p>
+          <p>Changed your mind?</p>
+          <p>
+            <Link to="/landing">Return</Link>
+          </p>
         </div>
       </div>
     </>
