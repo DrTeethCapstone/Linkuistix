@@ -203,8 +203,11 @@ canvas {
 .sidebar-container a {
   color: white;
 }
-.sidebar-container .logoutIcon:hover {
+.sidebar-container :hover .logoutIcon {
   color: red;
+}
+.sidebar-container :hover .sidebarIcon {
+  color: #ebd25b;
 }
 .tooltip-inner {
   color: #260941 !important;

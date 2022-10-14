@@ -59,6 +59,7 @@ function Sidebar() {
     opacity: 0.3,
     borderWidth: '2px',
     translateX: '0px',
+    borderColor: 'red',
     config: config.slow,
   }));
   const [style6, api6] = useSpring(() => ({
@@ -230,8 +231,6 @@ function Sidebar() {
     </Tooltip>
   );
 
-  const AnimatedIcon = animated(FontAwesomeIcon);
-
   return (
     <div className="sidebar-container">
       <OverlayTrigger
@@ -250,7 +249,7 @@ function Sidebar() {
               icon={faHome}
               size="lg"
               fixedWidth
-              className="sidebarProfile"
+              className="sidebarIcon"
             />
           </Link>
         </animated.div>
@@ -271,7 +270,7 @@ function Sidebar() {
                 icon={faFloppyDisk}
                 size="lg"
                 fixedWidth
-                className="sidebarSave"
+                className="sidebarIcon"
                 // style={style}
               />
             </Link>
@@ -296,7 +295,7 @@ function Sidebar() {
               icon={faUser}
               size="lg"
               fixedWidth
-              className="sidebarProfile"
+              className="sidebarIcon"
             />
           </Link>
         </animated.div>
@@ -318,7 +317,7 @@ function Sidebar() {
               icon={faGamepad}
               size="lg"
               fixedWidth
-              className="sidebarGame"
+              className="sidebarIcon"
             />
           </Link>
         </animated.div>
@@ -340,7 +339,7 @@ function Sidebar() {
               icon={faTrophy}
               size="lg"
               fixedWidth
-              className="sidebarLeaderboard"
+              className="sidebarIcon"
             />
           </Link>
         </animated.div>
@@ -360,7 +359,7 @@ function Sidebar() {
             {' '}
             <FontAwesomeIcon
               icon={faCircleXmark}
-              className="logoutIcon sidebarLogout"
+              className="logoutIcon"
               size="lg"
               fixedWidth
               inverse
