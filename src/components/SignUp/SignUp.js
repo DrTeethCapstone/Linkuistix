@@ -61,9 +61,9 @@ function SignUp() {
 
   return (
     <>
-      <div className="eightBitForm">
+      <div className="form-container">
+        <h2>Sign Up</h2>
         <div>
-          <h2>Sign Up</h2>
           {/* {signupError && window.alert(signupError)} */}
           <Formik
             initialValues={{
@@ -120,119 +120,105 @@ function SignUp() {
               handleSubmit,
               isSubmitting,
             }) => (
-              <Form onSubmit={handleSubmit} className="row g-3 w-100">
+              <form onSubmit={handleSubmit} className="row g-3 w-100">
                 {/* email */}
-                <Form.Group controlId="formEmail" className="mb-0">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    placeholder="me@web.com"
-                    // autoFocus
-                    autoComplete="email"
-                    autoCapitalize="off"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                    className={touched.email && errors.email ? 'error' : null}
-                  />
-                  {errors.email && touched.email ? (
-                    <div className="error-message">{errors.email}</div>
-                  ) : null}
-                </Form.Group>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="me@web.com"
+                  // autoFocus
+                  autoComplete="email"
+                  autoCapitalize="off"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  className={touched.email && errors.email ? 'error' : null}
+                />
+                {errors.email && touched.email ? (
+                  <div className="error-message">{errors.email}</div>
+                ) : null}
                 {/* username */}
-                <Form.Group controlId="formUsernameRegister" className="mb-0">
-                  <Form.Label>Username</Form.Label>
+                <label>Username</label>
 
-                  <Form.Control
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.username}
-                    autoComplete="username"
-                    autoCapitalize="off"
-                    className={
-                      touched.username && errors.username ? 'error' : null
-                    }
-                  />
-                  {errors.username && touched.username ? (
-                    <div className="error-message">{errors.username}</div>
-                  ) : null}
-                </Form.Group>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="username"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.username}
+                  autoComplete="username"
+                  autoCapitalize="off"
+                  className={
+                    touched.username && errors.username ? 'error' : null
+                  }
+                />
+                {errors.username && touched.username ? (
+                  <div className="error-message">{errors.username}</div>
+                ) : null}
                 {/* password */}
-                <Form.Group controlId="formPasswordRegister" className="mb-0">
-                  <Form.Label>Password</Form.Label>
+                <label>Password</label>
 
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                    autoComplete="new-password"
-                    className={
-                      touched.password && errors.password ? 'error' : null
-                    }
-                  />
-                  {errors.password && touched.password ? (
-                    <div className="error-message">{errors.password}</div>
-                  ) : null}
-                </Form.Group>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  autoComplete="new-password"
+                  className={
+                    touched.password && errors.password ? 'error' : null
+                  }
+                />
+                {errors.password && touched.password ? (
+                  <div className="error-message">{errors.password}</div>
+                ) : null}
                 {/* changepassword */}
-                <Form.Group
-                  controlId="formChangePasswordRegister"
-                  className="mb-0"
-                >
-                  <Form.Label>Confirm Password</Form.Label>
 
-                  <Form.Control
-                    type="password"
-                    name="changepassword"
-                    placeholder="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.changepassword}
-                    autoComplete="off"
-                    className={
-                      touched.changepassword && errors.changepassword
-                        ? 'error'
-                        : null
-                    }
-                  />
-                  {errors.changepassword && touched.changepassword ? (
-                    <div className="error-message">{errors.changepassword}</div>
-                  ) : null}
-                </Form.Group>
+                <label>Confirm Password</label>
+
+                <input
+                  type="password"
+                  name="changepassword"
+                  placeholder="password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.changepassword}
+                  autoComplete="off"
+                  className={
+                    touched.changepassword && errors.changepassword
+                      ? 'error'
+                      : null
+                  }
+                />
+                {errors.changepassword && touched.changepassword ? (
+                  <div className="error-message">{errors.changepassword}</div>
+                ) : null}
                 {/* buttons */}
-                <Form.Group controlId="submit" className="col-12">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="my-4 w-100"
-                    disabled={isSubmitting}
-                  >
-                    Sign Up
-                  </Button>
-                </Form.Group>
-              </Form>
+                <button
+                  type="submit"
+                  variant="primary"
+                  className="my-4 w-100"
+                  disabled={isSubmitting}
+                >
+                  Sign Up
+                </button>
+              </form>
             )}
           </Formik>
-          <Button
+          <button
             type="button"
-            variant="primary"
-            className="my-4"
+            className='form-button'
             onClick={guestLogin}
           >
             Guest Sign In
-          </Button>
-          <p>Already Have An Account?</p>
-          <p>
-            <Link to="/login">Log In</Link>
-          </p>
+          </button>
         </div>
+        <p>Already Have An Account?</p>
+        <Link className='link-styles' to="/login">Log In</Link>
+
       </div>
     </>
   );

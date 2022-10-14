@@ -47,10 +47,10 @@ function LogIn() {
 
   return (
     <>
-      <div className="eightBitForm">
+      <div className="form-container">
+        <h2>Login</h2>
+        {/* {loginError && loginError} */}
         <div>
-          <h2>Login</h2>
-          {/* {loginError && loginError} */}
           <Formik
             initialValues={{
               password: '',
@@ -87,73 +87,69 @@ function LogIn() {
               handleSubmit,
               isSubmitting,
             }) => (
-              <Form onSubmit={handleSubmit} className="row g-3 w-100">
+
+              <form onSubmit={handleSubmit} >
                 {/* email */}
-                <Form.Group controlId="formEmail" className="mb-0">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    placeholder="me@web.com"
-                    autoFocus
-                    onChange={handleChange}
-                    // onBlur={handleBlur}
-                    value={values.email}
-                    autoComplete="email"
-                    autoCapitalize="off"
-                    className={touched.email && errors.email ? 'error' : null}
-                  />
-                  {errors.email && touched.email ? (
-                    <div className="error-message">{errors.email}</div>
-                  ) : null}
-                </Form.Group>
+                {/* <Form.Group controlId="formEmail" className="mb-0"> */}
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="me@web.com"
+                  autoFocus
+                  onChange={handleChange}
+                  // onBlur={handleBlur}
+                  value={values.email}
+                  autoComplete="email"
+                  autoCapitalize="off"
+                  className={touched.email && errors.email ? 'error' : null}
+                />
+                {errors.email && touched.email ? (
+                  <div className="error-message">{errors.email}</div>
+                ) : null}
+                {/* </Form.Group> */}
                 {/* password */}
-                <Form.Group controlId="formPassword" className="mb-0">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={handleChange}
-                    // onBlur={handleBlur}
-                    value={values.password}
-                    autoComplete="current-password"
-                    autoCapitalize="off"
-                    className={
-                      touched.password && errors.password ? 'error' : null
-                    }
-                  />
-                  {errors.password && touched.password ? (
-                    <div className="error-message">{errors.password}</div>
-                  ) : null}
-                </Form.Group>
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  onChange={handleChange}
+                  // onBlur={handleBlur}
+                  value={values.password}
+                  autoComplete="current-password"
+                  autoCapitalize="off"
+                  className={
+                    touched.password && errors.password ? 'error' : null
+                  }
+                />
+                {errors.password && touched.password ? (
+                  <div className="error-message">{errors.password}</div>
+                ) : null}
                 {/* buttons */}
-                <Form.Group controlId="submit" className="col-12">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="my-4 w-100"
-                    disabled={isSubmitting}
-                  >
-                    Sign In
-                  </Button>
-                </Form.Group>
-              </Form>
+                <button
+                  type="submit"
+                  variant="primary"
+                  disabled={isSubmitting}
+                >
+                  Sign In
+                </button>
+              </form>
             )}
           </Formik>
-          <Button
+          <button className='form-button'
             type="button"
-            variant="primary"
-            className="my-4"
+            // variant="primary"
+            // className="my-4"
             onClick={guestLogin}
           >
             Guest Sign In
-          </Button>
-          <p>Don't Have An Account?</p>
-          <p>
-            <Link to="/">Sign Up</Link>
-          </p>
+          </button>
         </div>
+        <p>Don't Have An Account?</p>
+
+        <Link className='link-styles' to="/">Sign Up</Link>
+
       </div>
     </>
   );

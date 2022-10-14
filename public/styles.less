@@ -319,11 +319,13 @@ canvas {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.6);
   font-family: 'Press Start 2P';
+  border: 3px solid @sun-yellow;
 
   // display: flex;
   // flex-direction: column;
   p {
     color: @sun-yellow;
+    margin-bottom: 0;
   }
 
   h1 {
@@ -356,6 +358,81 @@ canvas {
     background-color: rgba(0, 0, 0, 0.6);
   }
 }
+
+
+// what to do about required pop-up
+.form-container {
+  width: 30vw;
+  margin: auto;
+  margin-top: 10vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 3px solid @electric-blue;
+  font-family: 'Press Start 2P';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-button {
+    border: 3px solid @electric-blue;
+    background-color: rgba(0, 0, 0, 0);
+    color: @electric-blue;
+  }
+
+  h2 {
+    text-align: center;
+    color: @electric-blue;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+  }
+
+  p {
+    color: @electric-blue;
+    font-size: 0.6em;
+    margin-top: 5px;
+  }
+
+  .link-styles {
+    color: @electric-blue;
+    font-size: 0.8em;
+    margin-bottom: 1vh;
+  }
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+
+    label {
+      color: @electric-blue;
+      margin-top: 2vh;
+      margin-bottom: 1vh;
+    }
+
+    input {
+      font-size: 0.6em;
+      height: 4vh;
+    }
+
+    button {
+      margin-top: 2vh;
+      margin-bottom: 1vh;
+      border: 3px solid @electric-blue;
+      color: @electric-blue;
+      height: 4vh;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+}
+
 
 @keyframes slideDown {
   0% {
