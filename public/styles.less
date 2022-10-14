@@ -25,6 +25,7 @@ canvas {
   h2 {
     font-family: 'Press Start 2P';
     color: white;
+    font-size: 1.5em;
   }
 
   form {
@@ -35,18 +36,19 @@ canvas {
   }
 
   input {
-    font-family: 'Silkscreen';
-    background-color: rgba(138, 11, 131, 0.8);
-    color: white;
+    font-family: 'Press Start 2P';
+    background-color: @electric-blue;
+    color: @sunset-purp;
   }
 
   input:focus {
-    background-color: rgba(138, 11, 131, 0.8);
-    color: white;
+    background-color: @electric-blue;
+    color: @sunset-purp;
   }
 
   input::placeholder {
-    color: rgba(199, 224, 141, 0.8);
+    font-family: 'Press Start 2P';
+    color: @sun-yellow;
   }
 
   label {
@@ -57,13 +59,13 @@ canvas {
 
   button {
     font-family: 'Silkscreen';
-    background-color: #89aa3d;
+    background-color: @sunset-purp;
   }
 
   button:hover {
     font-family: 'Silkscreen';
-    background-color: yellow;
-    color: blueviolet;
+    background-color: @sun-yellow;
+    color: @sunset-purp;
   }
 
   p {
@@ -74,11 +76,11 @@ canvas {
 
   a {
     font-family: 'Silkscreen';
-    color: #89aa3d;
+    color: @sunset-purp;
   }
   a:hover {
     font-family: 'Silkscreen';
-    color: yellow;
+    color: @sun-yellow;
   }
 
   div {
@@ -190,26 +192,65 @@ canvas {
 .sidebar-container {
   position: absolute;
   top: 10vh;
-  right: 20px;
+  right: 15px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   animation: 2.8s 0s 1 slideInFromRight;
   animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
+  // opacity: 0.3;
 
   div {
-    text-align: center;
-    background-color: rgba(0, 255, 255, 0.5);
+    // text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: @sunset-purp;
     width: 50px;
     height: 50px;
-    border-radius: 50px;
-    margin: 25px 0;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: @sun-yellow;
+    border-width: 2px;
+    margin-bottom: 8px;
   }
 
   p {
-    padding-top: 15px;
+    // padding-top: 15px;
   }
 
   a {
     color: white;
   }
+
+  .logoutIcon:hover {
+    color: red;
+  }
+}
+
+.tooltip-inner {
+  color: @sunset-purp !important;
+  // opacity: 0.8 !important;
+  background-color: @sun-yellow !important;
+  font-family: 'Silkscreen';
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: @sun-yellow;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: @sun-yellow;
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: @sun-yellow;
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: @sun-yellow;
 }
 
 .game-container {
