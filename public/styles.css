@@ -4,22 +4,26 @@
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivY.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Silkscreen';
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JXjfVPf62XiF7kO-i9YLNlbg.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Silkscreen';
   font-style: normal;
   font-weight: 700;
   src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JUjfVPf62XiF7kO-i9aAhAfmyi3Q.ttf) format('truetype');
 }
+
 * {
   margin: 0;
   box-sizing: border-box;
 }
+
 canvas {
   position: absolute;
   height: 100vh;
@@ -28,50 +32,70 @@ canvas {
   top: 0;
   width: 100vw;
 }
+
 .eightBitForm h2 {
   font-family: 'Press Start 2P';
   color: white;
+  font-size: 1.5em;
+  font-size: 1.5em;
 }
+
 .eightBitForm form {
   margin-top: 2vh;
   display: flex;
   flex-direction: column;
   width: 12vw;
 }
+
 .eightBitForm input {
-  font-family: 'Silkscreen';
-  background-color: rgba(138, 11, 131, 0.8);
-  color: white;
+  font-family: 'Press Start 2P';
+  background-color: #0eb3e1;
+  color: #260941;
 }
+
 .eightBitForm input:focus {
-  background-color: rgba(138, 11, 131, 0.8);
-  color: white;
+  background-color: #0eb3e1;
+  color: #260941;
 }
+
 .eightBitForm input::placeholder {
-  color: rgba(199, 224, 141, 0.8);
+  font-family: 'Press Start 2P';
+  color: #ebd25b;
 }
+
 .eightBitForm label {
   font-family: 'Press Start 2P';
   font-size: 0.8rem;
   color: white;
 }
+
 .eightBitForm button {
   font-family: 'Silkscreen';
-  background-color: #89aa3d;
+  background-color: #260941;
 }
+
 .eightBitForm button:hover {
   font-family: 'Silkscreen';
-  background-color: yellow;
-  color: blueviolet;
+  background-color: #ebd25b;
+  color: #260941;
 }
+
 .eightBitForm p {
   font-family: 'Silkscreen';
   color: white;
   font-size: 1rem;
 }
+
 .eightBitForm a {
   font-family: 'Silkscreen';
+  color: #260941;
 }
+
+.eightBitForm a:hover {
+  font-family: 'Silkscreen';
+  color: #ebd25b;
+}
+
 .eightBitForm div {
   border-radius: 15px;
   padding-left: 10px;
@@ -80,7 +104,8 @@ canvas {
   font-size: 0.7rem;
   color: yellow;
 }
-.eightBitForm > div {
+
+.eightBitForm>div {
   position: relative;
   top: 8vh;
   background-color: rgba(11, 179, 224, 0.8);
@@ -92,6 +117,7 @@ canvas {
   padding-bottom: 40px;
   padding-top: 40px;
 }
+
 .form-container {
   background-color: rgba(0, 0, 0, 0.6);
   width: 30vw;
@@ -102,18 +128,22 @@ canvas {
   align-items: center;
   border: 3px solid #ebd25b;
 }
+
 .form-container h2 {
   font-family: 'Press Start 2P';
   color: #ebd25b;
   margin-top: 3vh;
 }
+
 .form-container form {
   padding: 5vw;
 }
+
 .form-container form label {
   color: #ebd25b;
   font-family: 'Press Start 2P';
 }
+
 .form-container form input {
   background-color: #ebd25b;
   height: 4vh;
@@ -122,45 +152,69 @@ canvas {
   font-family: 'Press Start 2P';
   font-size: 0.8em;
 }
+
 .form-container form input:-webkit-autofill,
 .form-container form input:-webkit-autofill:hover,
 .form-container form input:-webkit-autofill:focus,
 .form-container form input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #ebd25b inset !important;
 }
+
 .form-container p {
   font-family: 'Press Start 2P';
 }
+
 .form-container button {
   border: 3px solid #ebd25b;
   background-color: rgba(0, 0, 0, 0.6);
   color: #ebd25b;
   height: 5vh;
 }
+
 .form-container button:hover {
   animation: pulseSm 2s ease-in-out infinite;
+
+  @media screen and (max-width: 800px) {
+    .eightBitForm>div {
+      top: 10vh;
+      width: 75%;
+    }
+  }
+
+  @media screen and (max-width: 1200px) and (min-width: 800px) {
+    .eightBitForm>div {
+      top: 20vh;
+      width: 40%;
+    }
+  }
 }
+
 .zoomout-splash {
   animation: zoomOut 2s;
 }
+
 .splash-container {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .header-container {
   margin-top: 15vh;
   animation: slideDown 2s cubic-bezier(0, 1, 0.49, 0.99);
 }
+
 .header-container h1 {
   font-size: 3.4em;
   font-family: 'Press Start 2P';
   text-shadow: -2px 0 aqua, 0 2px aqua, 2px 0 aqua, 0 -2px aqua;
 }
+
 .header-container h6 {
   color: white;
 }
+
 .play-container {
   margin-top: 25vh;
   font-family: 'Press Start 2P';
@@ -170,21 +224,26 @@ canvas {
   animation: slideUp 2s cubic-bezier(0, 1, 0.49, 0.99);
   align-items: center;
 }
+
 .play-container h3 {
   font-size: 2.2em;
   color: aqua;
 }
+
 .play-container hr {
   border: 2px solid aqua;
 }
+
 .play-container p {
   margin-top: 10px;
   color: aqua;
 }
-.play-container > div {
+
+.play-container>div {
   margin: 0 10vw;
 }
-.play-container > div button {
+
+.play-container>div button {
   background-color: rgba(0, 0, 0, 0.5);
   color: #0eb3e1;
   margin: 0 5px;
@@ -195,37 +254,106 @@ canvas {
   width: fit-content;
   padding: 0 2vw;
 }
-.play-container > div button:hover {
+
+.play-container>div button:hover {
   background-color: rgba(11, 179, 224, 0.8);
   color: black;
   transition: ease-in-out 0.4s;
   font-weight: 500;
   animation: pulse 2s ease-in-out infinite;
 }
+
 .play-container .button-container {
   margin-top: 10px;
 }
+
 .sidebar-container {
   position: absolute;
   top: 10vh;
-  right: 20px;
+  right: 15px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   animation: 2.8s 0s 1 slideInFromRight;
   animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
 }
+
 .sidebar-container div {
-  text-align: center;
-  background-color: rgba(0, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #260941;
   width: 50px;
   height: 50px;
-  border-radius: 50px;
-  margin: 25px 0;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #ebd25b;
+  border-width: 2px;
+  margin-bottom: 8px;
 }
-.sidebar-container p {
-  padding-top: 15px;
-}
+
 .sidebar-container a {
   color: white;
 }
+
+.sidebar-container .logoutIcon:hover {
+  color: red;
+}
+
+.tooltip-inner {
+  color: #260941 !important;
+  background-color: #ebd25b !important;
+  font-family: 'Silkscreen';
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #ebd25b;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: #ebd25b;
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: #ebd25b;
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: #ebd25b;
+}
+
+.sidebar-container :hover .logoutIcon {
+  color: red;
+}
+
+.sidebar-container :hover .sidebarIcon {
+  color: #ebd25b;
+}
+
+.tooltip-inner {
+  color: #260941 !important;
+  background-color: #ebd25b !important;
+  font-family: 'Silkscreen';
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #ebd25b;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: #ebd25b;
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: #ebd25b;
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: #ebd25b;
+}
+
 .game-container {
   position: relative;
   top: 100px;
@@ -238,6 +366,7 @@ canvas {
   margin: auto;
   background-color: rgba(255, 255, 255, 0.8);
 }
+
 .profile-container {
   position: relative;
   top: 100px;
@@ -250,9 +379,11 @@ canvas {
   margin: auto;
   background-color: rgba(255, 255, 255, 0.8);
 }
+
 .profile-container h1 {
   color: black;
 }
+
 .leaderboards-container {
   width: 50vw;
   margin: auto;
@@ -262,10 +393,12 @@ canvas {
   border: 3px solid #ebd25b;
   font-family: 'Press Start 2P';
 }
+
 .leaderboards-container h1 {
   color: #ebd25b;
   padding: 20px 0;
 }
+
 .leaderboards-container div {
   display: flex;
   flex-direction: row;
@@ -276,58 +409,72 @@ canvas {
   color: #ebd25b;
   font-weight: 500;
 }
+
 .leaderboards-container div:nth-child(2) {
   border-top: 1px solid #ebd25b;
 }
+
 .leaderboards-container button {
   margin: 1vh 1vw;
   border: 3px solid #ebd25b;
   background-color: rgba(0, 0, 0, 0.5);
   color: #ebd25b;
 }
+
 @keyframes slideDown {
   0% {
     transform: translateY(-1000px);
   }
+
   100% {
     transform: translateY(0);
   }
 }
+
 @keyframes slideUp {
   0% {
     transform: translateY(1000px);
   }
+
   100% {
     transform: translateY(0);
   }
 }
+
 @keyframes pulse {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.3);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes pulseSm {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes zoomOut {
   0% {
     transform: scale(1);
     margin-top: 0;
   }
+
   100% {
     transform: scale(0);
     margin-top: 25vh;
