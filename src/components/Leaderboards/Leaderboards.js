@@ -84,8 +84,7 @@ function Leaderboards() {
       <Sidebar />
       <div className="leaderboards-container">
         <h1>Leaderboards</h1>
-        <div className='leaderboard-list'>
-          {/* {loading ? <p>loading...</p>
+        {/* {loading ? <p>loading...</p>
                         :
                         leaderboards.sort((a, b) => {
                             return b.score - a.score
@@ -95,23 +94,25 @@ function Leaderboards() {
                             </>
                         )
                     } */}
-          {loading ? (
-            <p>loading...</p>
-          ) : (
-            <>
-              {leaderboard.map((ele) => (
-                <>
-                  <p>
-                    {ele.score} by {ele.username ? ele.username : 'guest'}
-                  </p>
-                </>
-              ))}
-              <button onClick={handlePrev}>prev</button>
-              <button onClick={handleNext}>next</button>
-              <div>{message}</div>
-            </>
-          )}
-        </div>
+        {loading ? (
+          <p>loading...</p>
+        ) : (
+          <>
+            {leaderboard.map((ele) => (
+              <>
+                <div>
+                  <p>{ele.username ? ele.username : 'guest'}</p>
+                  <p>{ele.score}</p>
+                </div>
+              </>
+            ))}
+            <div className='lb-button-container'>
+              <button onClick={handlePrev}>{'<'}</button>
+              <button onClick={handleNext}>{'>'}</button>
+            </div>
+            <p>{message}</p>
+          </>
+        )}
       </div>
     </>
   );
