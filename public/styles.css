@@ -18,7 +18,6 @@
 }
 * {
   margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
 }
 canvas {
   position: absolute;
@@ -31,6 +30,7 @@ canvas {
 .eightBitForm h2 {
   font-family: 'Press Start 2P';
   color: white;
+  font-size: 1.5em;
 }
 .eightBitForm form {
   margin-top: 2vh;
@@ -39,16 +39,17 @@ canvas {
   width: 12vw;
 }
 .eightBitForm input {
-  font-family: 'Silkscreen';
-  background-color: rgba(138, 11, 131, 0.8);
-  color: white;
+  font-family: 'Press Start 2P';
+  background-color: #0eb3e1;
+  color: #260941;
 }
 .eightBitForm input:focus {
-  background-color: rgba(138, 11, 131, 0.8);
-  color: white;
+  background-color: #0eb3e1;
+  color: #260941;
 }
 .eightBitForm input::placeholder {
-  color: rgba(199, 224, 141, 0.8);
+  font-family: 'Press Start 2P';
+  color: #ebd25b;
 }
 .eightBitForm label {
   font-family: 'Press Start 2P';
@@ -57,12 +58,12 @@ canvas {
 }
 .eightBitForm button {
   font-family: 'Silkscreen';
-  background-color: #89aa3d;
+  background-color: #260941;
 }
 .eightBitForm button:hover {
   font-family: 'Silkscreen';
-  background-color: yellow;
-  color: blueviolet;
+  background-color: #ebd25b;
+  color: #260941;
 }
 .eightBitForm p {
   font-family: 'Silkscreen';
@@ -71,11 +72,11 @@ canvas {
 }
 .eightBitForm a {
   font-family: 'Silkscreen';
-  color: #89aa3d;
+  color: #260941;
 }
 .eightBitForm a:hover {
   font-family: 'Silkscreen';
-  color: yellow;
+  color: #ebd25b;
 }
 .eightBitForm div {
   border-radius: 15px;
@@ -109,6 +110,9 @@ canvas {
     width: 40%;
   }
 }
+.zoomout-splash {
+  animation: zoomOut 2s;
+}
 .splash-container {
   text-align: center;
   display: flex;
@@ -117,22 +121,24 @@ canvas {
 }
 .header-container {
   margin-top: 15vh;
-  font-size: 2.4em;
-  animation: 0.8s 0s 1 slideInFromTop;
-  animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
+  animation: slideDown 2s cubic-bezier(0, 1, 0.49, 0.99);
 }
 .header-container h1 {
+  font-size: 3.4em;
+  font-family: 'Press Start 2P';
   text-shadow: -2px 0 aqua, 0 2px aqua, 2px 0 aqua, 0 -2px aqua;
 }
 .header-container h6 {
   color: white;
 }
 .play-container {
-  display: flex;
-  flex-direction: row;
   margin-top: 25vh;
-  animation: 0.8s 0s 1 slideInFromBottom;
-  animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
+  font-family: 'Press Start 2P';
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 3px solid #0eb3e1;
+  padding: 4vh 0;
+  animation: slideUp 2s cubic-bezier(0, 1, 0.49, 0.99);
+  align-items: center;
 }
 .play-container h3 {
   font-size: 2.2em;
@@ -149,37 +155,73 @@ canvas {
   margin: 0 10vw;
 }
 .play-container > div button {
-  background-color: grey;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #0eb3e1;
   margin: 0 5px;
   border: 3px solid #00ffff;
   height: 5vh;
   margin: 5px 0;
+  transition: ease-in-out 0.4s;
+  width: fit-content;
+  padding: 0 2vw;
+}
+.play-container > div button:hover {
+  background-color: rgba(11, 179, 224, 0.8);
+  color: black;
+  transition: ease-in-out 0.4s;
+  font-weight: 500;
+  animation: pulse 2s ease-in-out infinite;
 }
 .play-container .button-container {
   margin-top: 10px;
-  display: flex;
-  flex-direction: column;
 }
 .sidebar-container {
   position: absolute;
   top: 10vh;
-  right: 20px;
+  right: 15px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   animation: 2.8s 0s 1 slideInFromRight;
   animation-timing-function: cubic-bezier(0, 0.88, 0.76, 0.98);
 }
 .sidebar-container div {
-  text-align: center;
-  background-color: rgba(0, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #260941;
   width: 50px;
   height: 50px;
-  border-radius: 50px;
-  margin: 25px 0;
-}
-.sidebar-container p {
-  padding-top: 15px;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #ebd25b;
+  border-width: 2px;
+  margin-bottom: 8px;
 }
 .sidebar-container a {
   color: white;
+}
+.sidebar-container .logoutIcon:hover {
+  color: red;
+}
+.tooltip-inner {
+  color: #260941 !important;
+  background-color: #ebd25b !important;
+  font-family: 'Silkscreen';
+}
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #ebd25b;
+}
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: #ebd25b;
+}
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: #ebd25b;
+}
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: #ebd25b;
 }
 .game-container {
   position: relative;
@@ -221,4 +263,41 @@ canvas {
 }
 .leaderboards-container h1 {
   color: black;
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-1000px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(1000px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    margin-top: 0;
+  }
+  100% {
+    transform: scale(0);
+    margin-top: 25vh;
+  }
 }

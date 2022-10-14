@@ -1,8 +1,5 @@
 import * as PIXI from "pixi.js";
-import { WordsContainer } from "./WordsContainer";
-import { Word } from "./Words";
-import { InputText } from "./InputText";
-import React, { useState } from 'react'
+
 
 //ADD SCORING SYSTEM
 // 60 base line
