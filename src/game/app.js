@@ -1,9 +1,9 @@
 import * as PIXI from "pixi.js";
 import { GameContainer } from "./GameContainer/GameContainer";
-import { GameMenu } from "./GameMenu";
 //ANIMATION PLUGINS
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
+import { BackgroundScape } from './BackgroundScape'
 gsap.registerPlugin(PixiPlugin);
 
 export class Sketch {
@@ -17,11 +17,14 @@ export class Sketch {
       resizeTo: window,
     });
 
+    this.playing = false
+
+    this.backgroundScape = new BackgroundScape(this.app.stage);
+
     document.body.appendChild(this.app.view);
 
     //CREATE GAME CONTAINER AND STORE ALL GAME CONTAINERS/ELEMENTS INSIDE
-    this.gameContainer = new GameContainer(this.app.stage);
-    this.gameContainer.position.set(this.width / 2, 0);
+
 
     this.time = 0;
 
@@ -36,11 +39,18 @@ export class Sketch {
       const wordsContainer = this.gameContainer.children[3];
       this.time += 0.05;
       if (Math.floor(this.time) === 10) {
-        // wordsContainer.addWord();
         this.time = 0;
       }
-      //   console.log("gameover!!!");
-      //   this.app.stop();
     });
+  }
+  checkPlaying() {
+    if (this.playing) {
+      this.gameContainer = new GameContainer(this.app.stage);
+      this.gameContainer.position.set(this.width / 2, 0);
+      this.addChild(this.gameContainer)
+    }
+  }
+  setPlaying(torf) {
+    this.playing = torf
   }
 }

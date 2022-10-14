@@ -12,7 +12,7 @@ export class Word extends PIXI.Text {
     super(word, {
       fontFamily: "Arial",
       fontSize: 24,
-      fill: 0x5dade2,
+      fill: 0x000000,
       align: "center",
     });
 

@@ -128,7 +128,7 @@ import back118 from "../assets/bg/0118.jpg";
 import back119 from "../assets/bg/0119.jpg";
 import back120 from "../assets/bg/0120.jpg";
 
-export class GameMenu extends PIXI.Container {
+export class BackgroundScape extends PIXI.Container {
     constructor(parent) {
         super();
         this.stage = parent;

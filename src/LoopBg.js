@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Sketch } from "./animation/app";
+import { Sketch } from "./game/app";
 
 function LoopBg() {
     useEffect(() => {
