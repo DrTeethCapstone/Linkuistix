@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { GameMenu } from "./GameMenu";
+import { GameMenu } from "../game/BackgroundScape";
 
 export class Sketch {
   constructor() {

@@ -27,6 +27,7 @@ export class GameContainer extends PIXI.Container {
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
     bg.tint = 0xc6e2ff;
+    bg.alpha = 0.2
     bg.width = (window.innerWidth * 50) / 100;
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
 
-function Landing() {
+function Landing({ sketch }) {
   const [chatState, setChatState] = useState(false);
   const { currentUser } = useAuth();
   const [zoomState, setZoomState] = useState('splash-container')
@@ -13,7 +13,10 @@ function Landing() {
     setZoomState('splash-container zoomout-splash')
     setTimeout(() => {
       navigate('/game')
+      sketch.setPlaying(true)
+      sketch.checkPlaying()
     }, 1900)
+
   }
 
   return (
