@@ -2,19 +2,22 @@
   font-family: 'Press Start 2P';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivY.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivY.ttf)
+    format('truetype');
 }
 @font-face {
   font-family: 'Silkscreen';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JXjfVPf62XiF7kO-i9YLNlbg.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JXjfVPf62XiF7kO-i9YLNlbg.ttf)
+    format('truetype');
 }
 @font-face {
   font-family: 'Silkscreen';
   font-style: normal;
   font-weight: 700;
-  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JUjfVPf62XiF7kO-i9aAhAfmyi3Q.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JUjfVPf62XiF7kO-i9aAhAfmyi3Q.ttf)
+    format('truetype');
 }
 * {
   margin: 0;
@@ -30,6 +33,7 @@ canvas {
 .eightBitForm h2 {
   font-family: 'Press Start 2P';
   color: white;
+  font-size: 1.5em;
   font-size: 1.5em;
 }
 .eightBitForm form {
@@ -202,6 +206,26 @@ canvas {
 }
 .sidebar-container a {
   color: white;
+}
+.sidebar-container .logoutIcon:hover {
+  color: red;
+}
+.tooltip-inner {
+  color: #260941 !important;
+  background-color: #ebd25b !important;
+  font-family: 'Silkscreen';
+}
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #ebd25b;
+}
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: #ebd25b;
+}
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: #ebd25b;
+}
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: #ebd25b;
 }
 .sidebar-container :hover .logoutIcon {
   color: red;
