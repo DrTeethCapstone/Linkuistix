@@ -81,14 +81,15 @@ function Profile() {
             ? 'Username: ' + currentUser.displayName
             : 'Guest User'}
         </h1>
+        <h3>total score: </h3>
         <div>
           <h3>Player Scores:</h3>
           {showData
             ? showData.map((ele) => (
-                <>
-                  <p>{ele}</p>
-                </>
-              ))
+              <>
+                <p>{ele}</p>
+              </>
+            ))
             : null}
           <button onClick={goToPreviousPage}>prev</button>
           <button onClick={goToNextPage}>next</button>

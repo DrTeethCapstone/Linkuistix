@@ -10,6 +10,7 @@
 * {
   margin: 0;
   // font-family: 'Source Sans Pro', sans-serif;
+  box-sizing: border-box;
 }
 
 canvas {
@@ -247,18 +248,41 @@ canvas {
 }
 
 .leaderboards-container {
-  position: relative;
-  top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 35vw;
+  width: 50vw;
   margin: auto;
-  background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 10vh;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 3px solid @sun-yellow;
+  font-family: 'Press Start 2P';
 
   h1 {
-    color: black;
+    color: @sun-yellow;
+    padding: 20px 0;
+  }
+
+  p {}
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vh 5vw;
+    border-bottom: 1px solid @sun-yellow;
+    color: @sun-yellow;
+    font-weight: 500;
+  }
+
+  div:nth-child(2) {
+    border-top: 1px solid @sun-yellow;
+  }
+
+  button {
+    margin: 1vh 1vw;
+    border: 3px solid @sun-yellow;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: @sun-yellow;
   }
 }
 

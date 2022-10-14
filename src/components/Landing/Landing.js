@@ -14,9 +14,10 @@ function Landing({ sketch }) {
     setZoomState('splash-container zoomout-splash')
     setTimeout(() => {
       navigate('/game')
+      sketch.setPlaying(true)
+      sketch.checkPlaying()
     }, 1900)
-    sketch.setPlaying(true)
-    sketch.checkPlaying()
+
   }
 
   return (
