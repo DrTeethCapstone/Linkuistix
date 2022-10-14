@@ -78,6 +78,7 @@ canvas {
     font-family: 'Silkscreen';
     color: @sunset-purp;
   }
+
   a:hover {
     font-family: 'Silkscreen';
     color: @sun-yellow;
@@ -92,7 +93,7 @@ canvas {
     color: yellow;
   }
 
-  > div {
+  >div {
     position: relative;
     top: 8vh;
     background-color: @electric-blue-transparent;
@@ -106,13 +107,14 @@ canvas {
   }
 
   @media screen and (max-width: 800px) {
-    > div {
+    >div {
       top: 10vh;
       width: 75%;
     }
   }
+
   @media screen and (max-width: 1200px) and (min-width: 800px) {
-    > div {
+    >div {
       top: 20vh;
       width: 40%;
     }
@@ -179,7 +181,7 @@ canvas {
     color: aqua;
   }
 
-  > div {
+  >div {
     margin: 0 10vw;
 
     button {
@@ -308,21 +310,129 @@ canvas {
   }
 }
 
+
+//bootstrap is giving p a margin bottom HOW DO I GET RID OF THAT
 .leaderboards-container {
-  position: relative;
-  top: 100px;
+  width: 50vw;
+  margin: auto;
+  margin-top: 10vh;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-family: 'Press Start 2P';
+  border: 3px solid @sun-yellow;
+
+  // display: flex;
+  // flex-direction: column;
+  p {
+    color: @sun-yellow;
+    margin-bottom: 0;
+  }
+
+  h1 {
+    padding: 20px 0;
+    color: @sun-yellow;
+  }
+
+  div:nth-child(2) {
+    border-top: 1px solid @sun-yellow;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    // height: 20vh;
+    padding: 1vh 5vw;
+    border-bottom: 1px solid @sun-yellow;
+  }
+
+  .lb-button-container {
+    justify-content: center;
+  }
+
+  button {
+    margin: 1vh 1vw;
+    color: @sun-yellow;
+    border: 1px solid @sun-yellow;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+
+// what to do about required pop-up
+.form-container {
+  width: 30vw;
+  margin: auto;
+  margin-top: 10vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 3px solid @electric-blue;
+  font-family: 'Press Start 2P';
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  width: 35vw;
-  margin: auto;
-  background-color: rgba(255, 255, 255, 0.8);
 
-  h1 {
-    color: black;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-button {
+    border: 3px solid @electric-blue;
+    background-color: rgba(0, 0, 0, 0);
+    color: @electric-blue;
+  }
+
+  h2 {
+    text-align: center;
+    color: @electric-blue;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+  }
+
+  p {
+    color: @electric-blue;
+    font-size: 0.6em;
+    margin-top: 5px;
+  }
+
+  .link-styles {
+    color: @electric-blue;
+    font-size: 0.8em;
+    margin-bottom: 1vh;
+  }
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+
+    label {
+      color: @electric-blue;
+      margin-top: 2vh;
+      margin-bottom: 1vh;
+    }
+
+    input {
+      font-size: 0.6em;
+      height: 4vh;
+    }
+
+    button {
+      margin-top: 2vh;
+      margin-bottom: 1vh;
+      border: 3px solid @electric-blue;
+      color: @electric-blue;
+      height: 4vh;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0);
+    }
   }
 }
+
 
 @keyframes slideDown {
   0% {

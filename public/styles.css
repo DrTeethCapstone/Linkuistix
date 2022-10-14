@@ -2,22 +2,19 @@
   font-family: 'Press Start 2P';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivY.ttf)
-    format('truetype');
+  src: url(https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivY.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Silkscreen';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JXjfVPf62XiF7kO-i9YLNlbg.ttf)
-    format('truetype');
+  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JXjfVPf62XiF7kO-i9YLNlbg.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Silkscreen';
   font-style: normal;
   font-weight: 700;
-  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JUjfVPf62XiF7kO-i9aAhAfmyi3Q.ttf)
-    format('truetype');
+  src: url(https://fonts.gstatic.com/s/silkscreen/v1/m8JUjfVPf62XiF7kO-i9aAhAfmyi3Q.ttf) format('truetype');
 }
 * {
   margin: 0;
@@ -33,7 +30,6 @@ canvas {
 .eightBitForm h2 {
   font-family: 'Press Start 2P';
   color: white;
-  font-size: 1.5em;
   font-size: 1.5em;
 }
 .eightBitForm form {
@@ -207,26 +203,6 @@ canvas {
 .sidebar-container a {
   color: white;
 }
-.sidebar-container .logoutIcon:hover {
-  color: red;
-}
-.tooltip-inner {
-  color: #260941 !important;
-  background-color: #ebd25b !important;
-  font-family: 'Silkscreen';
-}
-.tooltip.bs-tooltip-top .tooltip-arrow::before {
-  border-top-color: #ebd25b;
-}
-.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
-  border-bottom-color: #ebd25b;
-}
-.tooltip.bs-tooltip-start .tooltip-arrow::before {
-  border-left-color: #ebd25b;
-}
-.tooltip.bs-tooltip-end .tooltip-arrow::before {
-  border-right-color: #ebd25b;
-}
 .sidebar-container :hover .logoutIcon {
   color: red;
 }
@@ -278,18 +254,161 @@ canvas {
   color: black;
 }
 .leaderboards-container {
-  position: relative;
-  top: 100px;
+  width: 50vw;
+  margin: auto;
+  margin-top: 10vh;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-family: 'Press Start 2P';
+  border: 3px solid #ebd25b;
+}
+.leaderboards-container p {
+  color: #ebd25b;
+  margin-bottom: 0;
+}
+.leaderboards-container h1 {
+  padding: 20px 0;
+  color: #ebd25b;
+}
+.leaderboards-container div:nth-child(2) {
+  border-top: 1px solid #ebd25b;
+}
+.leaderboards-container div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vh 5vw;
+  border-bottom: 1px solid #ebd25b;
+}
+.leaderboards-container .lb-button-container {
+  justify-content: center;
+}
+.leaderboards-container button {
+  margin: 1vh 1vw;
+  color: #ebd25b;
+  border: 1px solid #ebd25b;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.form-container-signup {
+  width: 30vw;
+  margin: auto;
+  margin-top: 10vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #0eb3e1;
+  font-family: 'Press Start 2P';
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  width: 35vw;
-  margin: auto;
-  background-color: rgba(255, 255, 255, 0.8);
 }
-.leaderboards-container h1 {
-  color: black;
+.form-container-signup div {
+  display: flex;
+  flex-direction: column;
+}
+.form-container-signup .form-button {
+  border: 3px solid #0eb3e1;
+  background-color: rgba(0, 0, 0, 0);
+  color: #0eb3e1;
+}
+.form-container-signup h2 {
+  text-align: center;
+  color: #0eb3e1;
+  margin-top: 2vh;
+}
+.form-container-signup p {
+  color: #0eb3e1;
+  font-size: 0.6em;
+  margin-top: 5px;
+}
+.form-container-signup .link-styles {
+  color: #0eb3e1;
+  font-size: 0.8em;
+  margin-bottom: 1vh;
+}
+.form-container-signup form {
+  display: flex;
+  flex-direction: column;
+}
+.form-container-signup form label {
+  color: #0eb3e1;
+  margin-top: 2vh;
+  padding: 0;
+  font-size: 0.9em;
+}
+.form-container-signup form input {
+  font-size: 0.6em;
+  height: 4vh;
+  margin-top: 1vh;
+  padding: 0;
+}
+.form-container-signup form button {
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+  border: 3px solid #0eb3e1;
+  color: #0eb3e1;
+  height: 4vh;
+  background-color: rgba(0, 0, 0, 0);
+}
+.form-container {
+  width: 30vw;
+  margin: auto;
+  margin-top: 10vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #0eb3e1;
+  font-family: 'Press Start 2P';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-container .form-button {
+  border: 3px solid #0eb3e1;
+  background-color: rgba(0, 0, 0, 0);
+  color: #0eb3e1;
+}
+.form-container h2 {
+  text-align: center;
+  color: #0eb3e1;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+}
+.form-container p {
+  color: #0eb3e1;
+  font-size: 0.6em;
+  margin-top: 5px;
+}
+.form-container .link-styles {
+  color: #0eb3e1;
+  font-size: 0.8em;
+  margin-bottom: 1vh;
+}
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  width: 100%;
+}
+.form-container form label {
+  color: #0eb3e1;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+}
+.form-container form input {
+  font-size: 0.6em;
+  height: 4vh;
+}
+.form-container form button {
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+  border: 3px solid #0eb3e1;
+  color: #0eb3e1;
+  height: 4vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
 }
 @keyframes slideDown {
   0% {

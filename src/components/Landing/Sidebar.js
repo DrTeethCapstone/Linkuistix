@@ -271,7 +271,7 @@ function Sidebar() {
                 size="lg"
                 fixedWidth
                 className="sidebarIcon"
-                // style={style}
+              // style={style}
               />
             </Link>
           </animated.div>
