@@ -1,72 +1,77 @@
-import * as PIXI from 'pixi.js'
-import { Timer } from './Timer';
-import { TimerBar } from './TimerSprite';
+import * as PIXI from "pixi.js";
+import { GameOverContainer } from "../GameOver/GameOverContainer";
+
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 gsap.registerPlugin(PixiPlugin);
 
 export class TimerContainer extends PIXI.Container {
-    constructor(parent = null) {
-        super();
-        this.parent = parent;
-        console.log(parent.width)
+  constructor(parent = null) {
+    super();
+    this.parent = parent;
+    this.timerContainer = new PIXI.Container();
 
-        this.timerContainer = new PIXI.Container()
-        // this.timer = new Timer(this.timerContainer)
-        // this.timerSprite = new TimerBar(this.timerContainer)
-        // this.timerContainer.addChild(this.timerSprite)
-        const timeBar = new PIXI.Sprite(PIXI.Texture.WHITE)
-        timeBar.anchor.set(0.5, 0.5)
-        timeBar.tint = 0x00FF00;
-        timeBar.width = parent.width;
-        timeBar.height = 25;
-        this.timerContainer.addChild(timeBar)
+    const timeBar = new PIXI.Sprite(PIXI.Texture.WHITE);
+    timeBar.anchor.set(0.5, 0.5);
+    timeBar.tint = 0x00ff00;
+    timeBar.width = parent.width;
+    timeBar.height = 25;
+    this.timerContainer.addChild(timeBar);
 
-        this.time = parent.width
+    this.time = parent.width;
 
-        this.increment = 0.5
-        console.log(this.parent)
+    this.increment = 0.1;
+    console.log(this.parent);
 
-        this.ticker = PIXI.Ticker.shared
-        this.ticker.add((delta) => {
-            this.time -= this.increment
-            // console.log(this.time)
-            this.updateTimer(timeBar)
-            if (this.time === 0) {
-                this.ticker.stop()
-                
-            }
-        })
+    this.ticker = PIXI.Ticker.shared;
+    this.ticker.add((delta) => {
+      this.time -= this.increment;
+      // console.log(this.time)
+      this.updateTimer(timeBar);
+      if (this.time <= 0) {
+        const parentStage = this.parent.parent;
 
+        console.log(parentStage.children[1]);
 
+        this.ticker.stop();
+        console.log("game over", parentStage.children[1].children);
 
-        this.addChild(this.timerContainer)
+        parentStage.children[1].children[1].toOffScreen();
+        parentStage.children[1].children[3].toOffScreen();
+        parentStage.children[1].animateOpacity(true);
+        setTimeout(() => {
+          const gameOver = new GameOverContainer(parentStage);
+          gameOver.setupFirstChildren(
+            parentStage.children[1].children[2].userScore
+          );
+          gameOver.position.x = window.innerWidth / 2;
+          gameOver.position.y = window.innerHeight / 2;
+        }, 0.1);
+        //show game over screen
+      }
+      //   console.log(this.time);
+    });
 
+    this.addChild(this.timerContainer);
 
-        if (this.parent) {
-            this.parent.addChild(this);
-            this.position.x = 0;
-            this.position.y = 0;
-        }
-
-
+    if (this.parent) {
+      this.parent.addChild(this);
+      this.position.x = 0;
+      this.position.y = 0;
     }
-    updateTimer(timeBar) {
-        if (this.time < this.parent.width * 0.66) {
-            timeBar.tint = 0xFFA500
-        }
-        if (this.time < this.parent.width * 0.33) {
-            timeBar.tint = 0xFF0000
-        }
-        gsap.to(timeBar,
-            { width: this.time }
-        )
+  }
+  updateTimer(timeBar) {
+    if (this.time < this.parent.width * 0.66) {
+      timeBar.tint = 0xffa500;
     }
-    resetTimer(timeBar) {
-        this.time = this.parent.width
-        this.increment = this.increment * 1.1
-        gsap.to(timeBar,
-            { width: this.time }
-        )
+    if (this.time < this.parent.width * 0.33) {
+      timeBar.tint = 0xff0000;
     }
+    gsap.to(timeBar, { width: this.time });
+  }
+  resetTimer(timeBar) {
+    this.time = this.parent.width;
+    this.increment = this.increment * 1.1;
+    gsap.to(timeBar, { width: this.time });
+  }
 }
