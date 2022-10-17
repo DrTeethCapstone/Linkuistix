@@ -20,13 +20,15 @@ import {
   faHome,
   faVolumeHigh,
   faVolumeXmark,
+  faPlay,
+  faStop,
 } from '@fortawesome/free-solid-svg-icons';
 
 //animation
 import { useSpring, animated, config } from '@react-spring/web';
 
 //sounds
-import { Howler } from 'howler';
+import { Howler, Howl } from 'howler';
 
 function Sidebar() {
   const [error, setError] = useState('');
@@ -34,22 +36,7 @@ function Sidebar() {
 
   const { currentUser, logout, loginAsGuest } = useAuth();
 
-  const [soundOn, setSoundOn] = useState(true);
-  const [isFirstLogin, setIsFirstLogin] = useState(true);
-  const [showSound, setShowSound] = useState(false);
-
-  const handleSoundOnOff = () => {
-    setSoundOn(!soundOn);
-  };
-
-  useEffect(() => {
-    if (soundOn) {
-      Howler.mute(false);
-    } else {
-      Howler.mute(true);
-    }
-  }, [soundOn]);
-
+  //if the user isn't logged in, log them in as guest
   useEffect(() => {
     //init user
     async function loginUser() {
@@ -66,6 +53,47 @@ function Sidebar() {
     loginUser();
   }, [loginAsGuest, auth.currentUser]);
 
+  //state
+  const [soundOn, setSoundOn] = useState(true);
+  const [musicOn, setMusicOn] = useState(false);
+  const [isFirstLogin, setIsFirstLogin] = useState(true);
+  const [showSound, setShowSound] = useState(false);
+  const [musicId, setMusicId] = useState('');
+
+  //toggles global app sound on/off
+  const handleSoundOnOff = () => {
+    setSoundOn(!soundOn);
+  };
+
+  //handles music on. Note that we set the Id of the music to turn it off later
+  const handleMusicOn = () => {
+    setMusicOn(!musicOn);
+    music.play();
+    setMusicId(music._sounds[0]._id);
+  };
+
+  //handles music off. Note that we need to grab the Id of the sound
+  const handleMusicOff = () => {
+    setMusicOn(!musicOn);
+    Howler.stop(musicId);
+  };
+
+  //sets Howler sound state based on state variable
+  useEffect(() => {
+    if (soundOn) {
+      Howler.mute(false);
+    } else {
+      Howler.mute(true);
+    }
+  }, [soundOn]);
+
+  //our little music piece
+  const music = new Howl({
+    src: ['/sounds/music.mp3'],
+    volume: 0.5,
+    loop: true,
+  });
+
   //animation
   const [isBooped1, setBooped1] = useState(false);
   const [isBooped2, setBooped2] = useState(false);
@@ -74,6 +102,7 @@ function Sidebar() {
   const [isBooped5, setBooped5] = useState(false);
   const [isBooped6, setBooped6] = useState(false);
   const [isBooped7, setBooped7] = useState(false);
+  const [isBooped8, setBooped8] = useState(false);
 
   //highlight the mute button on first login
   if (isFirstLogin) {
@@ -126,6 +155,12 @@ function Sidebar() {
     borderColor: 'cornflowerblue',
     config: config.slow,
   }));
+  const [style8, api8] = useSpring(() => ({
+    opacity: 0.3,
+    borderWidth: '2px',
+    borderColor: 'cornflowerblue',
+    config: config.slow,
+  }));
 
   const onMouseEnter1 = useCallback(() => setBooped1(true), []);
   const onMouseLeave1 = useCallback(() => setBooped1(false), []);
@@ -141,6 +176,8 @@ function Sidebar() {
   const onMouseLeave6 = useCallback(() => setBooped6(false), []);
   const onMouseEnter7 = useCallback(() => setBooped7(true), []);
   const onMouseLeave7 = useCallback(() => setBooped7(false), []);
+  const onMouseEnter8 = useCallback(() => setBooped8(true), []);
+  const onMouseLeave8 = useCallback(() => setBooped8(false), []);
 
   useEffect(() => {
     if (isBooped1) {
@@ -247,6 +284,21 @@ function Sidebar() {
       });
     }
   }, [isBooped7, api7]);
+  useEffect(() => {
+    if (isBooped8) {
+      api8.start({
+        opacity: 1,
+        borderWidth: '5px',
+        scale: 1.2,
+      });
+    } else {
+      api8.start({
+        opacity: 0.3,
+        borderWidth: '2px',
+        scale: 1,
+      });
+    }
+  }, [isBooped8, api8]);
 
   const navigate = useNavigate();
 
@@ -294,6 +346,11 @@ function Sidebar() {
   const renderTooltipSound = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
       Sound On/Off{' '}
+    </Tooltip>
+  );
+  const renderTooltipMusic = (props) => (
+    <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
+      Music On/Off{' '}
     </Tooltip>
   );
 
@@ -427,6 +484,31 @@ function Sidebar() {
             {' '}
             <FontAwesomeIcon
               icon={soundOn ? faVolumeHigh : faVolumeXmark}
+              className="soundIcon"
+              size="lg"
+              fixedWidth
+              inverse
+            />
+          </span>
+        </animated.div>
+      </OverlayTrigger>
+
+      <OverlayTrigger
+        placement="left"
+        trigger="manual"
+        show={showSound}
+        delay={{ show: 100, hide: 100 }}
+        overlay={renderTooltipMusic}
+      >
+        <animated.div
+          style={style7}
+          onMouseEnter={onMouseEnter8}
+          onMouseLeave={onMouseLeave8}
+        >
+          <span onClick={musicOn ? handleMusicOff : handleMusicOn}>
+            {' '}
+            <FontAwesomeIcon
+              icon={musicOn ? faStop : faPlay}
               className="soundIcon"
               size="lg"
               fixedWidth
