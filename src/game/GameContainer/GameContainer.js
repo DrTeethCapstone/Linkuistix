@@ -14,12 +14,14 @@ import { ScoreContainer } from "./ScoreContainer/ScoreContainer";
 //ANIMATION PLUGINS
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
+import { TimerContainer } from "./TimerContainer/TimerContainer";
 gsap.registerPlugin(PixiPlugin);
 
 export class GameContainer extends PIXI.Container {
   constructor(parent) {
     super();
     this.stage = parent;
+
     // this.tensorModel;
 
     // this.wordsInStringArray = randomWords(500);
@@ -36,12 +38,18 @@ export class GameContainer extends PIXI.Container {
     this.inputContainer = new InputContainer(this);
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
+    //me
+    this.timerContainer = new TimerContainer(this)
+    console.log(this.timerContainer.width)
+
+
     this.wordsContainer.setupFirstChildren();
     this.wordsContainer.children.forEach((word) => word.updatePosition());
 
     if (this.stage) {
       this.stage.addChild(this);
     }
+
   }
 
   animateElementsIn() {

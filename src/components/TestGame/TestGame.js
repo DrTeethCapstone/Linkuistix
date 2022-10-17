@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
-import Sidebar from '../Landing/Sidebar';
+// import Sidebar from '../Landing/Sidebar';
 
 function TestGame() {
   const [score, setScore] = useState(0);
@@ -66,7 +66,7 @@ function TestGame() {
 
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="game-container">
         {gameStart ? (
           <>

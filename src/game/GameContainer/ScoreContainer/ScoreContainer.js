@@ -31,6 +31,9 @@ export class ScoreContainer extends PIXI.Container {
     // this.timerContainer.position.y = -this.height;
     // this.timerContainer.addChild(TCBackground);
 
+
+
+
     this.userScoreContainer = new PIXI.Container();
     const USCBackground = new PIXI.Sprite(PIXI.Texture.WHITE);
     USCBackground.alpha = 0;
@@ -42,6 +45,7 @@ export class ScoreContainer extends PIXI.Container {
 
     this.score = new Score(this.userScoreContainer);
     this.userScoreContainer.addChild(this.score);
+
 
     // this.addChild(this.timerContainer);
     this.addChild(this.userScoreContainer);

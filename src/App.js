@@ -11,12 +11,13 @@ import RegisterGuest from './components/RegisterGuest/RegisterGuest';
 import LoopBg from './LoopBg';
 import TestGame from './components/TestGame/TestGame';
 import Leaderboards from './components/Leaderboards/Leaderboards';
+import WordGame from './components/WordGame/WordGame';
 import Sidebar from './components/Sidebar/Sidebar';
 
 //Toast popups
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import WordGame from './components/WordGame/WordGame';
+import GameRoute from './components/Test';
 
 function App() {
   const sketch = new Sketch();
@@ -32,7 +33,7 @@ function App() {
           <Route path="/registerGuest" element={<RegisterGuest />} />
           <Route path="/landing" element={<Landing sketch={sketch} />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/game" element={<WordGame />} />
+          <Route path="/game" element={<GameRoute />} />
           <Route path="/leaderboards" element={<Leaderboards />} />
         </Routes>
         <Sidebar />

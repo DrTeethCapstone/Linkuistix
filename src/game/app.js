@@ -27,7 +27,7 @@ export class Sketch {
 
 
     this.time = 0;
-
+    this.gameOver = false
     // const test = new GameMenu(this.app.stage);
 
     //THIS CURRENTLY INITIATES THE GAME LOOP
@@ -36,18 +36,23 @@ export class Sketch {
   //RUNS GAME LOOP AND TRIGGERS THINGS THAT SHOULD RENDER ON EACH FRAME
   render() {
     this.app.ticker.add((delta) => {
-      const wordsContainer = this.gameContainer.children[3];
-      this.time += 0.05;
-      if (Math.floor(this.time) === 10) {
-        this.time = 0;
+      // const wordsContainer = this.gameContainer.children[3];
+      this.time += 1;
+      console.log(this.time)
+      if (Math.floor(this.time) === 500) {
+        // this.time = 0;
+        this.gameOver = true
       }
     });
   }
+
   checkPlaying() {
     if (this.playing) {
       this.gameContainer = new GameContainer(this.app.stage);
       this.gameContainer.position.set(this.width / 2, 0);
-      this.addChild(this.gameContainer)
+      // this.render()
+      //just commented out
+      // this.addChild(this.gameContainer)
     }
   }
   setPlaying(torf) {
