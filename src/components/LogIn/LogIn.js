@@ -87,8 +87,7 @@ function LogIn() {
               handleSubmit,
               isSubmitting,
             }) => (
-
-              <form onSubmit={handleSubmit} >
+              <form onSubmit={handleSubmit}>
                 {/* email */}
                 {/* <Form.Group controlId="formEmail" className="mb-0"> */}
                 <label>Email</label>
@@ -127,17 +126,14 @@ function LogIn() {
                   <div className="error-message">{errors.password}</div>
                 ) : null}
                 {/* buttons */}
-                <button
-                  type="submit"
-                  variant="primary"
-                  disabled={isSubmitting}
-                >
+                <button type="submit" variant="primary" disabled={isSubmitting}>
                   Sign In
                 </button>
               </form>
             )}
           </Formik>
-          <button className='form-button'
+          <button
+            className="form-button"
             type="button"
             // variant="primary"
             // className="my-4"
@@ -148,8 +144,9 @@ function LogIn() {
         </div>
         <p>Don't Have An Account?</p>
 
-        <Link className='link-styles' to="/">Sign Up</Link>
-
+        <Link className="link-styles" to="/SignUp">
+          Sign Up
+        </Link>
       </div>
     </>
   );

@@ -93,7 +93,7 @@ canvas {
     color: yellow;
   }
 
-  >div {
+  > div {
     position: relative;
     top: 8vh;
     background-color: @electric-blue-transparent;
@@ -107,14 +107,14 @@ canvas {
   }
 
   @media screen and (max-width: 800px) {
-    >div {
+    > div {
       top: 10vh;
       width: 75%;
     }
   }
 
   @media screen and (max-width: 1200px) and (min-width: 800px) {
-    >div {
+    > div {
       top: 20vh;
       width: 40%;
     }
@@ -181,7 +181,7 @@ canvas {
     color: aqua;
   }
 
-  >div {
+  > div {
     margin: 0 10vw;
 
     button {
@@ -310,7 +310,6 @@ canvas {
   }
 }
 
-
 //bootstrap is giving p a margin bottom HOW DO I GET RID OF THAT
 .leaderboards-container {
   width: 50vw;
@@ -359,6 +358,10 @@ canvas {
   }
 }
 
+#lowerDown {
+  //moves signin splash lower down the screen
+  margin-top: 20vh;
+}
 
 // what to do about required pop-up
 .form-container {
@@ -378,10 +381,25 @@ canvas {
     align-items: center;
   }
 
+  .splashButtonContainer {
+    margin-top: 30px;
+    width: 100%;
+    height: 50px;
+  }
+
   .form-button {
     border: 3px solid @electric-blue;
     background-color: rgba(0, 0, 0, 0);
     color: @electric-blue;
+  }
+
+  .form-button:hover {
+    border: 3px solid @sun-yellow;
+    color: @sun-yellow;
+  }
+
+  a:hover {
+    color: @sun-yellow;
   }
 
   h2 {
@@ -402,7 +420,6 @@ canvas {
     font-size: 0.8em;
     margin-bottom: 1vh;
   }
-
 
   form {
     display: flex;
@@ -432,7 +449,6 @@ canvas {
     }
   }
 }
-
 
 @keyframes slideDown {
   0% {
