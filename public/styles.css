@@ -303,6 +303,9 @@ canvas {
   border: 1px solid #ebd25b;
   background-color: rgba(0, 0, 0, 0.6);
 }
+#lowerDown {
+  margin-top: 20vh;
+}
 .form-container {
   width: 30vw;
   margin: auto;
@@ -319,10 +322,22 @@ canvas {
   flex-direction: column;
   align-items: center;
 }
+.form-container .splashButtonContainer {
+  margin-top: 30px;
+  width: 100%;
+  height: 50px;
+}
 .form-container .form-button {
   border: 3px solid #0eb3e1;
   background-color: rgba(0, 0, 0, 0);
   color: #0eb3e1;
+}
+.form-container .form-button:hover {
+  border: 3px solid #ebd25b;
+  color: #ebd25b;
+}
+.form-container a:hover {
+  color: #ebd25b;
 }
 .form-container h2 {
   text-align: center;

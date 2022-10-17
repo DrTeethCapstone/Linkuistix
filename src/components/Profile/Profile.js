@@ -10,15 +10,13 @@ import {
   limitToLast,
 } from 'firebase/firestore';
 import { db } from '../../firebase';
-import Sidebar from '../Landing/Sidebar';
+// import Sidebar from '../Landing/Sidebar';
 
 function Profile() {
   const [scoreData, setScoreData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser, userLogin } = useAuth();
   const [userData, setUserData] = useState({});
-
-
 
   useEffect(() => {
     const getUserData = async () => {
@@ -51,7 +49,7 @@ function Profile() {
   let showData = scoreData.length ? getPaginationData(sortedData) : null;
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="profile-container">
         <h1>
           {currentUser.displayName
@@ -62,16 +60,15 @@ function Profile() {
           <h3>Player Scores:</h3>
           {showData
             ? showData.map((ele) => (
-              <>
-                <p>{ele}</p>
-              </>
-            ))
+                <>
+                  <p>{ele}</p>
+                </>
+              ))
             : null}
-          <div className='profile-button-container'>
+          <div className="profile-button-container">
             <button onClick={goToPreviousPage}>{'<'}</button>
             <button onClick={goToNextPage}>{'>'}</button>
           </div>
-
         </div>
       </div>
     </>

@@ -10,7 +10,7 @@ import {
   endBefore,
 } from 'firebase/firestore';
 import { db } from '../../firebase';
-import Sidebar from '../Landing/Sidebar';
+// import Sidebar from '../Landing/Sidebar';
 
 function Leaderboards() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -81,7 +81,7 @@ function Leaderboards() {
 
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="leaderboards-container">
         <h1>Leaderboards</h1>
         {/* {loading ? <p>loading...</p>
@@ -106,7 +106,7 @@ function Leaderboards() {
                 </div>
               </>
             ))}
-            <div className='lb-button-container'>
+            <div className="lb-button-container">
               <button onClick={handlePrev}>{'<'}</button>
               <button onClick={handleNext}>{'>'}</button>
             </div>

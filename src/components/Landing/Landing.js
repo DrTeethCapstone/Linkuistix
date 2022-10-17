@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Sidebar from './Sidebar';
+// import Sidebar from './Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
+
+//sounds
+import { Howl, Howler } from 'howler';
 
 function Landing({ sketch }) {
   const [chatState, setChatState] = useState(false);
-  const { currentUser } = useAuth();
-  const [zoomState, setZoomState] = useState('splash-container')
+  // const { currentUser } = useAuth();
+  const [zoomState, setZoomState] = useState('splash-container');
   const navigate = useNavigate();
 
-  const handleAnimation = () => {
-    setZoomState('splash-container zoomout-splash')
-    setTimeout(() => {
-      navigate('/game')
-      sketch.setPlaying(true)
-      sketch.checkPlaying()
-    }, 1900)
+  //SFX
+  const coinDrop = new Howl({
+    src: ['/sounds/coin.mp3'],
+    volume: 0.5,
+  });
 
-  }
+  const handleAnimation = () => {
+    coinDrop.play();
+    setZoomState('splash-container zoomout-splash');
+    setTimeout(() => {
+      navigate('/game');
+      sketch.setPlaying(true);
+      sketch.checkPlaying();
+    }, 1900);
+  };
 
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className={zoomState}>
         <div className="header-container">
           <h1>NOT SEMANTRIS</h1>
