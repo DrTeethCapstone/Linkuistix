@@ -7,8 +7,8 @@ gsap.registerPlugin(PixiPlugin);
 export class GameOver extends PIXI.Text {
     constructor(word, parent = null){
         super(word,{
-            fontFamily:'Noto',
-            fontSize: 100,
+            fontFamily:'Press Start 2P',
+            fontSize: 50,
             align: 'center',
             fill: 0x5dade2,
             
@@ -25,7 +25,7 @@ export class GameOver extends PIXI.Text {
     animateGameOn(){
         gsap.fromTo(this,{
             
-            y:700, 
+            y:1200, 
             duration:5,
             ease:"elastic",
             
@@ -35,13 +35,15 @@ export class GameOver extends PIXI.Text {
             ease:"elastic"
         })
         gsap.to(this.style,{
-            fill:'green',
-            duration:5
+            fill:'purple',
+            duration:5,
+            fontSize:80
         })
+
     }
     animateOverOn(){
         gsap.fromTo(this,{
-            y:-800,
+            y:-1200,
             duration:5,
             ease: "elastic",
         },{
@@ -50,8 +52,9 @@ export class GameOver extends PIXI.Text {
             ease:"elastic"
         })
         gsap.to(this.style,{
-            fill: 'red',
-            duration: 5
+            fill: 'purple',
+            duration: 5,
+            fontSize:80
         })
     }
     animateGameOff(){
@@ -76,16 +79,48 @@ export class GameOver extends PIXI.Text {
     }
     animateScoreOff(){
         gsap.to(this,{
-            y:-100,
+            y:-150,
             duration:3,
             ease:'elastic'
         })
         gsap.to(this.style,{
-            fontSize:150,
+            fontSize:80,
             duration:3,
             ease: 'elastic',
-            fill:'purple'
+            fill:'white'
         })
     }
-    animate
+    animateMessage(){
+        gsap.to(this,{
+            y:0,
+            duration: 3,
+            ease: 'elastic'
+        })
+        gsap.fromTo(this.style,{
+            fontSize: 40,
+            duration:4,
+            fill: "white",
+            repeat: 1
+        },{ 
+            repeat: 100,
+            duration: 1,
+            fill: '#FBB03B'
+        })
+    }
+    animateLeader(){
+        gsap.fromTo(this,{
+            x:-1000,
+            y:150
+        },{
+            ease:'elastic',
+            duration:3,
+            x:300,
+            y:150
+        })
+        gsap.to(this.style,{
+            fontSize:25,
+            fill:'#b967ff',
+        })
+
+    }
 }

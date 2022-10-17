@@ -29,7 +29,7 @@ export class GameContainer extends PIXI.Container {
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
     bg.tint = 0xc6e2ff;
-    bg.alpha = 0.2
+    bg.alpha = 0.2;
     bg.width = (window.innerWidth * 50) / 100;
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);
@@ -39,9 +39,8 @@ export class GameContainer extends PIXI.Container {
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
     //me
-    this.timerContainer = new TimerContainer(this)
-    console.log(this.timerContainer.width)
-
+    this.timerContainer = new TimerContainer(this);
+    console.log(this.timerContainer.width);
 
     this.wordsContainer.setupFirstChildren();
     this.wordsContainer.children.forEach((word) => word.updatePosition());
@@ -49,13 +48,24 @@ export class GameContainer extends PIXI.Container {
     if (this.stage) {
       this.stage.addChild(this);
     }
+  }
 
+  animateOpacity(boolean) {
+    if (boolean) {
+      this.alpha = 0;
+    } else {
+      this.alpha = 1;
+    }
   }
 
   animateElementsIn() {
     this.wordsContainer.setupFirstChildren();
     this.inputContainer.fromOffScreen();
     this.wordsContainer.children.forEach((word) => word.updatePosition());
+  }
+
+  animateElementsOff() {
+    this.inputContainer.toOffScreen();
   }
 
   async setupModel() {

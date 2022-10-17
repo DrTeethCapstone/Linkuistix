@@ -5,7 +5,10 @@ import { Word } from "./Words";
 //TENSOR IMPORTS
 import * as tf from "@tensorflow/tfjs";
 import * as use from "@tensorflow-models/universal-sentence-encoder";
-
+//ANIMATION PLUGINS
+import { gsap } from "gsap";
+import { PixiPlugin } from "gsap/PixiPlugin";
+gsap.registerPlugin(PixiPlugin);
 //CREATE A NEW INSTANCE OF A PIXI CONTAINER USED TO STORE LIST OF WORDS
 export class WordsContainer extends PIXI.Container {
   constructor(parent) {
@@ -14,18 +17,32 @@ export class WordsContainer extends PIXI.Container {
     this.starterWords = randomWords(9);
     this.target = null;
 
-    // this.tensorModel;
-    // this.wordsAsStringsArray = randomWords(500);
-    // this.wordsAsObjectsArray = this.convertWords(this.wordsAsStringsArray);
-    // this.targetsAsStringsArray = randomWords(50);
-    // this.targetsAsObjectsArray = this.convertWords(this.targetsAsStringsArray);
-    // this.prepareSimilarities();
-
     if (this.parent) {
       this.parent.addChild(this);
       this.position.y =
         this.parent.children[0].height - this.parent.children[1].height;
     }
+  }
+
+  removeAllChildren() {
+    while (this.children[0]) {
+      this.removeChild(this.children[0]);
+    }
+  }
+
+  fromOffScreen() {
+    this.visible = true;
+    gsap.to(this, {
+      y: 0,
+      duration: 1,
+    });
+  }
+  toOffScreen() {
+    gsap.to(this, {
+      y: this.parent.children[0].height - this.parent.children[1].height,
+      duration: 1,
+    });
+    this.visible = false;
   }
 
   async setupTensorModel() {
@@ -35,7 +52,6 @@ export class WordsContainer extends PIXI.Container {
     console.log("TF model loaded.");
     console.log("Tensors at end: ", tf.memory().numTensors);
   }
-
   //COVERTS STRINGS TO WORD OBJECTS
   convertWords(array) {
     console.log("Starting string to object conversion...");
