@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 //user auth
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { useAuth } from '../../contexts/AuthContext';
 
 //tooltips
@@ -54,12 +54,15 @@ function Sidebar() {
   }, [loginAsGuest, auth.currentUser]);
 
   //state
-  const [soundOn, setSoundOn] = useState(true);
-  const [musicOn, setMusicOn] = useState(false);
-  const [isFirstLogin, setIsFirstLogin] = useState(true);
-  const [showSound, setShowSound] = useState(false);
-  const [showMusic, setShowMusic] = useState(false);
-  const [musicId, setMusicId] = useState('');
+  const [soundOn, setSoundOn] = useState(true); //sound on or not
+  const [musicOn, setMusicOn] = useState(false); //music playing or stopped
+  const getFirstLogin = window.localStorage.getItem('isFirstLogin')
+    ? false
+    : true;
+  const [isFirstLogin, setIsFirstLogin] = useState(getFirstLogin); //your first login, innit, mate?
+  const [showSound, setShowSound] = useState({}); //show the sound tooltip song and dance
+  const [showMusic, setShowMusic] = useState({}); //show the music tooltip song and dance
+  const [musicId, setMusicId] = useState(''); //store the music Howler ID because Howler
 
   //toggles global app sound on/off
   const handleSoundOnOff = () => {
@@ -70,7 +73,7 @@ function Sidebar() {
   const handleMusicOn = () => {
     setMusicOn(!musicOn);
     music.play();
-    setMusicId(music._sounds[0]._id);
+    setMusicId(music._sounds[0]._id); //that's where Howler puts the audio instance ID...
   };
 
   //handles music off. Note that we need to grab the Id of the sound
@@ -95,219 +98,224 @@ function Sidebar() {
     loop: true,
   });
 
-  //animation
-  const [isBooped1, setBooped1] = useState(false);
-  const [isBooped2, setBooped2] = useState(false);
-  const [isBooped3, setBooped3] = useState(false);
-  const [isBooped4, setBooped4] = useState(false);
-  const [isBooped5, setBooped5] = useState(false);
-  const [isBooped6, setBooped6] = useState(false);
-  const [isBooped7, setBooped7] = useState(false);
-  const [isBooped8, setBooped8] = useState(false);
+  //animation for buttons
+  const [isBoopedSave, setBoopedSave] = useState(false);
+  const [isBoopedUser, setBoopedUser] = useState(false);
+  const [isBoopedGame, setBoopedGame] = useState(false);
+  const [isBoopedRank, setBoopedRank] = useState(false);
+  const [isBoopedLogout, setBoopedLogout] = useState(false);
+  const [isBoopedHome, setBoopedHome] = useState(false);
+  const [isBoopedSound, setBoopedSound] = useState(false);
+  const [isBoopedMusic, setBoopedMusic] = useState(false);
 
-  //highlight the mute button on first login
+  //highlight the mute and music buttons on first login
   if (isFirstLogin) {
     setTimeout(() => {
-      setBooped7(true);
-      setShowSound(true);
+      setBoopedSound(true);
+      setShowSound({ show: true });
     }, 6000);
     setTimeout(() => {
-      setBooped8(true);
-      setShowMusic(true);
+      setBoopedMusic(true);
+      setShowMusic({ show: true });
     }, 3000);
 
     setTimeout(() => {
-      setBooped7(false);
-      setShowSound(false);
+      setBoopedSound(false);
+      setShowSound(null);
     }, 9000);
     setTimeout(() => {
-      setBooped8(false);
-      setShowMusic(false);
+      setBoopedMusic(false);
+      setShowMusic(null);
     }, 5700);
+
+    //set first login to false
+    //we store it in locatStorage so we can hold onto the info on refresh
     setIsFirstLogin(false);
+    window.localStorage.setItem('isFirstLogin', false);
   }
 
-  const [style1, api1] = useSpring(() => ({
+  const [styleSave, apiSave] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     config: config.slow,
   }));
-  const [style2, api2] = useSpring(() => ({
+  const [styleUser, apiUser] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     config: config.slow,
   }));
-  const [style3, api3] = useSpring(() => ({
+  const [styleGame, apiGame] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     config: config.slow,
   }));
-  const [style4, api4] = useSpring(() => ({
+  const [styleLeaderboard, apiLeaderboard] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     config: config.slow,
   }));
-  const [style5, api5] = useSpring(() => ({
+  const [styleLogout, apiLogout] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     borderColor: 'red',
     config: config.slow,
   }));
-  const [style6, api6] = useSpring(() => ({
+  const [styleHome, apiHome] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     config: config.slow,
   }));
-  const [style7, api7] = useSpring(() => ({
+  const [styleSound, apiSound] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     borderColor: 'cornflowerblue',
     config: config.slow,
   }));
-  const [style8, api8] = useSpring(() => ({
+  const [styleMusic, apiMusic] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
     borderColor: 'lightgreen',
     config: config.slow,
   }));
 
-  const onMouseEnter1 = useCallback(() => setBooped1(true), []);
-  const onMouseLeave1 = useCallback(() => setBooped1(false), []);
-  const onMouseEnter2 = useCallback(() => setBooped2(true), []);
-  const onMouseLeave2 = useCallback(() => setBooped2(false), []);
-  const onMouseEnter3 = useCallback(() => setBooped3(true), []);
-  const onMouseLeave3 = useCallback(() => setBooped3(false), []);
-  const onMouseEnter4 = useCallback(() => setBooped4(true), []);
-  const onMouseLeave4 = useCallback(() => setBooped4(false), []);
-  const onMouseEnter5 = useCallback(() => setBooped5(true), []);
-  const onMouseLeave5 = useCallback(() => setBooped5(false), []);
-  const onMouseEnter6 = useCallback(() => setBooped6(true), []);
-  const onMouseLeave6 = useCallback(() => setBooped6(false), []);
-  const onMouseEnter7 = useCallback(() => setBooped7(true), []);
-  const onMouseLeave7 = useCallback(() => setBooped7(false), []);
-  const onMouseEnter8 = useCallback(() => setBooped8(true), []);
-  const onMouseLeave8 = useCallback(() => setBooped8(false), []);
+  //handles all the mouseovers
+  const onMouseEnter1 = useCallback(() => setBoopedSave(true), []);
+  const onMouseLeave1 = useCallback(() => setBoopedSave(false), []);
+  const onMouseEnter2 = useCallback(() => setBoopedUser(true), []);
+  const onMouseLeave2 = useCallback(() => setBoopedUser(false), []);
+  const onMouseEnter3 = useCallback(() => setBoopedGame(true), []);
+  const onMouseLeave3 = useCallback(() => setBoopedGame(false), []);
+  const onMouseEnter4 = useCallback(() => setBoopedRank(true), []);
+  const onMouseLeave4 = useCallback(() => setBoopedRank(false), []);
+  const onMouseEnter5 = useCallback(() => setBoopedLogout(true), []);
+  const onMouseLeave5 = useCallback(() => setBoopedLogout(false), []);
+  const onMouseEnter6 = useCallback(() => setBoopedHome(true), []);
+  const onMouseLeave6 = useCallback(() => setBoopedHome(false), []);
+  const onMouseEnter7 = useCallback(() => setBoopedSound(true), []);
+  const onMouseLeave7 = useCallback(() => setBoopedSound(false), []);
+  const onMouseEnter8 = useCallback(() => setBoopedMusic(true), []);
+  const onMouseLeave8 = useCallback(() => setBoopedMusic(false), []);
 
   useEffect(() => {
-    if (isBooped1) {
-      api1.start({
+    if (isBoopedSave) {
+      apiSave.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api1.start({
+      apiSave.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped1, api1]);
+  }, [isBoopedSave, apiSave]);
   useEffect(() => {
-    if (isBooped2) {
-      api2.start({
+    if (isBoopedUser) {
+      apiUser.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api2.start({
+      apiUser.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped2, api2]);
+  }, [isBoopedUser, apiUser]);
   useEffect(() => {
-    if (isBooped3) {
-      api3.start({
+    if (isBoopedGame) {
+      apiGame.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api3.start({
+      apiGame.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped3, api3]);
+  }, [isBoopedGame, apiGame]);
   useEffect(() => {
-    if (isBooped4) {
-      api4.start({
+    if (isBoopedRank) {
+      apiLeaderboard.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api4.start({
+      apiLeaderboard.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped4, api4]);
+  }, [isBoopedRank, apiLeaderboard]);
   useEffect(() => {
-    if (isBooped5) {
-      api5.start({
+    if (isBoopedLogout) {
+      apiLogout.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api5.start({
+      apiLogout.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped5, api5]);
+  }, [isBoopedLogout, apiLogout]);
   useEffect(() => {
-    if (isBooped6) {
-      api6.start({
+    if (isBoopedHome) {
+      apiHome.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api6.start({
+      apiHome.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped6, api6]);
+  }, [isBoopedHome, apiHome]);
   useEffect(() => {
-    if (isBooped7) {
-      api7.start({
+    if (isBoopedSound) {
+      apiSound.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api7.start({
+      apiSound.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped7, api7]);
+  }, [isBoopedSound, apiSound]);
   useEffect(() => {
-    if (isBooped8) {
-      api8.start({
+    if (isBoopedMusic) {
+      apiMusic.start({
         opacity: 1,
         borderWidth: '5px',
         scale: 1.2,
       });
     } else {
-      api8.start({
+      apiMusic.start({
         opacity: 0.3,
         borderWidth: '2px',
         scale: 1,
       });
     }
-  }, [isBooped8, api8]);
+  }, [isBoopedMusic, apiMusic]);
 
   const navigate = useNavigate();
 
@@ -371,7 +379,7 @@ function Sidebar() {
         overlay={renderTooltipHome}
       >
         <animated.div
-          style={style6}
+          style={styleHome}
           onMouseEnter={onMouseEnter6}
           onMouseLeave={onMouseLeave6}
         >
@@ -393,7 +401,7 @@ function Sidebar() {
           overlay={renderTooltipSave}
         >
           <animated.div
-            style={style1}
+            style={styleSave}
             onMouseEnter={onMouseEnter1}
             onMouseLeave={onMouseLeave1}
           >
@@ -417,7 +425,7 @@ function Sidebar() {
         overlay={renderTooltipProfile}
       >
         <animated.div
-          style={style2}
+          style={styleUser}
           onMouseEnter={onMouseEnter2}
           onMouseLeave={onMouseLeave2}
         >
@@ -439,7 +447,7 @@ function Sidebar() {
         overlay={renderTooltipGame}
       >
         <animated.div
-          style={style3}
+          style={styleGame}
           onMouseEnter={onMouseEnter3}
           onMouseLeave={onMouseLeave3}
         >
@@ -461,7 +469,7 @@ function Sidebar() {
         overlay={renderTooltipLeaderboard}
       >
         <animated.div
-          style={style4}
+          style={styleLeaderboard}
           onMouseEnter={onMouseEnter4}
           onMouseLeave={onMouseLeave4}
         >
@@ -479,13 +487,12 @@ function Sidebar() {
 
       <OverlayTrigger
         placement="left"
-        trigger="manual"
-        show={showSound}
+        {...showSound}
         delay={{ show: 100, hide: 100 }}
         overlay={renderTooltipSound}
       >
         <animated.div
-          style={style7}
+          style={styleSound}
           onMouseEnter={onMouseEnter7}
           onMouseLeave={onMouseLeave7}
         >
@@ -504,13 +511,12 @@ function Sidebar() {
 
       <OverlayTrigger
         placement="left"
-        trigger="manual"
-        show={showMusic}
+        {...showMusic}
         delay={{ show: 100, hide: 100 }}
         overlay={renderTooltipMusic}
       >
         <animated.div
-          style={style8}
+          style={styleMusic}
           onMouseEnter={onMouseEnter8}
           onMouseLeave={onMouseLeave8}
         >
@@ -532,7 +538,7 @@ function Sidebar() {
         overlay={renderTooltipLogout}
       >
         <animated.div
-          style={style5}
+          style={styleLogout}
           onMouseEnter={onMouseEnter5}
           onMouseLeave={onMouseLeave5}
         >
