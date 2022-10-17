@@ -58,6 +58,7 @@ function Sidebar() {
   const [musicOn, setMusicOn] = useState(false);
   const [isFirstLogin, setIsFirstLogin] = useState(true);
   const [showSound, setShowSound] = useState(false);
+  const [showMusic, setShowMusic] = useState(false);
   const [musicId, setMusicId] = useState('');
 
   //toggles global app sound on/off
@@ -89,7 +90,7 @@ function Sidebar() {
 
   //our little music piece
   const music = new Howl({
-    src: ['/sounds/music.mp3'],
+    src: ['/sounds/fantasy.mp3'],
     volume: 0.5,
     loop: true,
   });
@@ -109,12 +110,20 @@ function Sidebar() {
     setTimeout(() => {
       setBooped7(true);
       setShowSound(true);
-    }, 4000);
+    }, 6000);
+    setTimeout(() => {
+      setBooped8(true);
+      setShowMusic(true);
+    }, 3000);
 
     setTimeout(() => {
       setBooped7(false);
       setShowSound(false);
-    }, 8000);
+    }, 9000);
+    setTimeout(() => {
+      setBooped8(false);
+      setShowMusic(false);
+    }, 5700);
     setIsFirstLogin(false);
   }
 
@@ -158,7 +167,7 @@ function Sidebar() {
   const [style8, api8] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
-    borderColor: 'cornflowerblue',
+    borderColor: 'lightgreen',
     config: config.slow,
   }));
 
@@ -496,12 +505,12 @@ function Sidebar() {
       <OverlayTrigger
         placement="left"
         trigger="manual"
-        show={showSound}
+        show={showMusic}
         delay={{ show: 100, hide: 100 }}
         overlay={renderTooltipMusic}
       >
         <animated.div
-          style={style7}
+          style={style8}
           onMouseEnter={onMouseEnter8}
           onMouseLeave={onMouseLeave8}
         >
