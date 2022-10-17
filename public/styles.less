@@ -295,18 +295,35 @@ canvas {
 
 .profile-container {
   position: relative;
-  top: 100px;
+  top: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   width: 35vw;
   height: 50vh;
   margin: auto;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 3px solid @sun-yellow;
+
+  .profile-button-container {
+    display: flex;
+
+    justify-content: center;
+  }
 
   h1 {
-    color: black;
+    margin-top: 2vh;
+    color: @sun-yellow;
+  }
+
+  h3 {
+    color: @sun-yellow;
+  }
+
+  button {
+    border: 3px solid @sun-yellow;
+    background-color: rgba(0, 0, 0, 0);
+    color: @sun-yellow;
   }
 }
 
@@ -417,6 +434,7 @@ canvas {
     }
 
     input {
+      margin-top: 0;
       font-size: 0.6em;
       height: 4vh;
     }

@@ -18,30 +18,7 @@ function Profile() {
   const { currentUser, userLogin } = useAuth();
   const [userData, setUserData] = useState({});
 
-  //   useEffect(() => {
-  //     const getUserData = async () => {
-  //       const q = query(
-  //         collection(db, 'users'),
-  //         where('email', '==', currentUser.email)
-  //       );
-  //       const queryUsers = await getDocs(q);
-  //       queryUsers.forEach(async (doc) => {
-  //         setUserData(doc.data());
-  //         console.log('doc data: ');
-  //         const qu = query(
-  //           collection(db, 'scores'),
-  //           where('uid', '==', currentUser.uid)
-  //         );
-  //         const queryScores = await getDocs(qu);
-  //         const newArr = [];
-  //         queryScores.forEach((doc) => {
-  //           newArr.push(doc.data().score);
-  //         });
-  //         setScoreData(newArr);
-  //       });
-  //     };
-  //     getUserData();
-  //   }, []);
+
 
   useEffect(() => {
     const getUserData = async () => {
@@ -85,13 +62,16 @@ function Profile() {
           <h3>Player Scores:</h3>
           {showData
             ? showData.map((ele) => (
-                <>
-                  <p>{ele}</p>
-                </>
-              ))
+              <>
+                <p>{ele}</p>
+              </>
+            ))
             : null}
-          <button onClick={goToPreviousPage}>prev</button>
-          <button onClick={goToNextPage}>next</button>
+          <div className='profile-button-container'>
+            <button onClick={goToPreviousPage}>{'<'}</button>
+            <button onClick={goToNextPage}>{'>'}</button>
+          </div>
+
         </div>
       </div>
     </>
