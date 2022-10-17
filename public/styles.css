@@ -290,64 +290,8 @@ canvas {
   border: 1px solid #ebd25b;
   background-color: rgba(0, 0, 0, 0.6);
 }
-.form-container-signup {
-  width: 30vw;
-  margin: auto;
-  margin-top: 10vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  border: 3px solid #0eb3e1;
-  font-family: 'Press Start 2P';
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.form-container-signup div {
-  display: flex;
-  flex-direction: column;
-}
-.form-container-signup .form-button {
-  border: 3px solid #0eb3e1;
-  background-color: rgba(0, 0, 0, 0);
-  color: #0eb3e1;
-}
-.form-container-signup h2 {
-  text-align: center;
-  color: #0eb3e1;
-  margin-top: 2vh;
-}
-.form-container-signup p {
-  color: #0eb3e1;
-  font-size: 0.6em;
-  margin-top: 5px;
-}
-.form-container-signup .link-styles {
-  color: #0eb3e1;
-  font-size: 0.8em;
-  margin-bottom: 1vh;
-}
-.form-container-signup form {
-  display: flex;
-  flex-direction: column;
-}
-.form-container-signup form label {
-  color: #0eb3e1;
-  margin-top: 2vh;
-  padding: 0;
-  font-size: 0.9em;
-}
-.form-container-signup form input {
-  font-size: 0.6em;
-  height: 4vh;
-  margin-top: 1vh;
-  padding: 0;
-}
-.form-container-signup form button {
-  margin-top: 2vh;
-  margin-bottom: 1vh;
-  border: 3px solid #0eb3e1;
-  color: #0eb3e1;
-  height: 4vh;
-  background-color: rgba(0, 0, 0, 0);
+#lowerDown {
+  margin-top: 20vh;
 }
 .form-container {
   width: 30vw;
@@ -365,10 +309,22 @@ canvas {
   flex-direction: column;
   align-items: center;
 }
+.form-container .splashButtonContainer {
+  margin-top: 30px;
+  width: 100%;
+  height: 50px;
+}
 .form-container .form-button {
   border: 3px solid #0eb3e1;
   background-color: rgba(0, 0, 0, 0);
   color: #0eb3e1;
+}
+.form-container .form-button:hover {
+  border: 3px solid #ebd25b;
+  color: #ebd25b;
+}
+.form-container a:hover {
+  color: #ebd25b;
 }
 .form-container h2 {
   text-align: center;
