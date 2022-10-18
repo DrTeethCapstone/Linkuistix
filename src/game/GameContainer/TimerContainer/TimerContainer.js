@@ -20,7 +20,7 @@ export class TimerContainer extends PIXI.Container {
 
     this.time = parent.width;
 
-    this.increment = 5.1;
+    this.increment = 0.5;
     console.log(this.parent);
 
     this.ticker = PIXI.Ticker.shared;
@@ -41,6 +41,7 @@ export class TimerContainer extends PIXI.Container {
         parentStage.children[1].animateOpacity(true);
         setTimeout(() => {
           const gameOver = new GameOverContainer(parentStage);
+          gameOver.score = parentStage.children[1].children[2].userScore
           gameOver.setupFirstChildren(
             parentStage.children[1].children[2].userScore
           );

@@ -10,6 +10,8 @@ function Landing({ sketch }) {
   const [chatState, setChatState] = useState(false);
   // const { currentUser } = useAuth();
   const [zoomState, setZoomState] = useState('splash-container');
+  const currentUser = useAuth().currentUser
+  console.log(currentUser)
   const navigate = useNavigate();
 
   //SFX
@@ -25,6 +27,13 @@ function Landing({ sketch }) {
       navigate('/game');
       sketch.setPlaying(true);
       sketch.checkPlaying();
+      sketch.setUser({
+        email: currentUser.email,
+        id: currentUser.uid,
+        username: currentUser.displayname
+        })
+      sketch.checkUser()
+      console.log(sketch)
     }, 1900);
   };
 

@@ -6,6 +6,8 @@ import { PixiPlugin } from "gsap/PixiPlugin";
 import img from "./vaporbg.JPG";
 import coin from "./coin.png";
 import insertCoin from "./insertCoin.PNG";
+import {addDoc, Timestamp, collection, } from 'firebase/firestore'
+import {db} from '../../../firebase'
 
 gsap.registerPlugin(PixiPlugin);
 
@@ -30,6 +32,7 @@ export class GameOverContainer extends PIXI.Container {
     this.addChild(coinImg);
     this.parent.interactive = true;
     this.parent.on("pointermove", moveCoin);
+    const user = (this.parent.children[1].user)
     function moveCoin(e) {
       let pos = e.data.global;
       coinImg.x = pos.x - window.innerWidth / 2;
@@ -41,6 +44,17 @@ export class GameOverContainer extends PIXI.Container {
       this.removeChild(this.children[0]);
     }
   }
+
+  async addLeaderBoardScore(user, score){
+    await addDoc(collection(db, 'scores'), {
+      score: score,
+      uid: user.id,
+      username: user.username,
+      scoreCreatedAt: Timestamp.fromDate(new Date()),
+  })
+}
+
+
   setupFirstChildren(currentScore) {
     const game = new GameOver("GAME", this);
     game.animateGameOn();
@@ -115,7 +129,10 @@ export class GameOverContainer extends PIXI.Container {
       leader.interactive = true;
       leader.addListener("click", clickLeader);
       function clickLeader(e) {
-        this.parent.removeAllChildren();
+        let user = this.parent.parent.children[1].user
+      
+        let score = this.parent.parent.children[1].scoreContainer.score._text
+        this.parent.addLeaderBoardScore(user,score)
       }
     }, 5500);
   }
