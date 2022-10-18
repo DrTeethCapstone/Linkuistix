@@ -8,7 +8,7 @@ export class InputText extends PIXI.Text {
     super("type here", {
       fontFamily: "Arial",
       fontSize: 24,
-      fill: 0xff1010,
+      fill: 0xebd25b,
       align: "center",
     });
 
@@ -25,7 +25,8 @@ export class InputText extends PIXI.Text {
     if (parent) {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
-      // containerBG.tint = 0xf0e000;
+      containerBG.tint = 0x1f1f1f;
+      containerBG.alpha = 0.8
       containerBG.width = this.parent.width;
       containerBG.height = this.parent.height / 2;
       container.position.y = -containerBG.height;
@@ -40,7 +41,7 @@ export class InputText extends PIXI.Text {
 
     //ONLY ENABLED IF USER CLICKS ON FIELD
     this.on("pointerdown", (e) => {
-      this.style.fill = 0x00ff00;
+      this.style.fill = 0x0eb3e1;
       this.setupKeyboardListener();
     });
 

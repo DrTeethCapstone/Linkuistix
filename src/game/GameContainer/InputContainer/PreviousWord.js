@@ -14,7 +14,8 @@ export class PreviousWord extends PIXI.Text {
     if (this.parent) {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
-      containerBG.tint = 0xececec;
+      containerBG.tint = 0x1f1f1f;
+      containerBG.alpha = 0.8
       containerBG.width = this.parent.width;
       containerBG.height = this.parent.height / 2;
       container.position.y = -containerBG.height * 2;
