@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from './Landing/Sidebar'
+import Sidebar from './Sidebar/Sidebar'
 
 function GameRoute() {
     return (

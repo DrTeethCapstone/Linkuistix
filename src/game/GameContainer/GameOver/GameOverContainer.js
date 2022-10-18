@@ -71,26 +71,31 @@ export class GameOverContainer extends PIXI.Container {
       insert.alpha = 0.9;
       insert.addListener("click", clickInsert);
       function clickInsert(e) {
-        console.log(e);
-        console.log("words container?", this.parent);
         //remove the children of words container , set theem back up
+        this.parent.parent.cursor = "default";
         const wordsContainer = this.parent.parent.children[1].children[3];
         wordsContainer.removeAllChildren();
         wordsContainer.setupFirstChildren();
-        console.log("words container loaded");
+      
+        console.log("words container loaded", wordsContainer);
         //zero out the points
         const scoreContainer = this.parent.parent.children[1].children[2];
-        scoreContainer.userScore = 0;
-
-        console.log("score container loaded");
+        scoreContainer.children[1].children[1].resetScore()
+        const inputContainer = this.parent.parent.children[1].children[1]
+        inputContainer.fromOffScreen()
         //rest timer back to width
         const timerContainer = this.parent.parent.children[1].children[4];
         timerContainer.resetTimer();
-        console.log("timer container loaded");
+        timerContainer.ticker.start();
+        timerContainer.increment = 1
+        const gameContainer = this.parent.parent.children[1]
+        gameContainer.animateOpacity(false)
         this.parent.parent.removeChild(this.parent);
         console.log(wordsContainer);
-        wordsContainer.fromOffScreen();
+        
         wordsContainer.children.forEach((word) => word.updatePosition());
+        wordsContainer.fromOffScreen();
+        console.log(wordsContainer.children);
         //animate elements back in
       }
       gsap.fromTo(
