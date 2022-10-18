@@ -50,20 +50,18 @@ export class Sketch {
       this.gameContainer = new GameContainer(this.app.stage);
       this.gameContainer.position.set(this.width / 2, 0);
       // this.render()
-      //just commented out
-      // this.addChild(this.gameContainer)
     }
   }
   setPlaying(torf) {
     this.playing = torf
   }
-  setUser(user){
-    
+  setUser(user) {
+
     this.gameContainer.user = user
 
   }
-  checkUser(){
+  checkUser() {
     console.log(this.gameContainer.user)
   }
-  
+
 }

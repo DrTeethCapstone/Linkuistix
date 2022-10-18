@@ -6,7 +6,7 @@ import * as use from "@tensorflow-models/universal-sentence-encoder";
 export class InputText extends PIXI.Text {
   constructor(parent = null) {
     super("type here", {
-      fontFamily: "Arial",
+      fontFamily: "Press Start 2P",
       fontSize: 24,
       fill: 0xebd25b,
       align: "center",
@@ -25,6 +25,7 @@ export class InputText extends PIXI.Text {
     if (parent) {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
+      console.dir('container', container)
       containerBG.tint = 0x1f1f1f;
       containerBG.alpha = 0.8
       containerBG.width = this.parent.width;

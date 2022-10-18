@@ -10,7 +10,7 @@ export class Word extends PIXI.Text {
   //REQUIRES A STRING TO BE CREATED, PARENT CONTAINER OPTIONAL
   constructor(word, parent = null, isTarget = false) {
     super(word, {
-      fontFamily: "Arial",
+      fontFamily: "Press Start 2P",
       fontSize: 24,
       fill: 0x000000,
       align: "center",

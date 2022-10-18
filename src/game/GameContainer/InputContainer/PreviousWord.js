@@ -3,9 +3,9 @@ import * as PIXI from "pixi.js";
 export class PreviousWord extends PIXI.Text {
   constructor(parent = null) {
     super(" ", {
-      fontFamily: "Arial",
+      fontFamily: "Press Start 2P",
       fontSize: 24,
-      fill: 0xff1010,
+      fill: 0xebd25b,
       align: "center",
     });
 
