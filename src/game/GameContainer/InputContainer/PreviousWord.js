@@ -3,9 +3,9 @@ import * as PIXI from "pixi.js";
 export class PreviousWord extends PIXI.Text {
   constructor(parent = null) {
     super(" ", {
-      fontFamily: "Arial",
+      fontFamily: "Press Start 2P",
       fontSize: 24,
-      fill: 0xff1010,
+      fill: 0xebd25b,
       align: "center",
     });
 
@@ -14,7 +14,8 @@ export class PreviousWord extends PIXI.Text {
     if (this.parent) {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
-      containerBG.tint = 0xececec;
+      containerBG.tint = 0x1f1f1f;
+      containerBG.alpha = 0.8
       containerBG.width = this.parent.width;
       containerBG.height = this.parent.height / 2;
       container.position.y = -containerBG.height * 2;

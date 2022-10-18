@@ -17,6 +17,7 @@ export class InputContainer extends PIXI.Container {
     bg.anchor.set(0.5, 1);
     bg.height = 100;
     bg.width = this.parent.width;
+    bg.alpha = 0
     this.addChild(bg);
 
     this.interaction = new InputText(this);
@@ -25,7 +26,7 @@ export class InputContainer extends PIXI.Container {
 
     this.multiplierContainer = new PIXI.Container();
     const MCBackground = new PIXI.Sprite(PIXI.Texture.WHITE);
-    MCBackground.tint = 0xececec;
+    MCBackground.tint = 0x1f1f1f;
     MCBackground.width = bg.width;
     MCBackground.height = bg.height / 4;
     this.multiplierContainer.position.y = MCBackground.height * -4.5;
