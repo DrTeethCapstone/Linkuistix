@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   collection,
@@ -32,7 +33,7 @@ function Profile() {
       setScoreData(newArr);
     };
     getUserData();
-  }, []);
+  }, [currentUser.uid]);
 
   function goToNextPage() {
     setCurrentPage(currentPage + 1);
@@ -48,30 +49,30 @@ function Profile() {
   let sortedData = scoreData.length ? scoreData.sort((a, b) => b - a) : null;
   let showData = scoreData.length ? getPaginationData(sortedData) : null;
   return (
-    <>
-      {/* <Sidebar /> */}
-      <div className="profile-container">
-        <h1>
-          {currentUser.displayName
-            ? 'Username: ' + currentUser.displayName
-            : 'Guest User'}
-        </h1>
-        <div>
-          <h3>Player Scores:</h3>
-          {showData
-            ? showData.map((ele) => (
-                <>
-                  <p>{ele}</p>
-                </>
-              ))
-            : null}
-          <div className="profile-button-container">
-            <button onClick={goToPreviousPage}>{'<'}</button>
-            <button onClick={goToNextPage}>{'>'}</button>
-          </div>
+    <div className="profile-container">
+      <div className="profileTopper">
+        <Link to="/game">X</Link>
+      </div>
+      <h1>
+        {currentUser.displayName
+          ? 'Username: ' + currentUser.displayName
+          : 'Guest User'}
+      </h1>
+      <div>
+        <h3>Player Scores:</h3>
+        {showData
+          ? showData.map((ele) => (
+              <>
+                <p>{ele}</p>
+              </>
+            ))
+          : null}
+        <div className="profile-button-container">
+          <button onClick={goToPreviousPage}>{'<'}</button>
+          <button onClick={goToNextPage}>{'>'}</button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
