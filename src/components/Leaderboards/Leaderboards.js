@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   collection,
   getDocs,
@@ -32,7 +34,7 @@ function Leaderboards() {
       setLoading(false);
     };
     getData();
-  }, []);
+  }, [leaderboard]);
 
   const handleNext = async () => {
     const lastVisible = leaderboard[leaderboard.length - 1];
@@ -77,12 +79,23 @@ function Leaderboards() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   // console.log(leaderboard);
 
   return (
     <>
       {/* <Sidebar /> */}
       <div className="leaderboards-container">
+        <div className="leaderboardTopper">
+          <span className="pointer" onClick={goBack}>
+            X
+          </span>
+        </div>
         <h1>Leaderboards</h1>
         {/* {loading ? <p>loading...</p>
                         :
@@ -98,13 +111,11 @@ function Leaderboards() {
           <p>loading...</p>
         ) : (
           <>
-            {leaderboard.map((ele) => (
-              <>
-                <div>
-                  <p>{ele.username ? ele.username : 'guest'}</p>
-                  <p>{ele.score}</p>
-                </div>
-              </>
+            {leaderboard.map((ele, idx) => (
+              <div key={idx}>
+                <p>{ele.username ? ele.username : 'guest'}</p>
+                <p>{ele.score}</p>
+              </div>
             ))}
             <div className="lb-button-container">
               <button onClick={handlePrev}>{'<'}</button>

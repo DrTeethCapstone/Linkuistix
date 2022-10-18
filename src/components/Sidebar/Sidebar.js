@@ -30,28 +30,28 @@ import { useSpring, animated, config } from '@react-spring/web';
 //sounds
 import { Howler, Howl } from 'howler';
 
-function Sidebar() {
+function Sidebar({ sketch }) {
   const [error, setError] = useState('');
   const auth = getAuth();
 
   const { currentUser, logout, loginAsGuest } = useAuth();
 
-  //if the user isn't logged in, log them in as guest
-  useEffect(() => {
-    //init user
-    async function loginUser() {
-      //check if user is logged in
-      const user = auth.currentUser;
-      if (user) {
-        // user is signed in
-      } else {
-        // User is signed out
-        console.log('logging in as guest');
-        await loginAsGuest();
-      }
-    }
-    loginUser();
-  }, [loginAsGuest, auth.currentUser]);
+  // //if the user isn't logged in, log them in as guest
+  // useEffect(() => {
+  //   //init user
+  //   async function loginUser() {
+  //     //check if user is logged in
+  //     const user = auth.currentUser;
+  //     if (user) {
+  //       // user is signed in
+  //     } else {
+  //       // User is signed out
+  //       console.log('logging in as guest');
+  //       await loginAsGuest();
+  //     }
+  //   }
+  //   loginUser();
+  // }, [loginAsGuest, auth.currentUser]);
 
   //state
   const [soundOn, setSoundOn] = useState(true); //sound on or not
@@ -319,6 +319,28 @@ function Sidebar() {
 
   const navigate = useNavigate();
 
+  const goHome = () => {
+    navigate('/landing');
+  };
+
+  const goSave = () => {
+    navigate('/registerGuest');
+  };
+
+  const goUser = () => {
+    navigate('/profile');
+  };
+
+  const goLeaderboard = () => {
+    navigate('/leaderboards');
+  };
+
+  const startGame = () => {
+    navigate('/game');
+    sketch.setPlaying(true);
+    sketch.checkPlaying();
+  };
+
   const handleLogout = async () => {
     setError('');
     try {
@@ -382,16 +404,17 @@ function Sidebar() {
           style={styleHome}
           onMouseEnter={onMouseEnter6}
           onMouseLeave={onMouseLeave6}
+          onClick={goHome}
         >
-          <Link to="/landing">
-            {' '}
-            <FontAwesomeIcon
-              icon={faHome}
-              size="lg"
-              fixedWidth
-              className="sidebarIcon"
-            />
-          </Link>
+          {/* <Link to="/landing"> */}{' '}
+          <FontAwesomeIcon
+            icon={faHome}
+            size="lg"
+            fixedWidth
+            className="sidebarIcon"
+            inverse
+          />
+          {/* </Link> */}
         </animated.div>
       </OverlayTrigger>
       {currentUser?.isAnonymous ? (
@@ -404,16 +427,18 @@ function Sidebar() {
             style={styleSave}
             onMouseEnter={onMouseEnter1}
             onMouseLeave={onMouseLeave1}
+            onClick={goSave}
           >
-            <Link to="/registerGuest">
-              <FontAwesomeIcon
-                icon={faFloppyDisk}
-                size="lg"
-                fixedWidth
-                className="sidebarIcon"
-                // style={style}
-              />
-            </Link>
+            {/* <Link to="/registerGuest"> */}
+            <FontAwesomeIcon
+              icon={faFloppyDisk}
+              size="lg"
+              fixedWidth
+              className="sidebarIcon"
+              inverse
+              // style={style}
+            />
+            {/* </Link> */}
           </animated.div>
         </OverlayTrigger>
       ) : (
@@ -428,20 +453,20 @@ function Sidebar() {
           style={styleUser}
           onMouseEnter={onMouseEnter2}
           onMouseLeave={onMouseLeave2}
+          onClick={goUser}
         >
-          <Link to="/profile">
-            {' '}
-            <FontAwesomeIcon
-              icon={faUser}
-              size="lg"
-              fixedWidth
-              className="sidebarIcon"
-            />
-          </Link>
+          {/* <Link to="/profile"> */}{' '}
+          <FontAwesomeIcon
+            icon={faUser}
+            size="lg"
+            fixedWidth
+            className="sidebarIcon"
+            inverse
+          />
+          {/* </Link> */}
         </animated.div>
       </OverlayTrigger>
-
-      <OverlayTrigger
+      {/* <OverlayTrigger
         placement="left"
         delay={{ show: 100, hide: 100 }}
         overlay={renderTooltipGame}
@@ -450,19 +475,19 @@ function Sidebar() {
           style={styleGame}
           onMouseEnter={onMouseEnter3}
           onMouseLeave={onMouseLeave3}
-        >
-          <Link to="/game">
-            {' '}
-            <FontAwesomeIcon
-              icon={faGamepad}
-              size="lg"
-              fixedWidth
-              className="sidebarIcon"
-            />
-          </Link>
-        </animated.div>
-      </OverlayTrigger>
-
+          onClick={startGame}
+        > */}
+      {/* <Link to="/game"> */}{' '}
+      {/* <FontAwesomeIcon
+            icon={faGamepad}
+            size="lg"
+            fixedWidth
+            inverse
+            className="sidebarIcon"
+          /> */}
+      {/* </Link> */}
+      {/* </animated.div> */}
+      {/* </OverlayTrigger> */}
       <OverlayTrigger
         placement="left"
         delay={{ show: 100, hide: 100 }}
@@ -472,19 +497,19 @@ function Sidebar() {
           style={styleLeaderboard}
           onMouseEnter={onMouseEnter4}
           onMouseLeave={onMouseLeave4}
+          onClick={goLeaderboard}
         >
-          <Link to="/leaderboards">
-            {' '}
-            <FontAwesomeIcon
-              icon={faTrophy}
-              size="lg"
-              fixedWidth
-              className="sidebarIcon"
-            />
-          </Link>
+          {/* <Link to="/leaderboards"> */}{' '}
+          <FontAwesomeIcon
+            icon={faTrophy}
+            size="lg"
+            fixedWidth
+            className="sidebarIcon"
+            inverse
+          />
+          {/* </Link> */}
         </animated.div>
       </OverlayTrigger>
-
       <OverlayTrigger
         placement="left"
         {...showSound}
@@ -508,7 +533,6 @@ function Sidebar() {
           </span>
         </animated.div>
       </OverlayTrigger>
-
       <OverlayTrigger
         placement="left"
         {...showMusic}
