@@ -16,7 +16,6 @@ export class Sketch {
       resolution: window.devicePixelRatio || 1,
       resizeTo: window,
     });
-
     this.playing = false
 
     this.backgroundScape = new BackgroundScape(this.app.stage);
@@ -25,7 +24,7 @@ export class Sketch {
 
     //CREATE GAME CONTAINER AND STORE ALL GAME CONTAINERS/ELEMENTS INSIDE
 
-
+    this.user = {}
     this.time = 0;
     this.gameOver = false
     // const test = new GameMenu(this.app.stage);
@@ -58,4 +57,13 @@ export class Sketch {
   setPlaying(torf) {
     this.playing = torf
   }
+  setUser(user){
+    
+    this.gameContainer.user = user
+
+  }
+  checkUser(){
+    console.log(this.gameContainer.user)
+  }
+  
 }

@@ -6,6 +6,7 @@ import * as use from "@tensorflow-models/universal-sentence-encoder";
 import * as randomWords from "random-words";
 import { Word } from "./WordsContainer/Words";
 
+
 //GAME ELEMENTS
 import { InputContainer } from "./InputContainer/InputContainer";
 import { WordsContainer } from "./WordsContainer/WordsContainer";
@@ -38,13 +39,11 @@ export class GameContainer extends PIXI.Container {
     this.inputContainer = new InputContainer(this);
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
-    //me
     this.timerContainer = new TimerContainer(this);
-    console.log(this.timerContainer.width);
 
     this.wordsContainer.setupFirstChildren();
     this.wordsContainer.children.forEach((word) => word.updatePosition());
-
+    
     if (this.stage) {
       this.stage.addChild(this);
     }
