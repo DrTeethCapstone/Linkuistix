@@ -48,6 +48,11 @@ function RegisterGuest() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   // const docRef = doc(db, 'users', currentUser.uid)
   // await setDoc(docRef, {
   //     username: username
@@ -80,7 +85,9 @@ function RegisterGuest() {
       <div className="eightBitForm">
         <div className="eightBitContainer">
           <div className="regTopper">
-            <Link to="/game">X</Link>
+            <span className="pointer" onClick={goBack}>
+              X
+            </span>
           </div>
           <div className="eightBitAlign">
             <h2>Guest {'>'} Player</h2>
