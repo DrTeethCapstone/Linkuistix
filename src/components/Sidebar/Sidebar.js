@@ -127,7 +127,6 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const [isBoopedMusic, setBoopedMusic] = useState(false);
 
   //highlight the mute and music buttons on first login
-  console.log('ifl: ', isFirstLogin, 'sS: ', showSidebar);
   if (isFirstLogin && showSidebar) {
     setTimeout(() => {
       setBoopedSound(true);
