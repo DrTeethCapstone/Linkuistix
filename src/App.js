@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { Sketch } from './game/app';
@@ -20,23 +20,44 @@ import 'react-toastify/dist/ReactToastify.css';
 import GameRoute from './components/Test';
 
 function App() {
-  const sketch = new Sketch();
+  const [showSidebar, setShowSidebar] = useState(false);
 
+  const sketch = new Sketch();
   return (
     <>
       <AuthProvider>
         {/* <LoopBg /> */}
         <Routes>
-          <Route exact index path="/" element={<SignInSplash />} />
-          <Route exact index path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<LogIn />} />
+          <Route
+            exact
+            index
+            path="/"
+            element={<SignInSplash setShowSidebar={setShowSidebar} />}
+          />
+          <Route
+            exact
+            index
+            path="/signup"
+            element={<SignUp setShowSidebar={setShowSidebar} />}
+          />
+          <Route
+            path="/login"
+            element={<LogIn setShowSidebar={setShowSidebar} />}
+          />
           <Route path="/registerGuest" element={<RegisterGuest />} />
-          <Route path="/landing" element={<Landing sketch={sketch} />} />
+          <Route
+            path="/landing"
+            element={
+              <Landing sketch={sketch} setShowSidebar={setShowSidebar} />
+            }
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/leaderboards" element={<Leaderboards />} />
           <Route path="/game" element={<GameRoute />} />
         </Routes>
-        <Sidebar sketch={sketch} />
+        {showSidebar && (
+          <Sidebar sketch={sketch} setShowSidebar={setShowSidebar} />
+        )}
       </AuthProvider>
       <ToastContainer
         position="top-center"

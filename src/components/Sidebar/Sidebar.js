@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import RegisterGuestModal from './modals/RegisterGuestModal';
+import LeaderboardModal from './modals/LeaderboardModal';
+import ProfileModal from './modals/ProfileModal';
 //user auth
 import { getAuth } from 'firebase/auth';
 import { useAuth } from '../../contexts/AuthContext';
@@ -30,7 +32,7 @@ import { useSpring, animated, config } from '@react-spring/web';
 //sounds
 import { Howler, Howl } from 'howler';
 
-function Sidebar({ sketch }) {
+function Sidebar({ sketch, setShowSidebar }) {
   const [error, setError] = useState('');
   const auth = getAuth();
 
@@ -63,6 +65,21 @@ function Sidebar({ sketch }) {
   const [showSound, setShowSound] = useState({}); //show the sound tooltip song and dance
   const [showMusic, setShowMusic] = useState({}); //show the music tooltip song and dance
   const [musicId, setMusicId] = useState(''); //store the music Howler ID because Howler
+
+  //register guest modal
+  const [showRegisterGuest, setShowRegisterGuest] = useState(false);
+  const handleRegisterGuestClose = () => setShowRegisterGuest(false);
+  const handleRegisterGuestShow = () => setShowRegisterGuest(true);
+
+  //user profile modal
+  const [showUser, setShowUser] = useState(false);
+  const handleUserClose = () => setShowUser(false);
+  const handleUserShow = () => setShowUser(true);
+
+  //leaderboard modal
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const handleLeaderboardClose = () => setShowLeaderboard(false);
+  const handleLeaderboardShow = () => setShowLeaderboard(true);
 
   //toggles global app sound on/off
   const handleSoundOnOff = () => {
@@ -320,19 +337,7 @@ function Sidebar({ sketch }) {
   const navigate = useNavigate();
 
   const goHome = () => {
-    navigate('/landing');
-  };
-
-  const goSave = () => {
-    navigate('/registerGuest');
-  };
-
-  const goUser = () => {
-    navigate('/profile');
-  };
-
-  const goLeaderboard = () => {
-    navigate('/leaderboards');
+    navigate('/');
   };
 
   const startGame = () => {
@@ -345,6 +350,8 @@ function Sidebar({ sketch }) {
     setError('');
     try {
       await logout();
+      setShowSidebar(false);
+
       navigate('/');
     } catch (error) {
       setError('failed to log out');
@@ -395,28 +402,26 @@ function Sidebar({ sketch }) {
 
   return (
     <div className="sidebar-container">
-      <OverlayTrigger
+      {/* <OverlayTrigger
         placement="left"
         delay={{ show: 100, hide: 100 }}
         overlay={renderTooltipHome}
-      >
-        <animated.div
+      > */}
+      {/* <animated.div
           style={styleHome}
           onMouseEnter={onMouseEnter6}
           onMouseLeave={onMouseLeave6}
           onClick={goHome}
-        >
-          {/* <Link to="/landing"> */}{' '}
-          <FontAwesomeIcon
+        > */}
+      {/* <FontAwesomeIcon
             icon={faHome}
             size="lg"
             fixedWidth
             className="sidebarIcon"
             inverse
-          />
-          {/* </Link> */}
-        </animated.div>
-      </OverlayTrigger>
+          /> */}
+      {/* </animated.div> */}
+      {/* </OverlayTrigger> */}
       {currentUser?.isAnonymous ? (
         <OverlayTrigger
           placement="left"
@@ -427,7 +432,7 @@ function Sidebar({ sketch }) {
             style={styleSave}
             onMouseEnter={onMouseEnter1}
             onMouseLeave={onMouseLeave1}
-            onClick={goSave}
+            onClick={handleRegisterGuestShow}
           >
             {/* <Link to="/registerGuest"> */}
             <FontAwesomeIcon
@@ -453,7 +458,7 @@ function Sidebar({ sketch }) {
           style={styleUser}
           onMouseEnter={onMouseEnter2}
           onMouseLeave={onMouseLeave2}
-          onClick={goUser}
+          onClick={handleUserShow}
         >
           {/* <Link to="/profile"> */}{' '}
           <FontAwesomeIcon
@@ -497,7 +502,7 @@ function Sidebar({ sketch }) {
           style={styleLeaderboard}
           onMouseEnter={onMouseEnter4}
           onMouseLeave={onMouseLeave4}
-          onClick={goLeaderboard}
+          onClick={handleLeaderboardShow}
         >
           {/* <Link to="/leaderboards"> */}{' '}
           <FontAwesomeIcon
@@ -578,6 +583,23 @@ function Sidebar({ sketch }) {
           </span>
         </animated.div>
       </OverlayTrigger>
+      <RegisterGuestModal
+        showRegisterGuest={showRegisterGuest}
+        handleRegisterGuestClose={handleRegisterGuestClose}
+      />
+      <LeaderboardModal
+        showLeaderboard={showLeaderboard}
+        handleLeaderboardClose={handleLeaderboardClose}
+      />
+      {currentUser ? (
+        <ProfileModal
+          showUser={showUser}
+          handleUserClose={handleUserClose}
+          userId={currentUser.uid}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
