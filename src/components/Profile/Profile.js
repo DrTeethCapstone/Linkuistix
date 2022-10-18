@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   collection,
@@ -48,10 +48,19 @@ function Profile() {
   }
   let sortedData = scoreData.length ? scoreData.sort((a, b) => b - a) : null;
   let showData = scoreData.length ? getPaginationData(sortedData) : null;
+
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="profile-container">
       <div className="profileTopper">
-        <Link to="/game">X</Link>
+        <span className="pointer" onClick={goBack}>
+          X
+        </span>
       </div>
       <h1>
         {currentUser.displayName

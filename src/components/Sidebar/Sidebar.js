@@ -36,22 +36,22 @@ function Sidebar({ sketch }) {
 
   const { currentUser, logout, loginAsGuest } = useAuth();
 
-  //if the user isn't logged in, log them in as guest
-  useEffect(() => {
-    //init user
-    async function loginUser() {
-      //check if user is logged in
-      const user = auth.currentUser;
-      if (user) {
-        // user is signed in
-      } else {
-        // User is signed out
-        console.log('logging in as guest');
-        await loginAsGuest();
-      }
-    }
-    loginUser();
-  }, [loginAsGuest, auth.currentUser]);
+  // //if the user isn't logged in, log them in as guest
+  // useEffect(() => {
+  //   //init user
+  //   async function loginUser() {
+  //     //check if user is logged in
+  //     const user = auth.currentUser;
+  //     if (user) {
+  //       // user is signed in
+  //     } else {
+  //       // User is signed out
+  //       console.log('logging in as guest');
+  //       await loginAsGuest();
+  //     }
+  //   }
+  //   loginUser();
+  // }, [loginAsGuest, auth.currentUser]);
 
   //state
   const [soundOn, setSoundOn] = useState(true); //sound on or not

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   collection,
@@ -79,6 +79,12 @@ function Leaderboards() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   // console.log(leaderboard);
 
   return (
@@ -86,7 +92,9 @@ function Leaderboards() {
       {/* <Sidebar /> */}
       <div className="leaderboards-container">
         <div className="leaderboardTopper">
-          <Link to="/game">X</Link>
+          <span className="pointer" onClick={goBack}>
+            X
+          </span>
         </div>
         <h1>Leaderboards</h1>
         {/* {loading ? <p>loading...</p>
