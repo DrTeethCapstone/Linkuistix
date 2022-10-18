@@ -78,172 +78,179 @@ function RegisterGuest() {
   return (
     <>
       <div className="eightBitForm">
-        <div>
-          <h2>Guest {'>'} Player</h2>
-          {/* {signupError && window.alert(signupError)} */}
-          <Formik
-            initialValues={{
-              password: '',
-              changepassword: '',
-              username: '',
-              email: '',
-              fName: '',
-              lName: '',
-            }}
-            validationSchema={SignupSchema}
-            validateOnChange={false}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              setSubmitting(true);
-              //using Yup to cast the validated inputs so we can send that to the db
-              const castValues = SignupSchema.cast(values);
+        <div className="eightBitContainer">
+          <div className="regTopper">
+            <Link to="/game">X</Link>
+          </div>
+          <div className="eightBitAlign">
+            <h2>Guest {'>'} Player</h2>
+            {/* {signupError && window.alert(signupError)} */}
+            <Formik
+              initialValues={{
+                password: '',
+                changepassword: '',
+                username: '',
+                email: '',
+                fName: '',
+                lName: '',
+              }}
+              validationSchema={SignupSchema}
+              validateOnChange={false}
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
+                setSubmitting(true);
+                //using Yup to cast the validated inputs so we can send that to the db
+                const castValues = SignupSchema.cast(values);
 
-              resetForm();
-              setSubmitting(false);
-              try {
-                setError('');
-                setLoading(true);
-                // await signup(email, password)
+                resetForm();
+                setSubmitting(false);
+                try {
+                  setError('');
+                  setLoading(true);
+                  // await signup(email, password)
 
-                //we try to authenticate the user
-                // if the user exists, signupSuccess returns false
-                const signupSuccess = await registerGuest(
-                  castValues.email,
-                  castValues.password,
-                  castValues.username
-                );
+                  //we try to authenticate the user
+                  // if the user exists, signupSuccess returns false
+                  const signupSuccess = await registerGuest(
+                    castValues.email,
+                    castValues.password,
+                    castValues.username
+                  );
 
-                if (signupSuccess.status) navigate('/landing');
-                else {
-                  toast.error(signupSuccess.reason);
-                  throw new Error('user already exists');
+                  if (signupSuccess.status) navigate('/landing');
+                  else {
+                    toast.error(signupSuccess.reason);
+                    throw new Error('user already exists');
+                  }
+
+                  // await addUserToDb(email, username)
+                  // await addUserToDb(username)
+                } catch (error) {
+                  console.log(error);
+                  setError('failed to create account: ', error);
                 }
+                setLoading(false);
+              }}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+              }) => (
+                <Form onSubmit={handleSubmit} className="row g-3 w-100">
+                  {/* email */}
+                  <Form.Group controlId="formEmail" className="mb-0">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      // autoFocus
+                      autoComplete="email"
+                      autoCapitalize="off"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                      className={touched.email && errors.email ? 'error' : null}
+                    />
+                    {errors.email && touched.email ? (
+                      <div className="error-message">{errors.email}</div>
+                    ) : null}
+                  </Form.Group>
+                  {/* username */}
+                  <Form.Group controlId="formUsernameRegister" className="mb-0">
+                    <Form.Label>Username</Form.Label>
 
-                // await addUserToDb(email, username)
-                // await addUserToDb(username)
-              } catch (error) {
-                console.log(error);
-                setError('failed to create account: ', error);
-              }
-              setLoading(false);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-            }) => (
-              <Form onSubmit={handleSubmit} className="row g-3 w-100">
-                {/* email */}
-                <Form.Group controlId="formEmail" className="mb-0">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    // autoFocus
-                    autoComplete="email"
-                    autoCapitalize="off"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                    className={touched.email && errors.email ? 'error' : null}
-                  />
-                  {errors.email && touched.email ? (
-                    <div className="error-message">{errors.email}</div>
-                  ) : null}
-                </Form.Group>
-                {/* username */}
-                <Form.Group controlId="formUsernameRegister" className="mb-0">
-                  <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="username"
+                      placeholder="username"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.username}
+                      autoComplete="username"
+                      autoCapitalize="off"
+                      className={
+                        touched.username && errors.username ? 'error' : null
+                      }
+                    />
+                    {errors.username && touched.username ? (
+                      <div className="error-message">{errors.username}</div>
+                    ) : null}
+                  </Form.Group>
+                  {/* password */}
+                  <Form.Group controlId="formPasswordRegister" className="mb-0">
+                    <Form.Label>Password</Form.Label>
 
-                  <Form.Control
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.username}
-                    autoComplete="username"
-                    autoCapitalize="off"
-                    className={
-                      touched.username && errors.username ? 'error' : null
-                    }
-                  />
-                  {errors.username && touched.username ? (
-                    <div className="error-message">{errors.username}</div>
-                  ) : null}
-                </Form.Group>
-                {/* password */}
-                <Form.Group controlId="formPasswordRegister" className="mb-0">
-                  <Form.Label>Password</Form.Label>
-
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                    autoComplete="new-password"
-                    className={
-                      touched.password && errors.password ? 'error' : null
-                    }
-                  />
-                  {errors.password && touched.password ? (
-                    <div className="error-message">{errors.password}</div>
-                  ) : null}
-                </Form.Group>
-                {/* changepassword */}
-                <Form.Group
-                  controlId="formChangePasswordRegister"
-                  className="mb-0"
-                >
-                  <Form.Label>Confirm Password</Form.Label>
-
-                  <Form.Control
-                    type="password"
-                    name="changepassword"
-                    placeholder="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.changepassword}
-                    autoComplete="off"
-                    className={
-                      touched.changepassword && errors.changepassword
-                        ? 'error'
-                        : null
-                    }
-                  />
-                  {errors.changepassword && touched.changepassword ? (
-                    <div className="error-message">{errors.changepassword}</div>
-                  ) : null}
-                </Form.Group>
-                {/* buttons */}
-                <Form.Group controlId="submit" className="col-12">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="my-4 w-100"
-                    disabled={isSubmitting}
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                      autoComplete="new-password"
+                      className={
+                        touched.password && errors.password ? 'error' : null
+                      }
+                    />
+                    {errors.password && touched.password ? (
+                      <div className="error-message">{errors.password}</div>
+                    ) : null}
+                  </Form.Group>
+                  {/* changepassword */}
+                  <Form.Group
+                    controlId="formChangePasswordRegister"
+                    className="mb-0"
                   >
-                    Sign Up
-                  </Button>
-                </Form.Group>
-              </Form>
-            )}
-          </Formik>
-          <p>Already Have An Account?</p>
-          <p>
-            <Link to="/login">Log In</Link>
-          </p>
-          <p>Changed your mind?</p>
-          <p>
-            <Link to="/landing">Return</Link>
-          </p>
+                    <Form.Label>Confirm Password</Form.Label>
+
+                    <Form.Control
+                      type="password"
+                      name="changepassword"
+                      placeholder="password"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.changepassword}
+                      autoComplete="off"
+                      className={
+                        touched.changepassword && errors.changepassword
+                          ? 'error'
+                          : null
+                      }
+                    />
+                    {errors.changepassword && touched.changepassword ? (
+                      <div className="error-message">
+                        {errors.changepassword}
+                      </div>
+                    ) : null}
+                  </Form.Group>
+                  {/* buttons */}
+                  <Form.Group controlId="submit" className="col-12">
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="my-4 w-100"
+                      disabled={isSubmitting}
+                    >
+                      Sign Up
+                    </Button>
+                  </Form.Group>
+                </Form>
+              )}
+            </Formik>
+            <p>Already Have An Account?</p>
+            <p>
+              <Link to="/login">Log In</Link>
+            </p>
+            <p>Changed your mind?</p>
+            <p>
+              <Link to="/landing">Return</Link>
+            </p>
+          </div>
         </div>
       </div>
     </>
