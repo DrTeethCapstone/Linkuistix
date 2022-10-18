@@ -48,7 +48,11 @@ function App() {
           <Route
             path="/landing"
             element={
-              <Landing sketch={sketch} setShowSidebar={setShowSidebar} />
+              <Landing
+                sketch={sketch}
+                setShowSidebar={setShowSidebar}
+                showSidebar={showSidebar}
+              />
             }
           />
           <Route path="/profile" element={<Profile />} />
@@ -56,7 +60,11 @@ function App() {
           <Route path="/game" element={<GameRoute />} />
         </Routes>
         {showSidebar && (
-          <Sidebar sketch={sketch} setShowSidebar={setShowSidebar} />
+          <Sidebar
+            sketch={sketch}
+            setShowSidebar={setShowSidebar}
+            showSidebar={showSidebar}
+          />
         )}
       </AuthProvider>
       <ToastContainer

@@ -32,8 +32,9 @@ import { useSpring, animated, config } from '@react-spring/web';
 //sounds
 import { Howler, Howl } from 'howler';
 
-function Sidebar({ sketch, setShowSidebar }) {
+function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const [error, setError] = useState('');
+
   const auth = getAuth();
 
   const { currentUser, logout, loginAsGuest } = useAuth();
@@ -126,7 +127,8 @@ function Sidebar({ sketch, setShowSidebar }) {
   const [isBoopedMusic, setBoopedMusic] = useState(false);
 
   //highlight the mute and music buttons on first login
-  if (isFirstLogin) {
+  console.log('ifl: ', isFirstLogin, 'sS: ', showSidebar);
+  if (isFirstLogin && showSidebar) {
     setTimeout(() => {
       setBoopedSound(true);
       setShowSound({ show: true });
@@ -146,7 +148,7 @@ function Sidebar({ sketch, setShowSidebar }) {
     }, 5700);
 
     //set first login to false
-    //we store it in locatStorage so we can hold onto the info on refresh
+    //we store it in localStorage so we can hold onto the info on refresh
     setIsFirstLogin(false);
     window.localStorage.setItem('isFirstLogin', false);
   }
