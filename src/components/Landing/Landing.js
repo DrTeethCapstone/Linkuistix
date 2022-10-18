@@ -30,7 +30,7 @@ function Landing({ sketch }) {
       sketch.setUser({
         email: currentUser.email,
         id: currentUser.uid,
-        username: currentUser.displayname
+        username: currentUser.displayName
         })
       sketch.checkUser()
       console.log(sketch)

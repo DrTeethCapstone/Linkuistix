@@ -131,7 +131,7 @@ export class GameOverContainer extends PIXI.Container {
       function clickLeader(e) {
         let user = this.parent.parent.children[1].user
       
-        let score = this.parent.parent.children[1].scoreContainer.score._text
+        let score = Number(this.parent.parent.children[1].scoreContainer.score._text)
         this.parent.addLeaderBoardScore(user,score)
       }
     }, 5500);
