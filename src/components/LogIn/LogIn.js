@@ -21,7 +21,7 @@ const LoginSchema = Yup.object().shape({
     .required('Required'),
 });
 
-function LogIn() {
+function LogIn({ setShowSidebar }) {
   const [loginError, setError] = useState('');
   const [loading, setLoading] = useState(false);
   // const [email, setEmail] = useState('');
@@ -39,6 +39,7 @@ function LogIn() {
 
     try {
       await loginAsGuest();
+      setShowSidebar(true);
       navigate('/landing');
     } catch (error) {
       setError('failed to log in');
@@ -71,6 +72,7 @@ function LogIn() {
                 setError('');
                 setLoading(true);
                 await login(castValues.email, castValues.password);
+                setShowSidebar(true);
                 navigate('/landing');
               } catch (error) {
                 setError('failed to log in');
@@ -132,6 +134,7 @@ function LogIn() {
               </form>
             )}
           </Formik>
+          <hr />
           <button
             className="form-button"
             type="button"
@@ -139,9 +142,10 @@ function LogIn() {
             // className="my-4"
             onClick={guestLogin}
           >
-            Guest Sign In
+            Play As Guest
           </button>
         </div>
+        <hr />
         <p>Don't Have An Account?</p>
 
         <Link className="link-styles" to="/SignUp">
