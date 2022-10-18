@@ -29,4 +29,9 @@ export class Score extends PIXI.Text {
     this.text = this.parent.parent.userScore;
     this.updatePosition();
   }
+  resetScore(){
+    this.parent.parent.userScore = 0
+    this.text = this.parent.parent.userScore;
+  }
+  
 }

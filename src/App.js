@@ -33,10 +33,10 @@ function App() {
           <Route path="/registerGuest" element={<RegisterGuest />} />
           <Route path="/landing" element={<Landing sketch={sketch} />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/game" element={<GameRoute />} />
           <Route path="/leaderboards" element={<Leaderboards />} />
+          <Route path="/game" element={<GameRoute />} />
         </Routes>
-        <Sidebar />
+        <Sidebar sketch={sketch} />
       </AuthProvider>
       <ToastContainer
         position="top-center"
