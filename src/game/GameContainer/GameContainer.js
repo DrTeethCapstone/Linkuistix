@@ -29,11 +29,12 @@ export class GameContainer extends PIXI.Container {
     // this.wordsInObjectArray = this.convertWords(this.wordsInStringArray);
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
-    bg.tint = 0xc6e2ff;
+    bg.tint = 0x1f1f1f;
     bg.alpha = 0.2;
     bg.width = (window.innerWidth * 50) / 100;
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);
+    console.dir(bg)
     this.addChild(bg);
 
     this.inputContainer = new InputContainer(this);
