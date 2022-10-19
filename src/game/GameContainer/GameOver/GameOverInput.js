@@ -62,7 +62,7 @@ export class GameOverInput extends PIXI.Text{
                 username:this.userInput,
                 id:user.id,
             }
-            // this.addLeaderBoardScore(newUser, score)
+            this.addLeaderBoardScore(newUser, score)
             this.interactive = false
             console.log(this.parent.parent)
             const completed = new GameOver('Score Added!', this.parent.parent)
