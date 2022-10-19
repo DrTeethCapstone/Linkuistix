@@ -52,10 +52,9 @@ export class InputText extends PIXI.Text {
   setupKeyboardListener() {
     if (!this.enabled) {
       this.enabled = true;
-      window.addEventListener("keydown", eventHandler) 
-      function eventHandler(e) {
+      window.addEventListener("keydown", (e)=>{
         this.updateInputText(e, this);
-      };
+      }) 
     }
   }
 
