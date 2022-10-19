@@ -129,14 +129,15 @@ export class GameOverContainer extends PIXI.Container {
           const inputCont = new GameOverInputContainer(this.parent)
           inputCont.children[1].children[1].setupKeyboardListener()
           inputCont.position.x = 0
-          inputCont.position.y = -400
+          inputCont.position.y = -200
           leader.interactive = false
         } else {
 
           let score = Number(this.parent.parent.children[1].scoreContainer.score._text)
           this.parent.addLeaderBoardScore(user, score)
           leader.interactive = false
-          const completed = new GameOver('Score Added!', this.parent)
+          console.log(this.parent)
+          const completed = new GameOver('Score Added!', this.parent.parent)
           completed.animateCompleted()
         }
       }
