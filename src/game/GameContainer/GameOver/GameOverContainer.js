@@ -129,7 +129,7 @@ export class GameOverContainer extends PIXI.Container {
           const inputCont = new GameOverInputContainer(this.parent)
           inputCont.children[1].children[1].setupKeyboardListener()
           inputCont.position.x = 0
-          inputCont.position.y = -400
+          inputCont.position.y = -200
           leader.interactive = false
         } else {
 

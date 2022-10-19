@@ -60,7 +60,9 @@ function App() {
           </Route>
           <Route path="/profile" element={<Profile />} />
           <Route path="/leaderboards" element={<Leaderboards />} />
-          <Route path="/game" element={<GameRoute />} />
+          <Route path='/game' element={<PrivateRoute />}>
+            <Route path="/game" element={<GameRoute />} />
+          </Route>
         </Routes>
         {showSidebar && (
           <Sidebar
