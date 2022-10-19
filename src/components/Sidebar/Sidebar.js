@@ -58,7 +58,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
 
   //state
   const [soundOn, setSoundOn] = useState(true); //sound on or not
-  const [musicOn, setMusicOn] = useState(true); //music playing or stopped
+  const [musicOn, setMusicOn] = useState(false); //music playing or stopped
   const getFirstLogin = window.localStorage.getItem('isFirstLogin')
     ? false
     : true;
@@ -112,7 +112,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   //our little music piece
   const music = new Howl({
     src: ['/sounds/fantasy.mp3'],
-    volume: 0.5,
+    volume: 0.15,
     loop: true,
   });
 
@@ -401,6 +401,8 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
       Music On/Off{' '}
     </Tooltip>
   );
+
+  console.log('music on?', musicOn);
 
   return (
     <div className="sidebar-container">
