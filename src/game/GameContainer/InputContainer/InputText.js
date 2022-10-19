@@ -25,7 +25,7 @@ export class InputText extends PIXI.Text {
     if (parent) {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
-      console.dir('container', container)
+      // console.dir('container', container)
       containerBG.tint = 0x1f1f1f;
       containerBG.alpha = 0.8
       containerBG.width = this.parent.width;
@@ -52,9 +52,9 @@ export class InputText extends PIXI.Text {
   setupKeyboardListener() {
     if (!this.enabled) {
       this.enabled = true;
-      window.addEventListener("keydown", (e)=>{
+      window.addEventListener("keydown", (e) => {
         this.updateInputText(e, this);
-      }) 
+      })
     }
   }
 
@@ -136,7 +136,7 @@ export class InputText extends PIXI.Text {
 
   //USER INTERACTION WITH TENSOR
   async speakToTensor(target, words, wordObjects, guessObj) {
-    console.log("start", tf.memory().numTensors);
+    // console.log("start", tf.memory().numTensors);
     // TO FIX MEMORY LEAKS, WE NEED TO MANUALLY DEFINE OUR SCOPE
     // USE TF.ENGINE FOR ASYNC FUNCTIONS, TF.TIDY FOR OTHERS
     tf.engine().startScope();
@@ -166,7 +166,7 @@ export class InputText extends PIXI.Text {
 
     this.assignSimilarityIndex(wordObjects, guessObj);
     tf.engine().endScope();
-    console.log("end", tf.memory().numTensors);
+    // console.log("end", tf.memory().numTensors);
   }
 
   //AFTER RUNNING TENSOR, UPDATE EACH WORD'S INDEX STATE
@@ -186,6 +186,6 @@ export class InputText extends PIXI.Text {
   //PRETRAINED MODEL
   async setupModel() {
     this.model = await use.load();
-    console.log("Tensorflow model was loaded.");
+    // console.log("Tensorflow model was loaded.");
   }
 }

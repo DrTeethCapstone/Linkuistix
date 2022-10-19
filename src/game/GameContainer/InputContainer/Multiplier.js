@@ -16,7 +16,7 @@ export class Multiplier extends PIXI.Graphics {
       this.graphic = new PIXI.Graphics();
       this.graphic.beginFill(0xebd25b);
       this.graphic.drawRect(3, 0, this.width - 5, this.height);
-      console.dir(this.graphic)
+      // console.dir(this.graphic)
       this.graphic.endFill();
       this.graphic.alpha = 0.1
       this.addChild(this.graphic);
