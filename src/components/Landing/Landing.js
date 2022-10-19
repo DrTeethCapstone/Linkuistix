@@ -41,11 +41,7 @@ function Landing({ sketch, setShowSidebar }) {
       <div className={zoomState}>
         <div className="header-container">
           <h1>Linkuistix</h1>
-<<<<<<< HEAD
-          <h6>Word association games powered by machine learning and teeth</h6>
-=======
           <h6>Word association game powered by machine learning</h6>
->>>>>>> main
         </div>
         <div className="play-container">
           <div>

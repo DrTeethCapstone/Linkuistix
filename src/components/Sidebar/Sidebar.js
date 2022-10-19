@@ -57,8 +57,8 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   // }, [loginAsGuest, auth.currentUser]);
 
   //state
-  const [soundOn, setSoundOn] = useState(false); //sound on or not
-  const [musicOn, setMusicOn] = useState(false); //music playing or stopped
+  const [soundOn, setSoundOn] = useState(true); //sound on or not
+  const [musicOn, setMusicOn] = useState(true); //music playing or stopped
   const getFirstLogin = window.localStorage.getItem('isFirstLogin')
     ? false
     : true;
