@@ -50,6 +50,7 @@ export class InputContainer extends PIXI.Container {
     if (boolean) {
       const baseScore = 25;
       scoreObject.updateScore(baseScore * this.multiplier);
+      this.parent.children[4].resetTimer()
       if (this.multiplier <= 4) {
         this.multiplier++;
         if (children.length < this.multiplier) {

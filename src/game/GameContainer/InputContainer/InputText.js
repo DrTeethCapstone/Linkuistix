@@ -81,7 +81,7 @@ export class InputText extends PIXI.Text {
   updateInputText(e, me) {
     if (e.key === "Enter") {
 
-      this.parent.parent.parent.children[4].resetTimer()
+      // this.parent.parent.parent.children[4].resetTimer()
 
       //ARRAY OF WORD OBJECTS
       this.wordsContainer = this.parent.parent.parent.children[3];
