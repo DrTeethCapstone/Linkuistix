@@ -225,7 +225,7 @@ LOGIN AS GUEST
 
   const loginAsGuest = async () => {
     try {
-      console.log('trying guest login');
+      // console.log('trying guest login');
       await signInAnonymously(auth);
       await onAuthStateChanged(auth, (user) => {
         if (user) {
