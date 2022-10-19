@@ -22,7 +22,6 @@ export class TimerContainer extends PIXI.Container {
 
     this.increment = 0.5;
 
-
     this.ticker = PIXI.Ticker.shared;
     this.ticker.add((delta) => {
       this.time -= this.increment;
