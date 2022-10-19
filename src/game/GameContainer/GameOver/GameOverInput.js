@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import {addDoc, Timestamp, collection, } from 'firebase/firestore'
 import {db} from '../../../firebase'
+import { GameOver } from "./GameOver";
 
 
 export class GameOverInput extends PIXI.Text{
@@ -56,14 +57,19 @@ export class GameOverInput extends PIXI.Text{
             this.userName = this.userInput
             let score = Number(this.parent.parent.parent.score)
             let user = this.parent.parent.parent.parent.children[1].user
+            console.log(score)
             let newUser = {
                 username:this.userInput,
                 id:user.id,
             }
             // this.addLeaderBoardScore(newUser, score)
             this.interactive = false
-            console.log(this.parent)
+            console.log(this.parent.parent)
+            const completed = new GameOver('Score Added!', this.parent.parent)
+            completed.animateCompleted2()
             this.parent.removeChild(this)
+          
+             
         } else if (e.key === "Backspace") {
             this.userInput = this.userInput.slice(0, this.userInput.length - 1);
             me.text = this.userInput;
