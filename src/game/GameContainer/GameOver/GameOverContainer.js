@@ -8,6 +8,7 @@ import coin from "./coin.png";
 import insertCoin from "./insertCoin.PNG";
 import {addDoc, Timestamp, collection, } from 'firebase/firestore'
 import {db} from '../../../firebase'
+import { GameOverInputContainer } from "./GameOverInputCont";
 
 gsap.registerPlugin(PixiPlugin);
 
@@ -32,7 +33,6 @@ export class GameOverContainer extends PIXI.Container {
     this.addChild(coinImg);
     this.parent.interactive = true;
     this.parent.on("pointermove", moveCoin);
-    const user = (this.parent.children[1].user)
     function moveCoin(e) {
       let pos = e.data.global;
       coinImg.x = pos.x - window.innerWidth / 2;
@@ -90,8 +90,6 @@ export class GameOverContainer extends PIXI.Container {
         const wordsContainer = this.parent.parent.children[1].children[3];
         wordsContainer.removeAllChildren();
         wordsContainer.setupFirstChildren();
-      
-        console.log("words container loaded", wordsContainer);
         //zero out the points
         const scoreContainer = this.parent.parent.children[1].children[2];
         scoreContainer.children[1].children[1].resetScore()
@@ -105,12 +103,8 @@ export class GameOverContainer extends PIXI.Container {
         const gameContainer = this.parent.parent.children[1]
         gameContainer.animateOpacity(false)
         this.parent.parent.removeChild(this.parent);
-        console.log(wordsContainer);
-        
         wordsContainer.children.forEach((word) => word.updatePosition());
         wordsContainer.fromOffScreen();
-        console.log(wordsContainer.children);
-        //animate elements back in
       }
       gsap.fromTo(
         insert,
@@ -124,15 +118,27 @@ export class GameOverContainer extends PIXI.Container {
           y: 100,
         }
       );
-      const leader = new GameOver("Leader Board", this);
+      const leader = new GameOver(`Add score to\nLeader Board`, this);
       leader.animateLeader();
       leader.interactive = true;
       leader.addListener("click", clickLeader);
       function clickLeader(e) {
         let user = this.parent.parent.children[1].user
-      
+        if(user.username==='guest'){
+          this.parent.parent.cursor= 'default'
+          const inputCont = new GameOverInputContainer(this.parent)
+          inputCont.children[1].children[1].setupKeyboardListener()
+          inputCont.position.x = 0
+          inputCont.position.y = -400
+          leader.interactive = false
+        }else{
+
         let score = Number(this.parent.parent.children[1].scoreContainer.score._text)
         this.parent.addLeaderBoardScore(user,score)
+        leader.interactive = false
+        const completed = new GameOver('Score Added!', this.parent)
+        completed.animateCompleted()
+        }
       }
     }, 5500);
   }

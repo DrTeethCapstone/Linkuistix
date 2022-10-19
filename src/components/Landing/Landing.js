@@ -10,8 +10,7 @@ function Landing({ sketch, setShowSidebar }) {
   const [chatState, setChatState] = useState(false);
   // const { currentUser } = useAuth();
   const [zoomState, setZoomState] = useState('splash-container');
-  const currentUser = useAuth().currentUser;
-  console.log(currentUser);
+  const currentUser = useAuth().currentUser
   const navigate = useNavigate();
 
   //SFX
@@ -31,10 +30,8 @@ function Landing({ sketch, setShowSidebar }) {
       sketch.setUser({
         email: currentUser.email,
         id: currentUser.uid,
-        username: currentUser.displayName,
-      });
-      sketch.checkUser();
-      console.log(sketch);
+        username: currentUser.displayName
+        })   
     }, 1900);
   };
 

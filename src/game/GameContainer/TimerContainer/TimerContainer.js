@@ -20,8 +20,8 @@ export class TimerContainer extends PIXI.Container {
 
     this.time = parent.width;
 
-    this.increment = 0.01;
-    console.log(this.parent);
+    this.increment = 0.3;
+   
 
     this.ticker = PIXI.Ticker.shared;
     this.ticker.add((delta) => {
@@ -30,9 +30,8 @@ export class TimerContainer extends PIXI.Container {
       this.updateTimer(timeBar);
       if (this.time <= 0) {
         const parentStage = this.parent.parent;
-
-        console.log(parentStage.children[1]);
-
+        
+                
         this.ticker.stop();
 
         parentStage.children[1].children[1].toOffScreen();

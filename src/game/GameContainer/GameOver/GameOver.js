@@ -121,6 +121,29 @@ export class GameOver extends PIXI.Text {
             fontSize:25,
             fill:'#b967ff',
         })
+    }
+    animateCompleted(){
+        gsap.fromTo(this,{
+            y:1000,
+            x:0,
+            ease:'elastic'
+        },{
+            y:-300,
+            ease:'elastic',
+            duration:3
 
+        })
+    }
+    animateCompleted2(){
+        gsap.fromTo(this,{
+            y:1000,
+            x:0,
+            ease:'elastic'
+        },{
+            y:100,
+            ease:'elastic',
+            duration:3
+
+        })
     }
 }
