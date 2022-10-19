@@ -402,8 +402,6 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     </Tooltip>
   );
 
-  console.log('music on?', musicOn);
-
   return (
     <div className="sidebar-container">
       {/* <OverlayTrigger
