@@ -33,7 +33,6 @@ export class GameOverContainer extends PIXI.Container {
     this.addChild(coinImg);
     this.parent.interactive = true;
     this.parent.on("pointermove", moveCoin);
-    const user = (this.parent.children[1].user)
     function moveCoin(e) {
       let pos = e.data.global;
       coinImg.x = pos.x - window.innerWidth / 2;
@@ -125,7 +124,7 @@ export class GameOverContainer extends PIXI.Container {
       leader.addListener("click", clickLeader);
       function clickLeader(e) {
         let user = this.parent.parent.children[1].user
-        if(user.username=='guest'){
+        if(user.username==='guest'){
           this.parent.parent.cursor= 'default'
           const inputCont = new GameOverInputContainer(this.parent)
           inputCont.children[1].children[1].setupKeyboardListener()
