@@ -91,8 +91,6 @@ export class GameOverContainer extends PIXI.Container {
         const wordsContainer = this.parent.parent.children[1].children[3];
         wordsContainer.removeAllChildren();
         wordsContainer.setupFirstChildren();
-      
-        console.log("words container loaded", wordsContainer);
         //zero out the points
         const scoreContainer = this.parent.parent.children[1].children[2];
         scoreContainer.children[1].children[1].resetScore()
@@ -106,12 +104,8 @@ export class GameOverContainer extends PIXI.Container {
         const gameContainer = this.parent.parent.children[1]
         gameContainer.animateOpacity(false)
         this.parent.parent.removeChild(this.parent);
-        console.log(wordsContainer);
-        
         wordsContainer.children.forEach((word) => word.updatePosition());
         wordsContainer.fromOffScreen();
-        console.log(wordsContainer.children);
-        //animate elements back in
       }
       gsap.fromTo(
         insert,
@@ -144,7 +138,6 @@ export class GameOverContainer extends PIXI.Container {
         this.parent.addLeaderBoardScore(user,score)
         leader.interactive = false
         const completed = new GameOver('Score Added!', this.parent)
-        console.log(completed)
         completed.animateCompleted()
         }
       }

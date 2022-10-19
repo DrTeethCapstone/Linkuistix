@@ -64,12 +64,9 @@ export class GameOverInput extends PIXI.Text{
             }
             this.addLeaderBoardScore(newUser, score)
             this.interactive = false
-            console.log(this.parent.parent)
             const completed = new GameOver('Score Added!', this.parent.parent)
             completed.animateCompleted2()
             this.parent.removeChild(this)
-          
-             
         } else if (e.key === "Backspace") {
             this.userInput = this.userInput.slice(0, this.userInput.length - 1);
             me.text = this.userInput;
