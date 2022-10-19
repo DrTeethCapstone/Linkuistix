@@ -6,8 +6,8 @@ import { PixiPlugin } from "gsap/PixiPlugin";
 import img from "./vaporbg.JPG";
 import coin from "./coin.png";
 import insertCoin from "./insertCoin.PNG";
-import {addDoc, Timestamp, collection, } from 'firebase/firestore'
-import {db} from '../../../firebase'
+import { addDoc, Timestamp, collection, } from 'firebase/firestore'
+import { db } from '../../../firebase'
 import { GameOverInputContainer } from "./GameOverInputCont";
 
 gsap.registerPlugin(PixiPlugin);
@@ -45,14 +45,14 @@ export class GameOverContainer extends PIXI.Container {
     }
   }
 
-  async addLeaderBoardScore(user, score){
+  async addLeaderBoardScore(user, score) {
     await addDoc(collection(db, 'scores'), {
       score: score,
       uid: user.id,
       username: user.username,
       scoreCreatedAt: Timestamp.fromDate(new Date()),
-  })
-}
+    })
+  }
 
 
   setupFirstChildren(currentScore) {
@@ -124,20 +124,21 @@ export class GameOverContainer extends PIXI.Container {
       leader.addListener("click", clickLeader);
       function clickLeader(e) {
         let user = this.parent.parent.children[1].user
-        if(user.username==='guest'){
-          this.parent.parent.cursor= 'default'
+        if (user.username === 'guest') {
+          this.parent.parent.cursor = 'default'
           const inputCont = new GameOverInputContainer(this.parent)
           inputCont.children[1].children[1].setupKeyboardListener()
           inputCont.position.x = 0
-          inputCont.position.y = -400
+          inputCont.position.y = -200
           leader.interactive = false
-        }else{
+        } else {
 
-        let score = Number(this.parent.parent.children[1].scoreContainer.score._text)
-        this.parent.addLeaderBoardScore(user,score)
-        leader.interactive = false
-        const completed = new GameOver('Score Added!', this.parent)
-        completed.animateCompleted()
+          let score = Number(this.parent.parent.children[1].scoreContainer.score._text)
+          this.parent.addLeaderBoardScore(user, score)
+          leader.interactive = false
+          console.log(this.parent)
+          const completed = new GameOver('Score Added!', this.parent.parent)
+          completed.animateCompleted()
         }
       }
     }, 5500);

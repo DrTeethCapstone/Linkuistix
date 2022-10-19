@@ -58,7 +58,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
 
   //state
   const [soundOn, setSoundOn] = useState(true); //sound on or not
-  const [musicOn, setMusicOn] = useState(false); //music playing or stopped
+  const [musicOn, setMusicOn] = useState(true); //music playing or stopped
   const getFirstLogin = window.localStorage.getItem('isFirstLogin')
     ? false
     : true;
@@ -127,6 +127,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const [isBoopedMusic, setBoopedMusic] = useState(false);
 
   //highlight the mute and music buttons on first login
+  // console.log('ifl: ', isFirstLogin, 'sS: ', showSidebar);
   if (isFirstLogin && showSidebar) {
     setTimeout(() => {
       setBoopedSound(true);

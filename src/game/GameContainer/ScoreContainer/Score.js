@@ -15,7 +15,7 @@ export class Score extends PIXI.Text {
 
     this.alpha = 0.5;
     this.parent = parent;
-    console.log('this1', this)
+    // console.log('this1', this)
     if (this.parent) {
       this.parent.addChild(this);
       this.updatePosition();
@@ -31,7 +31,7 @@ export class Score extends PIXI.Text {
     this.parent.parent.userScore += val;
     this.text = this.parent.parent.userScore;
     this.updatePosition();
-    console.log('this2', this)
+    // console.log('this2', this)
 
   }
   resetScore() {

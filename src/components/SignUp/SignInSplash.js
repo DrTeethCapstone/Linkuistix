@@ -72,8 +72,8 @@ function SignInSplash({ setShowSidebar }) {
   return (
     <>
       <div className="header-container d-flex flex-column w-100 align-items-center">
-        <h1>NOT SEMANTRIS</h1>
-        <h6>Word association games powered by machine learning and teeth</h6>
+        <h1>Linkuistix</h1>
+        <h6>Word association game powered by machine learning</h6>
       </div>
       <div id="lowerDown" className="form-container">
         <h2>Welcome, Player</h2>

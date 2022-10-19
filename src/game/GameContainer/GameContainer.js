@@ -34,7 +34,7 @@ export class GameContainer extends PIXI.Container {
     bg.width = (window.innerWidth * 50) / 100;
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);
-    console.dir(bg)
+    // console.dir(bg)
     this.addChild(bg);
 
     this.inputContainer = new InputContainer(this);
@@ -44,7 +44,7 @@ export class GameContainer extends PIXI.Container {
 
     this.wordsContainer.setupFirstChildren();
     this.wordsContainer.children.forEach((word) => word.updatePosition());
-    
+
     if (this.stage) {
       this.stage.addChild(this);
     }
