@@ -4,6 +4,7 @@ import { GameContainer } from "./GameContainer/GameContainer";
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import { BackgroundScape } from './BackgroundScape'
+import { TutorialContainer } from "./GameContainer/TutorialContainer/TutorialContainer"
 gsap.registerPlugin(PixiPlugin);
 
 export class Sketch {
@@ -17,8 +18,9 @@ export class Sketch {
       resizeTo: window,
     });
     this.playing = false
+    this.tutorial = true
 
-    this.backgroundScape = new BackgroundScape(this.app.stage);
+    // this.backgroundScape = new BackgroundScape(this.app.stage);
 
     document.body.appendChild(this.app.view);
 
@@ -50,6 +52,10 @@ export class Sketch {
       this.gameContainer = new GameContainer(this.app.stage);
       this.gameContainer.position.set(this.width / 2, 0);
       // this.render()
+      if (this.tutorial) {
+        this.tutorial = false
+        this.tutorialContainer = new TutorialContainer(this.app.stage)
+      }
     }
   }
   setPlaying(torf) {

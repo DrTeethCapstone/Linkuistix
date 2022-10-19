@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as tf from "@tensorflow/tfjs";
 import * as use from "@tensorflow-models/universal-sentence-encoder";
+import { InPlayMessage } from "./InPlayMessage";
 
 //CREATE A NEW INSTANCE OF A USER INPUT FIELD
 export class InputText extends PIXI.Text {
@@ -17,6 +18,8 @@ export class InputText extends PIXI.Text {
     this.userGuess = "";
     this.interactive = true;
     this.enabled = false;
+
+    this.message = new InPlayMessage(this)
 
     //DON'T HAVE ACCESS TO THESE VALUES UNTIL SPECIFIC METHODS ARE CALLED
     // this.model = null;
@@ -66,11 +69,13 @@ export class InputText extends PIXI.Text {
     if (targetString.length <= 3 && inputString.length >= 3) {
       if (targetString.slice(0, 3) === inputString.slice(0, 3)) {
         target.invalidGuess(3);
+        this.removeChild(this.message)
         return false;
       }
     } else if (targetString.length > 3 && inputString.length > 3) {
       if (targetString.slice(0, 4) === inputString.slice(0, 4)) {
         target.invalidGuess(4);
+        this.removeChild(this.message)
         return false;
       }
     }
@@ -82,6 +87,11 @@ export class InputText extends PIXI.Text {
     if (e.key === "Enter") {
 
       this.parent.parent.parent.children[4].resetTimer()
+
+      //SET MODEL QUERYING MESSAGE
+      this.message.text = "Please wait. Tensor is thinking..."
+      this.message.anchor.set(0.5);
+      this.addChild(this.message)
 
       //ARRAY OF WORD OBJECTS
       this.wordsContainer = this.parent.parent.parent.children[3];
@@ -165,6 +175,7 @@ export class InputText extends PIXI.Text {
     }
 
     this.assignSimilarityIndex(wordObjects, guessObj);
+    this.removeChild(this.message)
     tf.engine().endScope();
     console.log("end", tf.memory().numTensors);
   }
