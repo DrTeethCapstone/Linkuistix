@@ -20,8 +20,8 @@ export class TimerContainer extends PIXI.Container {
 
     this.time = parent.width;
 
-    this.increment = 0.5;
-    console.log(this.parent);
+    this.increment = 5.1;
+   
 
     this.ticker = PIXI.Ticker.shared;
         this.ticker.add((delta) => {
@@ -31,7 +31,6 @@ export class TimerContainer extends PIXI.Container {
       if (this.time <= 0) {
         const parentStage = this.parent.parent;
         
-        console.log(parentStage.children[1]);
                 
         this.ticker.stop();
 

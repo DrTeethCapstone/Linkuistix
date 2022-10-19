@@ -8,6 +8,8 @@ import coin from "./coin.png";
 import insertCoin from "./insertCoin.PNG";
 import {addDoc, Timestamp, collection, } from 'firebase/firestore'
 import {db} from '../../../firebase'
+import {GameOverInput} from './GameOverInput'
+import { GameOverInputContainer } from "./GameOverInputCont";
 
 gsap.registerPlugin(PixiPlugin);
 
@@ -124,15 +126,26 @@ export class GameOverContainer extends PIXI.Container {
           y: 100,
         }
       );
-      const leader = new GameOver("Leader Board", this);
+      const leader = new GameOver(`Add score to\nLeader Board`, this);
       leader.animateLeader();
       leader.interactive = true;
       leader.addListener("click", clickLeader);
       function clickLeader(e) {
         let user = this.parent.parent.children[1].user
-      
+        if(user.username=='guest'){
+          this.parent.parent.cursor= 'default'
+          const inputCont = new GameOverInputContainer(this.parent)
+          inputCont.children[1].children[1].setupKeyboardListener()
+          inputCont.position.x = 0
+          inputCont.position.y = -400
+          leader.interactive = false
+        }else{
+
         let score = Number(this.parent.parent.children[1].scoreContainer.score._text)
+        
         this.parent.addLeaderBoardScore(user,score)
+        leader.interactive = false
+        }
       }
     }, 5500);
   }

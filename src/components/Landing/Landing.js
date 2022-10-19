@@ -11,7 +11,7 @@ function Landing({ sketch }) {
   // const { currentUser } = useAuth();
   const [zoomState, setZoomState] = useState('splash-container');
   const currentUser = useAuth().currentUser
-  console.log(currentUser)
+
   const navigate = useNavigate();
 
   //SFX
@@ -31,9 +31,7 @@ function Landing({ sketch }) {
         email: currentUser.email,
         id: currentUser.uid,
         username: currentUser.displayName
-        })
-      sketch.checkUser()
-      console.log(sketch)
+        })   
     }, 1900);
   };
 
