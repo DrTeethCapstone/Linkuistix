@@ -141,7 +141,7 @@ export class GameOverContainer extends PIXI.Container {
         }else{
 
         let score = Number(this.parent.parent.children[1].scoreContainer.score._text)
-        // this.parent.addLeaderBoardScore(user,score)
+        this.parent.addLeaderBoardScore(user,score)
         leader.interactive = false
         const completed = new GameOver('Score Added!', this.parent)
         console.log(completed)
