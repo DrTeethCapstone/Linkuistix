@@ -8,7 +8,10 @@ import { Howl, Howler } from 'howler';
 //animation
 import { useSpring, animated, config } from '@react-spring/web';
 
-function SignInSplash() {
+//don't show sidebar until logged in
+window.localStorage.setItem('displaySidebar', false);
+
+function SignInSplash({ setShowSidebar }) {
   const [signupError, setError] = useState('');
 
   //SFX
@@ -28,6 +31,7 @@ function SignInSplash() {
 
     try {
       await loginAsGuest();
+      setShowSidebar(true);
       //play the coin sound
       coinDrop.play();
       navigate('/landing');
@@ -67,6 +71,10 @@ function SignInSplash() {
 
   return (
     <>
+      <div className="header-container d-flex flex-column w-100 align-items-center">
+        <h1>NOT SEMANTRIS</h1>
+        <h6>Word association games powered by machine learning and teeth</h6>
+      </div>
       <div id="lowerDown" className="form-container">
         <h2>Welcome, Player</h2>
         <div className="splashButtonContainer">

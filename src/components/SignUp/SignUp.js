@@ -39,7 +39,7 @@ const SignupSchema = Yup.object().shape({
   }),
 });
 
-function SignUp() {
+function SignUp({ setShowSidebar }) {
   const [signupError, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -53,6 +53,7 @@ function SignUp() {
 
     try {
       await loginAsGuest();
+      setShowSidebar(true);
       navigate('/landing');
     } catch (error) {
       setError('failed to log in');
@@ -96,8 +97,10 @@ function SignUp() {
                   castValues.username
                 );
 
-                if (signupSuccess.status) navigate('/landing');
-                else {
+                if (signupSuccess.status) {
+                  setShowSidebar(true);
+                  navigate('/landing');
+                } else {
                   toast.error(signupSuccess.reason);
                   throw new Error('user already exists');
                 }
@@ -208,17 +211,16 @@ function SignUp() {
               </form>
             )}
           </Formik>
-          <button
-            type="button"
-            className='form-button'
-            onClick={guestLogin}
-          >
-            Guest Sign In
+          <p>Or</p>
+          <button type="button" className="form-button" onClick={guestLogin}>
+            Play As guest
           </button>
         </div>
+        <hr />
         <p>Already Have An Account?</p>
-        <Link className='link-styles' to="/login">Log In</Link>
-
+        <Link className="link-styles" to="/login">
+          Log In
+        </Link>
       </div>
     </>
   );

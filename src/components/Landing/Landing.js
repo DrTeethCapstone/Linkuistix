@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import Sidebar from './Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
@@ -6,12 +6,11 @@ import { useAuth } from '../../contexts/AuthContext';
 //sounds
 import { Howl, Howler } from 'howler';
 
-function Landing({ sketch }) {
+function Landing({ sketch, setShowSidebar }) {
   const [chatState, setChatState] = useState(false);
   // const { currentUser } = useAuth();
   const [zoomState, setZoomState] = useState('splash-container');
   const currentUser = useAuth().currentUser
-
   const navigate = useNavigate();
 
   //SFX
@@ -22,6 +21,7 @@ function Landing({ sketch }) {
 
   const handleAnimation = () => {
     coinDrop.play();
+    setShowSidebar(true);
     setZoomState('splash-container zoomout-splash');
     setTimeout(() => {
       navigate('/game');
