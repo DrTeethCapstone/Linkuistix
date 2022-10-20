@@ -12,7 +12,6 @@ import {
   endBefore,
 } from 'firebase/firestore';
 import { db } from '../../firebase';
-// import Sidebar from '../Landing/Sidebar';
 
 function Leaderboards() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -27,14 +26,15 @@ function Leaderboards() {
         limit(10)
       );
       const docSnap = await getDocs(first);
+      let newArr = []
       docSnap.forEach((doc) => {
-        // console.log(doc.data());
-        leaderboard.push(doc.data());
+        newArr.push(doc.data());
       });
+      setLeaderboard(newArr)
       setLoading(false);
     };
     getData();
-  }, [leaderboard]);
+  }, []);
 
   const handleNext = async () => {
     const lastVisible = leaderboard[leaderboard.length - 1];
@@ -44,6 +44,7 @@ function Leaderboards() {
       startAfter(lastVisible.score),
       limit(10)
     );
+    console.log(next)
     const nextDoc = await getDocs(next);
     if (nextDoc.docs.length) {
       setMessage('');
@@ -85,7 +86,7 @@ function Leaderboards() {
     navigate(-1);
   };
 
-  // console.log(leaderboard);
+  console.log(leaderboard);
 
   return (
     <>
@@ -97,16 +98,6 @@ function Leaderboards() {
           </span>
         </div>
         <h1>Leaderboards</h1>
-        {/* {loading ? <p>loading...</p>
-                        :
-                        leaderboards.sort((a, b) => {
-                            return b.score - a.score
-                        }).map((ele) =>
-                            <>
-                                <p>{ele.score} by {ele.userEmail}</p>
-                            </>
-                        )
-                    } */}
         {loading ? (
           <p>loading...</p>
         ) : (

@@ -13,10 +13,13 @@ import {
 import { db } from '../../../firebase';
 
 function LeaderboardModal({ handleLeaderboardClose, showLeaderboard }) {
+
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
 
+
+  
   useEffect(() => {
     const getData = async () => {
       const first = query(
@@ -25,14 +28,15 @@ function LeaderboardModal({ handleLeaderboardClose, showLeaderboard }) {
         limit(10)
       );
       const docSnap = await getDocs(first);
+      let newArr = []
       docSnap.forEach((doc) => {
-        // console.log(doc.data());
-        leaderboard.push(doc.data());
+        newArr.push(doc.data());
       });
+      setLeaderboard(newArr)
       setLoading(false);
     };
     getData();
-  }, [leaderboard]);
+  },[showLeaderboard]);
 
   const handleNext = async () => {
     const lastVisible = leaderboard[leaderboard.length - 1];
@@ -42,11 +46,13 @@ function LeaderboardModal({ handleLeaderboardClose, showLeaderboard }) {
       startAfter(lastVisible.score),
       limit(10)
     );
+    console.log(next)
     const nextDoc = await getDocs(next);
     if (nextDoc.docs.length) {
       setMessage('');
       let newArr = [];
       nextDoc.forEach((doc) => {
+        console.log(doc.data())
         newArr.push(doc.data());
       });
       setLeaderboard(newArr);
