@@ -37,9 +37,7 @@ export class GameOverInput extends PIXI.Text{
         window.addEventListener("keydown", (e) => this.updateInputText(e, this));
        ;
     }
-    removeKeyboardListener(){
-      console.log('hit')
-   
+    removeKeyboardListener(){   
       window.removeEventListener("keydown", (e)=>this.updateInputText(e, this));
       
     }
