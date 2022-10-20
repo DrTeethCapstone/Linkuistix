@@ -9,6 +9,7 @@ import insertCoin from "./insertCoin.PNG";
 import { addDoc, Timestamp, collection, } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import { GameOverInputContainer } from "./GameOverInputCont";
+import {GameContainer} from '../GameContainer'
 
 gsap.registerPlugin(PixiPlugin);
 
@@ -85,26 +86,35 @@ export class GameOverContainer extends PIXI.Container {
       insert.alpha = 0.9;
       insert.addListener("click", clickInsert);
       function clickInsert(e) {
-        //remove the children of words container , set theem back up
+        console.log(this.parent.parent)
         this.parent.parent.cursor = "default";
-        const wordsContainer = this.parent.parent.children[1].children[3];
-        wordsContainer.removeAllChildren();
-        wordsContainer.setupFirstChildren();
-        //zero out the points
-        const scoreContainer = this.parent.parent.children[1].children[2];
-        scoreContainer.children[1].children[1].resetScore()
-        const inputContainer = this.parent.parent.children[1].children[1]
-        inputContainer.fromOffScreen()
-        //rest timer back to width
-        const timerContainer = this.parent.parent.children[1].children[4];
-        timerContainer.resetTimer();
-        timerContainer.ticker.start();
-        timerContainer.increment = 1
-        const gameContainer = this.parent.parent.children[1]
-        gameContainer.animateOpacity(false)
-        this.parent.parent.removeChild(this.parent);
-        wordsContainer.children.forEach((word) => word.updatePosition());
-        wordsContainer.fromOffScreen();
+        this.gameContainer = new GameContainer(this.parent.parent.app.stage);
+        this.gameContainer.position.set(this.width / 2, 0);
+        this.parent.parent.removeChildAt(1)
+        this.parent.parent.removeChildAt(1)
+        console.log(this.parent.parent)
+
+        //remove the children of words container , set theem back up
+      //   this.parent.parent.cursor = "default";
+      //   const wordsContainer = this.parent.parent.children[1].children[3];
+      //   wordsContainer.removeAllChildren();
+      //   wordsContainer.setupFirstChildren();
+      //   //zero out the points
+      //   const scoreContainer = this.parent.parent.children[1].children[2];
+      //   scoreContainer.children[1].children[1].resetScore()
+      //   const inputContainer = this.parent.parent.children[1].children[1]
+      //   inputContainer.fromOffScreen()
+      //   //rest timer back to width
+      //   const timerContainer = this.parent.parent.children[1].children[4];
+      //   timerContainer.resetTimer();
+      //   timerContainer.ticker.start();
+      //   timerContainer.increment = 1
+      //   const gameContainer = this.parent.parent.children[1]
+      //   gameContainer.animateOpacity(false)
+      //   this.parent.parent.removeChild(this.parent);
+      //   wordsContainer.children.forEach((word) => word.updatePosition());
+      //   wordsContainer.fromOffScreen();
+
       }
       gsap.fromTo(
         insert,
