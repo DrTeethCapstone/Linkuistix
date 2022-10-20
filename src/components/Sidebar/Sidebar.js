@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import RegisterGuestModal from './modals/RegisterGuestModal';
 import LeaderboardModal from './modals/LeaderboardModal';
 import ProfileModal from './modals/ProfileModal';
+import AboutModal from './modals/AboutModal';
+
 //user auth
 import { getAuth } from 'firebase/auth';
 import { useAuth } from '../../contexts/AuthContext';
@@ -24,6 +26,7 @@ import {
   faVolumeXmark,
   faPlay,
   faStop,
+  faCircleInfo
 } from '@fortawesome/free-solid-svg-icons';
 
 //animation
@@ -82,6 +85,11 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const handleLeaderboardClose = () => setShowLeaderboard(false);
   const handleLeaderboardShow = () => setShowLeaderboard(true);
 
+  //about modal
+  const [showAbout, setShowAbout] = useState(false)
+  const handleAboutClose = () => setShowAbout(false)
+  const handleAboutShow = () => setShowAbout(true)
+
   //toggles global app sound on/off
   const handleSoundOnOff = () => {
     setSoundOn(!soundOn);
@@ -125,6 +133,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const [isBoopedHome, setBoopedHome] = useState(false);
   const [isBoopedSound, setBoopedSound] = useState(false);
   const [isBoopedMusic, setBoopedMusic] = useState(false);
+  const [isBoopedAbout, setBoopedAbout] = useState(false);
 
   //highlight the mute and music buttons on first login
   // console.log('ifl: ', isFirstLogin, 'sS: ', showSidebar);
@@ -196,6 +205,12 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     borderColor: 'lightgreen',
     config: config.slow,
   }));
+  const [styleAbout, apiAbout] = useSpring(() => ({
+    opacity: 0.3,
+    borderWidth: '2px',
+    borderColor: 'lightgreen',
+    config: config.slow,
+  }));
 
   //handles all the mouseovers
   const onMouseEnter1 = useCallback(() => setBoopedSave(true), []);
@@ -214,6 +229,9 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const onMouseLeave7 = useCallback(() => setBoopedSound(false), []);
   const onMouseEnter8 = useCallback(() => setBoopedMusic(true), []);
   const onMouseLeave8 = useCallback(() => setBoopedMusic(false), []);
+  const onMouseEnter9 = useCallback(() => setBoopedAbout(true), []);
+  const onMouseLeave9 = useCallback(() => setBoopedAbout(false), []);
+
 
   useEffect(() => {
     if (isBoopedSave) {
@@ -335,6 +353,21 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
       });
     }
   }, [isBoopedMusic, apiMusic]);
+  useEffect(() => {
+    if (isBoopedAbout) {
+      apiAbout.start({
+        opacity: 1,
+        borderWidth: '5px',
+        scale: 1.2,
+      });
+    } else {
+      apiAbout.start({
+        opacity: 0.3,
+        borderWidth: '2px',
+        scale: 1,
+      });
+    }
+  }, [isBoopedAbout, apiAbout]);
 
   const navigate = useNavigate();
 
@@ -381,6 +414,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
       Leaderboard{' '}
     </Tooltip>
   );
+
+  const renderTooltipAbout = (props) => (
+    <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
+      About{' '}
+    </Tooltip>
+  );
+
   const renderTooltipLogout = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
       Log Out{' '}
@@ -445,7 +485,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
               fixedWidth
               className="sidebarIcon"
               inverse
-              // style={style}
+            // style={style}
             />
             {/* </Link> */}
           </animated.div>
@@ -565,6 +605,30 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
           </span>
         </animated.div>
       </OverlayTrigger>
+      {/* //THIS ONE */}
+      <OverlayTrigger
+        placement="left"
+        delay={{ show: 100, hide: 100 }}
+        overlay={renderTooltipAbout}
+      >
+        <animated.div
+          style={styleAbout}
+          onMouseEnter={onMouseEnter9}
+          onMouseLeave={onMouseLeave9}
+          onClick={handleAboutShow}
+        >
+          {/* <Link to="/leaderboards"> */}{' '}
+          <FontAwesomeIcon
+            icon={faCircleInfo}
+            size="lg"
+            fixedWidth
+            className="sidebarIcon"
+            inverse
+          />
+          {/* </Link> */}
+        </animated.div>
+      </OverlayTrigger>
+
       <OverlayTrigger
         placement="left"
         delay={{ show: 100, hide: 100 }}
@@ -594,6 +658,10 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
       <LeaderboardModal
         showLeaderboard={showLeaderboard}
         handleLeaderboardClose={handleLeaderboardClose}
+      />
+      <AboutModal
+        showAbout={showAbout}
+        handleAboutClose={handleAboutClose}
       />
       {currentUser ? (
         <ProfileModal
