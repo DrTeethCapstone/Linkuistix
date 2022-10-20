@@ -12,9 +12,6 @@
   // font-family: 'Source Sans Pro', sans-serif;
 }
 
-body {
-  // overflow-y: auto;
-}
 
 canvas {
   position: absolute;
@@ -31,7 +28,7 @@ canvas {
 
 .modalStyle {
   --bs-modal-bg: transparent;
-  width: 80vw;
+  // width: 80vw;
 }
 
 .eightBitForm {
@@ -548,16 +545,17 @@ canvas {
 }
 
 .about-container {
-  // width: 80vw;
-  margin: auto;
-  margin-top: 5vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 60%;
   background-color: rgba(0, 0, 0, 0.6);
   border: 3px solid @sun-yellow;
   font-family: 'Press Start 2P';
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: visible;
   padding: 3vh 2vw;
 
   h1 {
@@ -572,9 +570,18 @@ canvas {
 
   h5 {
     color: @sun-yellow;
+    margin-bottom: 10px;
+  }
+
+  h6 {
+    margin-bottom: 10px;
   }
 
   p {
+    color: @electric-blue;
+  }
+
+  a {
     color: @electric-blue;
   }
 
@@ -587,7 +594,6 @@ canvas {
     flex-direction: column;
     align-items: center;
 
-
     p {
       text-align: center;
     }
@@ -596,7 +602,6 @@ canvas {
   .dev-container {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
   }
 
@@ -605,6 +610,7 @@ canvas {
     flex-direction: column;
     align-items: center;
     margin: 2vh 2vw;
+    text-align: center;
   }
 }
 

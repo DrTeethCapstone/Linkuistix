@@ -32,7 +32,6 @@ canvas {
 }
 .modalStyle {
   --bs-modal-bg: transparent;
-  width: 80vw;
 }
 .eightBitForm h2 {
   font-family: 'Press Start 2P';
@@ -444,15 +443,17 @@ canvas {
   background-color: rgba(0, 0, 0, 0);
 }
 .about-container {
-  margin: auto;
-  margin-top: 5vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 60%;
   background-color: rgba(0, 0, 0, 0.6);
   border: 3px solid #ebd25b;
   font-family: 'Press Start 2P';
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: visible;
   padding: 3vh 2vw;
 }
 .about-container h1 {
@@ -465,8 +466,15 @@ canvas {
 }
 .about-container h5 {
   color: #ebd25b;
+  margin-bottom: 10px;
+}
+.about-container h6 {
+  margin-bottom: 10px;
 }
 .about-container p {
+  color: #0eb3e1;
+}
+.about-container a {
   color: #0eb3e1;
 }
 .about-container img {
@@ -483,7 +491,6 @@ canvas {
 .about-container .dev-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
 }
 .about-container .bio-container {
@@ -491,6 +498,7 @@ canvas {
   flex-direction: column;
   align-items: center;
   margin: 2vh 2vw;
+  text-align: center;
 }
 @keyframes slideDown {
   0% {
