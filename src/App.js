@@ -19,7 +19,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GameRoute from './components/Test';
 import PrivateRoute from './components/Private Route/PrivateRoute';
-import About from './components/About/About';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -45,7 +44,6 @@ function App() {
           <Route
             path="/login"
             element={<LogIn setShowSidebar={setShowSidebar} />}
-
           />
           <Route path="/registerGuest" element={<RegisterGuest />} />
           <Route path='/landing' element={<PrivateRoute />}>
