@@ -19,7 +19,7 @@ export class TutorialContainer extends PIXI.Container {
     // const overlay = new PIXI.Sprite(PIXI.Texture.WHITE);
     this.overlay.tint = 0x000000;
     // this.overlay.scale.set(0.2);
-    this.overlay.alpha = 0.8;
+    this.overlay.alpha = 0.7;
     this.overlay.parent = parent;
     this.overlay.height = window.innerHeight;
     this.overlay.width = window.innerWidth;
@@ -44,10 +44,10 @@ export class TutorialContainer extends PIXI.Container {
 
     // TUTORIAL PT 2
     this.tipHighlightTypeHere = new TipHighlight(
-      100, //TODO: Calculate dimensions?
+      (this.wordHeight * 4) / 3, // CONVERTS PT TO PX
       300,
       window.innerWidth / 2,
-      window.innerHeight - this.height,
+      window.innerHeight - ((this.wordHeight * 4) / 3),
       this
     );
     this.tipHighlightTypeHere.filters = [
@@ -76,7 +76,7 @@ export class TutorialContainer extends PIXI.Container {
       this.tipHighlightTypeHere,
       this.tipTextTypeHere,
       20,
-      true,
+      true
     );
   }
   removeAllChildren() {
