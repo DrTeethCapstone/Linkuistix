@@ -77,8 +77,6 @@ export class InputText extends PIXI.Text {
     return true;
   }
 
-  GRU
-
   //KEYBOARD
   updateInputText(e, me) {
     if (e.key === "Enter") {
