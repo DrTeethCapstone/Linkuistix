@@ -442,6 +442,64 @@ canvas {
   width: 100%;
   background-color: rgba(0, 0, 0, 0);
 }
+.about-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 60%;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #ebd25b;
+  font-family: 'Press Start 2P';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3vh 2vw;
+}
+.about-container h1 {
+  color: #ebd25b;
+  text-align: center;
+}
+.about-container h3 {
+  color: #ebd25b;
+  text-align: center;
+}
+.about-container h5 {
+  color: #ebd25b;
+  margin-bottom: 10px;
+}
+.about-container h6 {
+  margin-bottom: 10px;
+}
+.about-container p {
+  color: #0eb3e1;
+}
+.about-container a {
+  color: #0eb3e1;
+}
+.about-container img {
+  margin-bottom: 5px;
+}
+.about-container .about-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.about-container .about-game-container p {
+  text-align: center;
+}
+.about-container .dev-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.about-container .bio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2vh 2vw;
+  text-align: center;
+}
 @keyframes slideDown {
   0% {
     transform: translateY(-1000px);
