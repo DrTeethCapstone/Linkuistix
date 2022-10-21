@@ -1,6 +1,6 @@
-const tf = require("@tensorflow/tfjs");
-require("@tensorflow/tfjs");
-const use = require("@tensorflow-models/universal-sentence-encoder");
+const tf = require('@tensorflow/tfjs');
+require('@tensorflow/tfjs');
+const use = require('@tensorflow-models/universal-sentence-encoder');
 let tensorModel;
 // var window = self;
 
@@ -19,7 +19,7 @@ async function TFWorker(target, tensorWords) {
   //load the USE model
   async function setModel() {
     await tf.ready();
-    tf.setBackend("cpu");
+    tf.setBackend('cpu');
     // await use.load();
     const model = await use.load();
     // const model = await use.loadQnA();
@@ -30,13 +30,13 @@ async function TFWorker(target, tensorWords) {
   //send the data to rf model
 
   if (!tensorModel) {
-    console.log("load model");
+    console.log('load model');
     tensorModel = await setModel();
   }
 
   const embedData = async (tensorModel, target, tensorWords) => {
     tf.engine().startScope();
-    console.log("tensorModel: ", tensorModel);
+    console.log('tensorModel: ', tensorModel);
 
     const embeddingsFromWords = await tensorModel.embed(tensorWords);
     const embeddingsFromTarget = await tensorModel.embed(target);
@@ -74,6 +74,6 @@ async function TFWorker(target, tensorWords) {
   //returns the scores to the web worker on message
   //which then posts it back to our component
   // return 'testing the capability';
-  console.log("outputWordScores: ", outputWordScores);
+  console.log('outputWordScores: ', outputWordScores);
   return outputWordScores;
 }
