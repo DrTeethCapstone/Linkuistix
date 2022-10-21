@@ -19,7 +19,6 @@ const LoginSchema = Yup.object().shape({
 
 function LogIn({ setShowSidebar }) {
   const [loginError, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const auth = getAuth();
@@ -77,14 +76,12 @@ function LogIn({ setShowSidebar }) {
 
                 try {
                   setError('');
-                  setLoading(true);
                   await login(castValues.email, castValues.password);
                   setShowSidebar(true);
                   navigate('/game');
                 } catch (error) {
                   console.log('failed to log in: ', error);
                 }
-                setLoading(false);
               }}
             >
               {({
