@@ -74,7 +74,7 @@ export class LoadingContainer extends PIXI.Container {
     });
     let phrase = loadingTips[Math.floor(Math.random()*loadingTips.length)]
     this.toolTip = new PIXI.Text(phrase,{
-      fontFamily: "Arial",
+      fontFamily: "Press Start 2P",
       fontSize: 30,
       fill: 0xFFFFFF,
     })
