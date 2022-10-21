@@ -75,7 +75,7 @@ SIGNUP
       } else {
         //if the email is unique to our db, proceed with signup
         await createUserWithEmailAndPassword(auth, email, password);
-        await onAuthStateChanged(auth, (user) => {
+        await onAuthStateChanged(auth, async (user) => {
           if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
@@ -89,7 +89,7 @@ SIGNUP
             });
 
             //add username as displayName to auth user
-            updateProfile(user, { displayName: username });
+            await updateProfile(user, { displayName: username });
 
             // ...
           } else {
@@ -161,7 +161,7 @@ GUEST => REGISTERED USER
           });
 
         //once that's done, we'll create the user document
-        await onAuthStateChanged(auth, (user) => {
+        await onAuthStateChanged(auth, async (user) => {
           if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
@@ -175,7 +175,7 @@ GUEST => REGISTERED USER
             });
 
             //add username as displayName to auth user, replacing 'guest'
-            updateProfile(user, { displayName: username });
+            await updateProfile(user, { displayName: username });
 
             //update the username in the user's score entries
             async function updateScores() {
@@ -185,9 +185,7 @@ GUEST => REGISTERED USER
               );
               const scoresSnapshot = await getDocs(scoreQ);
               scoresSnapshot.forEach(async (document) => {
-                console.log('doccies! ', document.id);
                 const docRef = doc(db, 'scores', document.id);
-                console.log('DN: ', user.displayName);
                 await updateDoc(docRef, { username: username });
               });
             }
@@ -213,8 +211,8 @@ LOG IN
 
 */
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password);
   };
 
   /* 
@@ -227,11 +225,11 @@ LOGIN AS GUEST
     try {
       // console.log('trying guest login');
       await signInAnonymously(auth);
-      await onAuthStateChanged(auth, (user) => {
+      await onAuthStateChanged(auth, async (user) => {
         if (user) {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
-          updateProfile(user, { displayName: 'guest' });
+          await updateProfile(user, { displayName: 'guest' });
           // ...
         } else {
           // User is signed out
@@ -255,6 +253,7 @@ LOG OUT
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log('that user useEffect: ', user);
       setCurrentUser(user);
       setLoading(false);
     });

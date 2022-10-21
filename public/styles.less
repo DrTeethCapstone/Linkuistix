@@ -12,7 +12,6 @@
   // font-family: 'Source Sans Pro', sans-serif;
 }
 
-
 canvas {
   position: absolute;
   height: 100vh;
@@ -24,6 +23,15 @@ canvas {
 
 .pointer {
   cursor: pointer;
+}
+
+.HUD {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1em;
+  font-family: 'Press Start 2P';
+  // position: absolute;
+  // right: 10px;
+  // top: 3%;
 }
 
 .modalStyle {
@@ -142,14 +150,14 @@ canvas {
   }
 
   @media screen and (max-width: 800px) {
-    >div {
+    > div {
       top: 10vh;
       width: 75%;
     }
   }
 
   @media screen and (max-width: 1200px) and (min-width: 800px) {
-    >div {
+    > div {
       top: 20vh;
       width: 40%;
     }
@@ -216,7 +224,7 @@ canvas {
     color: aqua;
   }
 
-  >div {
+  > div {
     margin: 0 10vw;
 
     button {
