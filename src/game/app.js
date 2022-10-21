@@ -28,6 +28,7 @@ export class Sketch {
     this.gameOver = false;
 
     this.gameMenu = new GameMenu(this.app.stage);
+    
     document.body.appendChild(this.app.view);
   }
 
