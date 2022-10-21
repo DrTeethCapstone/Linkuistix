@@ -135,10 +135,7 @@ export class LoadingContainer extends PIXI.Container {
         }
       }
 
-      if (
-        this.gameContainer.children[1].isLoaded &&
-        this.gameContainer.children[3].isLoaded
-      ) {
+      if (this.gameContainer.children[3].isLoaded) {
         setTimeout(() => {
           this.gameContainer.isLoaded = true;
         }, 2500);
@@ -150,9 +147,9 @@ export class LoadingContainer extends PIXI.Container {
         this.parent.removeChild(this);
         this.gameContainer.position.x = window.innerWidth / 2;
         this.gameContainer.animateOpacity(false);
-        // this.gameContainer.children[1].fromOffScreen();
-        // this.gameContainer.children[3].fromOffScreen();
-        // this.gameContainer.children[4].fromOffScreen();
+        this.gameContainer.children[1].fromOffScreen();
+        this.gameContainer.children[3].fromOffScreen();
+        this.gameContainer.children[4].fromOffScreen();
         // this.gameContainer.children[4].startTimer();
       }
     });

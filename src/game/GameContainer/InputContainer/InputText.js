@@ -1,6 +1,4 @@
 import * as PIXI from "pixi.js";
-import * as tf from "@tensorflow/tfjs";
-import * as use from "@tensorflow-models/universal-sentence-encoder";
 import { InPlayMessage } from "./InPlayMessage";
 
 //CREATE A NEW INSTANCE OF A USER INPUT FIELD
@@ -48,14 +46,9 @@ export class InputText extends PIXI.Text {
       this.setupKeyboardListener();
 
       if (!this.parent.parent.parent.children[4].isRunning) {
-        this.parent.parent.parent.children[3].fromOffScreen();
-        setTimeout(() => {
-          this.parent.parent.parent.children[4].ticker.start();
-        }, 1000);
+        this.parent.parent.parent.children[4].startTimer();
       }
     });
-
-    this.setupModel();
   }
 
   eventListener = (e) => {
@@ -122,15 +115,10 @@ export class InputText extends PIXI.Text {
 
           this.worker.addEventListener("message", async ({ data }) => {
             const { TFOutput } = data;
-            console.log("returned from worker: ", TFOutput);
             this.TFOutput = TFOutput;
             for (let i = 0; i < this.TFOutput.length; i++) {
               words[i].similarityScore = this.TFOutput[i];
             }
-<<<<<<< HEAD
-=======
-            this.setSimilarityBonus(words.filter(elem=> elem.isTarget)[0].similarityScore)
->>>>>>> 638386114bb9fa6f37427e3016fb62b8ffeb9063
             this.sortBySimilarityScores(words, prevWordObject);
             prevWordObject.updateWord(this.userGuess);
             this.isThinking = false;
@@ -166,13 +154,7 @@ export class InputText extends PIXI.Text {
     this.wordsContainer.checkTargetPosition(guessObj);
   }
 
-  async setupModel() {
-    this.model = await use.load();
-    this.parent.parent.isLoaded = true;
-  }
-  setSimilarityBonus(similarityScore){
-    this.similarityBonus = Math.floor(50*similarityScore)
+  setSimilarityBonus(similarityScore) {
+    this.similarityBonus = Math.floor(50 * similarityScore);
   }
 }
-
-
