@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
-import { Formik } from "formik";
-import * as Yup from "yup";
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 //define the Yup validation schema for LOGIN
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().trim().email("Invalid email").required("Required"),
+  email: Yup.string().trim().email('Invalid email').required('Required'),
   password: Yup.string()
     .trim()
-    .min(7, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+    .min(7, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
 });
 
 function LogIn({ setShowSidebar }) {
-  const [loginError, setError] = useState("");
+  const [loginError, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  if (loginError !== "") toast.error(loginError);
+  if (loginError !== '') toast.error(loginError);
 
   const { login, loginAsGuest } = useAuth();
 
@@ -32,9 +32,9 @@ function LogIn({ setShowSidebar }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
-      navigate("/landing");
+      navigate('/game');
     } catch (error) {
-      setError("failed to log in");
+      setError('failed to log in');
     }
   };
 
@@ -45,8 +45,8 @@ function LogIn({ setShowSidebar }) {
         <div>
           <Formik
             initialValues={{
-              password: "",
-              email: "",
+              password: '',
+              email: '',
             }}
             validationSchema={LoginSchema}
             validateOnChange={false}
@@ -58,13 +58,13 @@ function LogIn({ setShowSidebar }) {
               setSubmitting(false);
 
               try {
-                setError("");
+                setError('');
                 setLoading(true);
                 await login(castValues.email, castValues.password);
                 setShowSidebar(true);
-                navigate("/landing");
+                navigate('/game');
               } catch (error) {
-                setError("failed to log in");
+                setError('failed to log in');
               }
               setLoading(false);
             }}
@@ -88,7 +88,7 @@ function LogIn({ setShowSidebar }) {
                   value={values.email}
                   autoComplete="email"
                   autoCapitalize="off"
-                  className={touched.email && errors.email ? "error" : null}
+                  className={touched.email && errors.email ? 'error' : null}
                 />
                 {errors.email && touched.email ? (
                   <div className="error-message">{errors.email}</div>
@@ -103,7 +103,7 @@ function LogIn({ setShowSidebar }) {
                   autoComplete="current-password"
                   autoCapitalize="off"
                   className={
-                    touched.password && errors.password ? "error" : null
+                    touched.password && errors.password ? 'error' : null
                   }
                 />
                 {errors.password && touched.password ? (
