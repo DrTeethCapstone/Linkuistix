@@ -1,7 +1,4 @@
 import * as PIXI from "pixi.js";
-import { gsap } from "gsap";
-import { PixiPlugin } from "gsap/PixiPlugin";
-gsap.registerPlugin(PixiPlugin);
 
 //CREATE A NEW INSTANCE OF THE SCORE OBJECT
 export class Score extends PIXI.Text {
@@ -15,7 +12,6 @@ export class Score extends PIXI.Text {
 
     this.alpha = 0.5;
     this.parent = parent;
-    // console.log('this1', this)
     if (this.parent) {
       this.parent.addChild(this);
       this.updatePosition();
@@ -31,12 +27,9 @@ export class Score extends PIXI.Text {
     this.parent.parent.userScore += val;
     this.text = this.parent.parent.userScore;
     this.updatePosition();
-    // console.log('this2', this)
-
   }
   resetScore() {
-    this.parent.parent.userScore = 0
+    this.parent.parent.userScore = 0;
     this.text = this.parent.parent.userScore;
   }
-
 }

@@ -2,213 +2,82 @@ import * as PIXI from "pixi.js";
 import * as randomWords from "random-words";
 import { Word } from "./Words";
 
-//TENSOR IMPORTS
-import * as tf from "@tensorflow/tfjs";
-import * as use from "@tensorflow-models/universal-sentence-encoder";
 //ANIMATION PLUGINS
 import { gsap } from "gsap";
-import { PixiPlugin } from "gsap/PixiPlugin";
-gsap.registerPlugin(PixiPlugin);
+
 //CREATE A NEW INSTANCE OF A PIXI CONTAINER USED TO STORE LIST OF WORDS
 export class WordsContainer extends PIXI.Container {
   constructor(parent) {
     super();
     this.parent = parent;
-    this.starterWords = randomWords(9);
     this.target = null;
+    this.isLoaded = false;
 
+    const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
+    bg.alpha = 0.25;
+    bg.width = this.parent.width;
+    bg.height = this.parent.height - this.parent.children[1].height * 2.22;
+    this.addChild(bg);
+
+    this.position.x = -this.parent.width / 2;
     if (this.parent) {
       this.parent.addChild(this);
-      this.position.y =
-        this.parent.children[0].height - this.parent.children[1].height;
+      this.position.y = -this.height;
     }
+    this.setupFirstChildren();
+  }
+
+  setupFirstChildren() {
+    for (let i = 0; i < 9; i++) {
+      new Word(randomWords(), this);
+    }
+    const target = new Word(randomWords(), this, true);
+    this.target = target;
+    this.isLoaded = true;
   }
 
   removeAllChildren() {
-    while (this.children[0]) {
-      this.removeChild(this.children[0]);
+    while (this.children.length > 1) {
+      this.removeChild(this.children[1]);
+    }
+  }
+
+  checkTargetPosition(prevGuessObject) {
+    if (this.target) {
+      if (this.target.index <= 3) {
+        for (let i = 0; i < 4; i++) {
+          this.removeChild(this.children[1]);
+        }
+
+        this.target = null;
+        this.children.forEach((word, i) => {
+          if (word.isWord) {
+            word.index = i;
+          }
+        });
+        prevGuessObject.parent.parent.updateMultiplier(true);
+      } else {
+        prevGuessObject.parent.parent.updateMultiplier(false);
+      }
     }
   }
 
   fromOffScreen() {
     this.visible = true;
     gsap.to(this, {
-      y: 0,
+      y: this.previousPosition || 0,
       duration: 1,
     });
   }
+
   toOffScreen() {
+    this.previousPosition = this.getGlobalPosition().y;
     gsap.to(this, {
-      y: this.parent.children[0].height - this.parent.children[1].height,
+      y: -this.height,
       duration: 1,
     });
-    this.visible = false;
-  }
-
-  async setupTensorModel() {
-    console.log("Tensors at start: ", tf.memory().numTensors);
-    console.log("Loading TF model..");
-    this.tensorModel = await use.load();
-    console.log("TF model loaded.");
-    console.log("Tensors at end: ", tf.memory().numTensors);
-  }
-  //COVERTS STRINGS TO WORD OBJECTS
-  convertWords(array) {
-    console.log("Starting string to object conversion...");
-    const returnArray = array.map((word) => new Word(word));
-    console.log("Completed conversion.");
-    return returnArray;
-  }
-
-  async prepareTensorEmbeddings(words, wordObjArr) {
-    try {
-      console.log("Tensors at start: ", tf.memory().numTensors);
-      console.log("Preparing Embeddings...");
-
-      tf.engine().startScope();
-      const target = [randomWords()];
-      const embeddingsFromWords = await this.tensorModel.embed(words);
-      console.log("Loaded Embeddings from words array.");
-      const embeddingsFromTarget = await this.tensorModel.embed(target);
-      console.log("Loaded Embeddings from target.");
-
-      for (let i = 0; i < target.length; i++) {
-        for (let j = i; j < words.length; j++) {
-          const wordI = tf.slice(embeddingsFromTarget, [i, 0], [1]);
-          const wordJ = tf.slice(embeddingsFromWords, [j, 0], [1]);
-
-          const wordITranspose = false;
-          const wordJTranspose = true;
-
-          const score = tf
-            .matMul(wordI, wordJ, wordITranspose, wordJTranspose)
-            .dataSync();
-
-          const [targetWord] = target;
-          wordObjArr[j].similarityScores.push({ targetWord, score: score[0] });
-        }
-      }
-      tf.engine().endScope();
-      console.log("Embeddings loaded.");
-      console.log("Prescored words: ", { words: this.wordsAsObjectsArray });
-      console.log("Tensors at end: ", tf.memory().numTensors);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async prepareSimilarities() {
-    console.log("Prepartions started");
-    await this.setupTensorModel();
-    for (let i = 0; i < 50; i++) {
-      await this.prepareTensorEmbeddings(
-        this.wordsAsStringsArray,
-        this.wordsAsObjectsArray
-      );
-    }
-    console.log("Prepartions Completed");
-  }
-
-  addWord(target) {
-    // console.log(this.target);
-    if (target) {
-      const newTarget = new Word(randomWords(), this, true);
-      newTarget.updatePosition();
-    } else {
-      const word = new Word(randomWords(), this);
-      word.updatePosition();
-    }
-  }
-  //TAKE THE ARRAY OF RANDOM WORDS AND CREATE NEW WORD OBJECTS AND UPDATE THEIR POSIITON
-  setupFirstChildren() {
-    this.starterWords.forEach((word) => {
-      new Word(word, this);
-    });
-    const target = new Word(randomWords(), this, true);
-    this.target = target;
-  }
-  dropChildrenPosition() {
-    this.children.forEach((word) => word.updatePosition());
-    while (this.children.length < 9) {
-      const newWord = new Word(randomWords(), this);
-      newWord.updatePosition();
-    }
-    if (this.children.length === 9) {
-      const target = new Word(randomWords(), this, true);
-      target.updatePosition();
-      this.target = target;
-    }
-  }
-  checkTargetPosition(prevGuessObject) {
-    if (this.target) {
-      //CHECK TO SEE IF TARGET WAS REPOSITIONED TO TOP FOUR
-      if (this.target.index <= 3) {
-        for (let i = 0; i < 4; i++) {
-          //REMOVE THE TOP FOUR CHILDREN
-          this.removeChild(this.children[0]);
-        }
-        this.target = null;
-        // this.addWord(true);
-        //UPDATE THE REMAINING CHILDREN INDEXES
-        this.children.forEach((word, i) => (word.index = i));
-        prevGuessObject.parent.parent.updateMultiplier(true);
-      } else {
-        prevGuessObject.parent.parent.updateMultiplier(false);
-      }
-    }
-    this.dropChildrenPosition();
+    setTimeout(() => {
+      this.visible = false;
+    }, 1000);
   }
 }
-
-/*
-  //METHOD TO ADD A NEW RANDOM WORD TO THE LIST
-  addWord(target) {
-    // console.log(this.target);
-    if (target) {
-      const newTarget = new Word(randomWords(), this, true);
-      newTarget.updatePosition();
-    } else {
-      const word = new Word(randomWords(), this);
-      word.updatePosition();
-    }
-  }
-  //TAKE THE ARRAY OF RANDOM WORDS AND CREATE NEW WORD OBJECTS AND UPDATE THEIR POSIITON
-  setupFirstChildren() {
-    this.starterWords.forEach((word) => {
-      new Word(word, this);
-    });
-    const target = new Word(randomWords(), this, true);
-    this.target = target;
-  }
-  dropChildrenPosition() {
-    this.children.forEach((word) => word.updatePosition());
-    while (this.children.length < 9) {
-      const newWord = new Word(randomWords(), this);
-      newWord.updatePosition();
-    }
-    if (this.children.length === 9) {
-      const target = new Word(randomWords(), this, true);
-      target.updatePosition();
-      this.target = target;
-    }
-  }
-    checkTargetPosition(prevGuessObject) {
-    if (this.target) {
-      //CHECK TO SEE IF TARGET WAS REPOSITIONED TO TOP FOUR
-      if (this.target.index <= 3) {
-        for (let i = 0; i < 4; i++) {
-          //REMOVE THE TOP FOUR CHILDREN
-          this.removeChild(this.children[0]);
-        }
-        this.target = null;
-        // this.addWord(true);
-        //UPDATE THE REMAINING CHILDREN INDEXES
-        this.children.forEach((word, i) => (word.index = i));
-        prevGuessObject.parent.parent.updateMultiplier(true);
-      } else {
-        prevGuessObject.parent.parent.updateMultiplier(false);
-      }
-    }
-    this.dropChildrenPosition();
-  }
-*/

@@ -15,7 +15,7 @@ export class PreviousWord extends PIXI.Text {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
       containerBG.tint = 0x1f1f1f;
-      containerBG.alpha = 0.8
+      containerBG.alpha = 0.8;
       containerBG.width = this.parent.width;
       containerBG.height = this.parent.height / 2;
       container.position.y = -containerBG.height * 2;
@@ -32,8 +32,10 @@ export class PreviousWord extends PIXI.Text {
   updateWord(word) {
     if (!word.length) {
       this.text = "Please Enter a Valid Guess";
+      this.style.fontSize = 18;
     } else {
       this.text = word;
+      this.style.fontSize = 24;
     }
   }
 }

@@ -1,8 +1,5 @@
 import * as PIXI from "pixi.js";
-
 import { gsap } from "gsap";
-import { PixiPlugin } from "gsap/PixiPlugin";
-gsap.registerPlugin(PixiPlugin);
 
 export class Multiplier extends PIXI.Graphics {
   constructor(parent) {
@@ -16,14 +13,13 @@ export class Multiplier extends PIXI.Graphics {
       this.graphic = new PIXI.Graphics();
       this.graphic.beginFill(0xebd25b);
       this.graphic.drawRect(3, 0, this.width - 5, this.height);
-      // console.dir(this.graphic)
       this.graphic.endFill();
-      this.graphic.alpha = 0.1
+      this.graphic.alpha = 0.1;
       this.addChild(this.graphic);
       this.position.y = this.height / 2;
       this.position.x = 0;
       this.positionBasedOnSiblings();
-      gsap.to(this.graphic, { alpha: 1, duration: 2 })
+      gsap.to(this.graphic, { alpha: 1, duration: 2 });
     }
   }
 
