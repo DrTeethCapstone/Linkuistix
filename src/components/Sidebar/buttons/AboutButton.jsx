@@ -18,7 +18,7 @@ function AboutButton({ handleAboutShow }) {
   const [styleAbout, apiAbout] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
-    borderColor: 'aliceblue',
+    borderColor: 'white',
     config: config.slow,
   }));
 
