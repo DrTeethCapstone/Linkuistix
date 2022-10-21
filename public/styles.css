@@ -486,6 +486,9 @@ canvas {
 .about-container img {
   margin-bottom: 5px;
 }
+.about-container a:hover {
+  color: #ebd25b;
+}
 .about-container .about-game-container {
   display: flex;
   flex-direction: column;
