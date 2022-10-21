@@ -134,8 +134,6 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   return (
     <>
       <div className="sidebar-container">
-        <p className="HUD">{currentUser.displayName.substring(0, 10)}</p>
-
         {/* BUTTONS */}
         <RegisterGuestButton
           currentUser={currentUser}
