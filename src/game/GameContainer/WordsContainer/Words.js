@@ -31,7 +31,7 @@ export class Word extends PIXI.Text {
     }
   }
 
-  //HIGHTLIGHTS WORD IN RED IF GUESS WASN'T VALID
+  //HIGHLIGHTS WORD IN RED IF GUESS WASN'T VALID
   invalidGuess(num) {
     const originalText = this.text;
     const tempText = `(${originalText.slice(0, num)})${originalText.slice(
