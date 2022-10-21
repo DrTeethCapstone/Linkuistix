@@ -3,6 +3,7 @@ import { GameMenu } from "./GameContainer/GameMenu/GameMenu";
 //ANIMATION PLUGINS
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
+import { TutorialContainer } from "./GameContainer/TutorialContainer/TutorialContainer"
 gsap.registerPlugin(PixiPlugin);
 
 export class Sketch {
@@ -18,6 +19,7 @@ export class Sketch {
     this.user = {};
     this.time = 0;
     this.gameOver = false;
+    this.tutorial = true
 
     this.gameMenu = new GameMenu(this.app.stage);
     document.body.appendChild(this.app.view);
@@ -27,6 +29,10 @@ export class Sketch {
     if (this.playing) {
       // this.gameContainer = new GameContainer(this.app.stage);
       // this.gameContainer.position.set(this.width / 2, 0);
+      if (this.tutorial) {
+        this.tutorial = false
+        this.tutorialContainer = new TutorialContainer(this.app.stage)
+      }
     }
   }
   setPlaying(torf) {

@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import * as tf from "@tensorflow/tfjs";
 import * as use from "@tensorflow-models/universal-sentence-encoder";
+import { InPlayMessage } from "./InPlayMessage";
 
 //CREATE A NEW INSTANCE OF A USER INPUT FIELD
 export class InputText extends PIXI.Text {
@@ -17,6 +18,7 @@ export class InputText extends PIXI.Text {
     this.interactive = true;
     this.enabled = false;
     this.isThinking = false;
+    this.message = new InPlayMessage(this)
 
     this.worker = new Worker(new URL("./TF_Worker.js", import.meta.url), {
       type: "module",
@@ -82,11 +84,13 @@ export class InputText extends PIXI.Text {
     if (targetString.length <= 3 && inputString.length >= 3) {
       if (targetString.slice(0, 3) === inputString.slice(0, 3)) {
         target.invalidGuess(3);
+        this.removeChild(this.message)
         return false;
       }
     } else if (targetString.length > 3 && inputString.length > 3) {
       if (targetString.slice(0, 4) === inputString.slice(0, 4)) {
         target.invalidGuess(4);
+        this.removeChild(this.message)
         return false;
       }
     }
@@ -97,6 +101,9 @@ export class InputText extends PIXI.Text {
     const prevWordObject = this.parent.parent.children[2].children[1];
     if (e.key === "Enter") {
       if (!this.isThinking) {
+        this.message.text = 'Please wait. Tensor is thinking...';
+        this.message.anchor.set(0.5);
+        this.addChild(this.message);
         this.wordsContainer = this.parent.parent.parent.children[3];
         let words = this.wordsContainer.children.slice(1);
         let [targetWord] = words.filter((word) => word.isTarget);
@@ -112,10 +119,11 @@ export class InputText extends PIXI.Text {
             userInput: [this.userGuess],
             tensorWords,
           });
+          this.removeChild(this.message)
 
-          this.worker.addEventListener("message", async ({ data }) => {
+          this.worker.addEventListener('message', async ({ data }) => {
             const { TFOutput } = data;
-            console.log("returned from worker: ", TFOutput);
+            console.log('returned from worker: ', TFOutput);
             this.TFOutput = TFOutput;
             for (let i = 0; i < this.TFOutput.length; i++) {
               words[i].similarityScore = this.TFOutput[i];
