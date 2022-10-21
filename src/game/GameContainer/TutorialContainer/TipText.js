@@ -7,6 +7,10 @@ export class TipText extends PIXI.Text {
       fontSize: 20,
       fill: 0xffffff,
       align: "center",
+      visible: true,
+      wordWrap: true,
+      wordWrapWidth: 600,
+      // lineHeight: 800,
     });
   }
 }
