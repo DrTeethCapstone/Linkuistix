@@ -13,7 +13,9 @@ function About() {
                 <div className='about-game-container'>
                     <h3>About the Game</h3>
                     <h5><a href='https://github.com/DrTeethCapstone/capstone-ml-three-firebase'>Project Github</a></h5>
-                    <p>Linkuistix is a game created by 5 dudes using machine learning blah blah more text is uses tensorflow thrreejs at fiurst but then pixi yaddayadda</p>
+                    <p>Linkuistix is a word association game that uses an artificial intelligence trained by machine learning.
+
+                        The AI allows us to present a set of words to the player and then rank how closely each of the presented words is associated with the player's input. If the player inputs a word that is closely associated with the targeted word the player gets points added to their score and a new set of words is presented. The time the player has to input words decreases the more they play until eventually the player is unable to enter a closely associated word in time.</p>
 
                 </div>
                 <h3>Meet the Devs</h3>
