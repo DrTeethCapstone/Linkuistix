@@ -22,10 +22,11 @@ export class Sketch {
     this.tutorial = true
 
     this.gameMenu = new GameMenu(this.app.stage);
+
     document.body.appendChild(this.app.view);
   }
-
   checkPlaying() {
+  console.log('-----------', this.playing)
     if (this.playing) {
       // this.gameContainer = new GameContainer(this.app.stage);
       // this.gameContainer.position.set(this.width / 2, 0);
