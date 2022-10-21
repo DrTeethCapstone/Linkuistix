@@ -1,6 +1,6 @@
-const tf = require("@tensorflow/tfjs");
-require("@tensorflow/tfjs");
-const use = require("@tensorflow-models/universal-sentence-encoder");
+const tf = require('@tensorflow/tfjs');
+require('@tensorflow/tfjs');
+const use = require('@tensorflow-models/universal-sentence-encoder');
 let tensorModel;
 
 onmessage = async (e) => {
@@ -16,7 +16,8 @@ async function TFWorker(target, tensorWords) {
   //load the USE model
   async function setModel() {
     await tf.ready();
-    tf.setBackend("cpu");
+    console.log('ready', tf.memory().numTensors);
+    tf.setBackend('cpu');
     const model = await use.load();
     return model;
   }
@@ -27,6 +28,7 @@ async function TFWorker(target, tensorWords) {
 
   const embedData = async (tensorModel, target, tensorWords) => {
     tf.engine().startScope();
+    console.log('start', tf.memory().numTensors);
     const embeddingsFromWords = await tensorModel.embed(tensorWords);
     const embeddingsFromTarget = await tensorModel.embed(target);
     for (let i = 0; i < target.length; i++) {
@@ -41,6 +43,7 @@ async function TFWorker(target, tensorWords) {
             wordJTranspose
           )
           .dataSync();
+        console.log('end', tf.memory().numTensors);
         tf.engine().endScope();
         return wordScores;
       }
