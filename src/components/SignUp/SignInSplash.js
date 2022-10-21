@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 //howler sounds
 import { Howl } from 'howler';
@@ -12,15 +13,28 @@ import { useSpring, animated, config } from '@react-spring/web';
 window.localStorage.setItem('displaySidebar', false);
 
 function SignInSplash({ setShowSidebar }) {
-  const [signupError, setError] = useState('');
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const [isNewUser, setIsNewUser] = useState(false);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setShowSidebar(true);
+      navigate('/game');
+      // ...
+    } else {
+      // User is signed out
+      setIsNewUser(true);
+      // ...
+    }
+  });
 
   //SFX
   const coinDrop = new Howl({
     src: ['/sounds/coin.mp3'],
     volume: 0.5,
   });
-
-  const navigate = useNavigate();
 
   //func which allows user to login as guest
   const { loginAsGuest } = useAuth();
@@ -36,7 +50,7 @@ function SignInSplash({ setShowSidebar }) {
       coinDrop.play();
       navigate('/game');
     } catch (error) {
-      setError('failed to log in');
+      console.log('failed to log in: ', error);
     }
   };
 
@@ -69,39 +83,43 @@ function SignInSplash({ setShowSidebar }) {
     }
   }, [isBooped1, api1]);
 
-  return (
-    <>
-      <div className="header-container d-flex flex-column w-100 align-items-center">
-        <h1>Linkuistix</h1>
-        <h6>Word association game powered by machine learning</h6>
-      </div>
-      <div id="lowerDown" className="form-container">
-        <h2>Welcome, Player</h2>
-        <div className="splashButtonContainer">
-          <animated.button
-            type="button"
-            className="form-button"
-            style={style1}
-            onMouseEnter={onMouseEnter1}
-            onMouseLeave={onMouseLeave1}
-            onClick={guestLogin}
-          >
-            Play As Guest
-          </animated.button>
+  if (isNewUser) {
+    return (
+      <>
+        <div className="header-container d-flex flex-column w-100 align-items-center">
+          <h1>Linkuistix</h1>
+          <h6>Word association game powered by machine learning</h6>
         </div>
-        <hr />
-        <p>Already Have An Account?</p>
-        <Link className="link-styles" to="/login">
-          Log In
-        </Link>
-        <hr />
-        <p>Want to register?</p>
-        <Link className="link-styles" to="/SignUp">
-          Sign Up
-        </Link>
-      </div>
-    </>
-  );
+        <div id="lowerDown" className="form-container">
+          <h2>Welcome, Player</h2>
+          <div className="splashButtonContainer">
+            <animated.button
+              type="button"
+              className="form-button"
+              style={style1}
+              onMouseEnter={onMouseEnter1}
+              onMouseLeave={onMouseLeave1}
+              onClick={guestLogin}
+            >
+              Play As Guest
+            </animated.button>
+          </div>
+          <hr />
+          <p>Already Have An Account?</p>
+          <Link className="link-styles" to="/login">
+            Log In
+          </Link>
+          <hr />
+          <p>Want to register?</p>
+          <Link className="link-styles" to="/SignUp">
+            Sign Up
+          </Link>
+        </div>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 export default SignInSplash;

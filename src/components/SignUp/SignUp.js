@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -38,9 +38,6 @@ const SignupSchema = Yup.object().shape({
 });
 
 function SignUp({ setShowSidebar }) {
-  const [signupError, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const { signup, loginAsGuest } = useAuth();
@@ -54,7 +51,7 @@ function SignUp({ setShowSidebar }) {
       setShowSidebar(true);
       navigate('/game');
     } catch (error) {
-      setError('failed to log in');
+      console.log('failed to log in: ', error);
     }
   };
 
@@ -82,9 +79,6 @@ function SignUp({ setShowSidebar }) {
               resetForm();
               setSubmitting(false);
               try {
-                setError('');
-                setLoading(true);
-
                 //we try to authenticate the user
                 // if the user exists, signupSuccess returns false
                 const signupSuccess = await signup(
@@ -102,9 +96,8 @@ function SignUp({ setShowSidebar }) {
                 }
               } catch (error) {
                 console.log(error);
-                setError('failed to create account: ', error);
+                console.log('failed to create account: ', error);
               }
-              setLoading(false);
             }}
           >
             {({
