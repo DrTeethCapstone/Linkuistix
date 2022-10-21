@@ -35,9 +35,7 @@ async function TFWorker(target, tensorWords) {
   }
 
   //Caller of the setModel function
-  console.log('does the tensorModel ever not exist?');
   if (!tensorModel) {
-    console.log('nope!');
     tensorModel = await setModel();
   }
 
