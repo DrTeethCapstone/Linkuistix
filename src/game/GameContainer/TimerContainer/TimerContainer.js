@@ -72,7 +72,8 @@ export class TimerContainer extends PIXI.Container {
 
   resetTimer() {
     this.time = this.parent.width;
-    this.increment = this.increment * 1.1;
+    if(this.increment<5){
+    this.increment = this.increment * 1.1;}
     gsap.to(this.timeBar, { width: this.time });
   }
 }

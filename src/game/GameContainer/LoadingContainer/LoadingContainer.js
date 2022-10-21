@@ -74,13 +74,13 @@ export class LoadingContainer extends PIXI.Container {
     });
     let phrase = loadingTips[Math.floor(Math.random()*loadingTips.length)]
     this.toolTip = new PIXI.Text(phrase,{
-      fontFamily: "Arial",
-      fontSize: 30,
+      fontFamily: "Press Start 2P",
+      fontSize: 22,
       fill: 0xFFFFFF,
     })
 
     this.loadingText.anchor.set(0.5,3.5);
-    this.toolTip.anchor.set(0.5,6.5)
+    this.toolTip.anchor.set(0.5,8.3)
     this.addChild(this.loadingText);
     this.addChild(this.toolTip)
     this.gameContainer = {};
