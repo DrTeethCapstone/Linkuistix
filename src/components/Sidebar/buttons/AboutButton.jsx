@@ -18,7 +18,7 @@ function AboutButton({ handleAboutShow }) {
   const [styleAbout, apiAbout] = useSpring(() => ({
     opacity: 0.3,
     borderWidth: '2px',
-    borderColor: 'lightgreen',
+    borderColor: 'aliceblue',
     config: config.slow,
   }));
 
@@ -67,7 +67,7 @@ function AboutButton({ handleAboutShow }) {
             icon={faCircleInfo}
             size="lg"
             fixedWidth
-            className="sidebarIcon"
+            className="aboutIcon"
             inverse
           />
         </animated.div>
