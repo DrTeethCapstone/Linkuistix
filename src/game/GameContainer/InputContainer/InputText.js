@@ -157,6 +157,7 @@ export class InputText extends PIXI.Text {
       word.updatePosition();
     });
     this.wordsContainer.checkTargetPosition(guessObj);
+    this.removeChild(this.message)
   }
 
   setSimilarityBonus(similarityScore) {
