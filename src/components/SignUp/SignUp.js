@@ -1,44 +1,44 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 //Toast
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 //Form validation
-import { Formik } from "formik";
-import * as Yup from "yup";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //define the Yup validation schema for SIGNUP
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
     .trim()
-    .min(5, "Too Short!")
-    .max(30, "Too Long!")
+    .min(5, 'Too Short!')
+    .max(30, 'Too Long!')
     .matches(
       /(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$/gm,
-      "Alphanumeric, dot, underscore, and dash only"
+      'Alphanumeric, dot, underscore, and dash only'
     )
-    .required("Required"),
+    .required('Required'),
 
-  email: Yup.string().trim().email("Invalid email").required("Required"),
+  email: Yup.string().trim().email('Invalid email').required('Required'),
   password: Yup.string()
     .trim()
-    .min(7, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  changepassword: Yup.string().when("password", {
+    .min(7, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  changepassword: Yup.string().when('password', {
     is: (val) => (val && val.length > 0 ? true : false),
     then: Yup.string().oneOf(
-      [Yup.ref("password")],
-      "Both passwords need to be the same"
+      [Yup.ref('password')],
+      'Both passwords need to be the same'
     ),
   }),
 });
 
 function SignUp({ setShowSidebar }) {
-  const [signupError, setError] = useState("");
+  const [signupError, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -52,9 +52,9 @@ function SignUp({ setShowSidebar }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
-      navigate("/landing");
+      navigate('/game');
     } catch (error) {
-      setError("failed to log in");
+      setError('failed to log in');
     }
   };
 
@@ -65,12 +65,12 @@ function SignUp({ setShowSidebar }) {
         <div>
           <Formik
             initialValues={{
-              password: "",
-              changepassword: "",
-              username: "",
-              email: "",
-              fName: "",
-              lName: "",
+              password: '',
+              changepassword: '',
+              username: '',
+              email: '',
+              fName: '',
+              lName: '',
             }}
             validationSchema={SignupSchema}
             validateOnChange={false}
@@ -82,7 +82,7 @@ function SignUp({ setShowSidebar }) {
               resetForm();
               setSubmitting(false);
               try {
-                setError("");
+                setError('');
                 setLoading(true);
 
                 //we try to authenticate the user
@@ -95,14 +95,14 @@ function SignUp({ setShowSidebar }) {
 
                 if (signupSuccess.status) {
                   setShowSidebar(true);
-                  navigate("/landing");
+                  navigate('/game');
                 } else {
                   toast.error(signupSuccess.reason);
-                  throw new Error("user already exists");
+                  throw new Error('user already exists');
                 }
               } catch (error) {
                 console.log(error);
-                setError("failed to create account: ", error);
+                setError('failed to create account: ', error);
               }
               setLoading(false);
             }}
@@ -127,7 +127,7 @@ function SignUp({ setShowSidebar }) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
-                  className={touched.email && errors.email ? "error" : null}
+                  className={touched.email && errors.email ? 'error' : null}
                 />
                 {errors.email && touched.email ? (
                   <div className="error-message">{errors.email}</div>
@@ -144,7 +144,7 @@ function SignUp({ setShowSidebar }) {
                   autoComplete="username"
                   autoCapitalize="off"
                   className={
-                    touched.username && errors.username ? "error" : null
+                    touched.username && errors.username ? 'error' : null
                   }
                 />
                 {errors.username && touched.username ? (
@@ -161,7 +161,7 @@ function SignUp({ setShowSidebar }) {
                   value={values.password}
                   autoComplete="new-password"
                   className={
-                    touched.password && errors.password ? "error" : null
+                    touched.password && errors.password ? 'error' : null
                   }
                 />
                 {errors.password && touched.password ? (
@@ -180,7 +180,7 @@ function SignUp({ setShowSidebar }) {
                   autoComplete="off"
                   className={
                     touched.changepassword && errors.changepassword
-                      ? "error"
+                      ? 'error'
                       : null
                   }
                 />

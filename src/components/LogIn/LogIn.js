@@ -32,7 +32,7 @@ function LogIn({ setShowSidebar }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
-      navigate('/landing');
+      navigate('/game');
     } catch (error) {
       setError('failed to log in');
     }
@@ -62,7 +62,7 @@ function LogIn({ setShowSidebar }) {
                 setLoading(true);
                 await login(castValues.email, castValues.password);
                 setShowSidebar(true);
-                navigate('/landing');
+                navigate('/game');
               } catch (error) {
                 setError('failed to log in');
               }

@@ -1,22 +1,22 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import React, { useState, useCallback, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 //howler sounds
-import { Howl } from "howler";
+import { Howl } from 'howler';
 
 //animation
-import { useSpring, animated, config } from "@react-spring/web";
+import { useSpring, animated, config } from '@react-spring/web';
 
 //don't show sidebar until logged in
-window.localStorage.setItem("displaySidebar", false);
+window.localStorage.setItem('displaySidebar', false);
 
 function SignInSplash({ setShowSidebar }) {
-  const [signupError, setError] = useState("");
+  const [signupError, setError] = useState('');
 
   //SFX
   const coinDrop = new Howl({
-    src: ["/sounds/coin.mp3"],
+    src: ['/sounds/coin.mp3'],
     volume: 0.5,
   });
 
@@ -34,9 +34,9 @@ function SignInSplash({ setShowSidebar }) {
       setShowSidebar(true);
       //play the coin sound
       coinDrop.play();
-      navigate("/landing");
+      navigate('/game');
     } catch (error) {
-      setError("failed to log in");
+      setError('failed to log in');
     }
   };
 
@@ -44,7 +44,7 @@ function SignInSplash({ setShowSidebar }) {
   const [isBooped1, setBooped1] = useState(false);
 
   const [style1, api1] = useSpring(() => ({
-    borderWidth: "2px",
+    borderWidth: '2px',
     config: config.gentle,
   }));
 
@@ -58,12 +58,12 @@ function SignInSplash({ setShowSidebar }) {
   useEffect(() => {
     if (isBooped1) {
       api1.start({
-        borderWidth: "5px",
+        borderWidth: '5px',
         scale: 1.2,
       });
     } else {
       api1.start({
-        borderWidth: "2px",
+        borderWidth: '2px',
         scale: 1,
       });
     }
