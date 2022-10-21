@@ -13,24 +13,24 @@ export class InputText extends PIXI.Text {
       align: "center",
     });
 
-    //DEFAULTS
     this.parent = parent;
     this.userGuess = "";
     this.interactive = true;
     this.enabled = false;
-
+    this.isThinking = false;
     this.message = new InPlayMessage(this)
 
-    //DON'T HAVE ACCESS TO THESE VALUES UNTIL SPECIFIC METHODS ARE CALLED
-    // this.model = null;
-    // this.wordsContainer = null;
+    this.worker = new Worker(new URL("./TF_Worker.js", import.meta.url), {
+      type: "module",
+    });
+
+    this.TFOutput = [];
 
     if (parent) {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
-      console.dir('container', container)
       containerBG.tint = 0x1f1f1f;
-      containerBG.alpha = 0.8
+      containerBG.alpha = 0.8;
       containerBG.width = this.parent.width;
       containerBG.height = this.parent.height / 2;
       container.position.y = -containerBG.height;
@@ -43,25 +43,40 @@ export class InputText extends PIXI.Text {
       this.anchor.set(0.5);
     }
 
-    //ONLY ENABLED IF USER CLICKS ON FIELD
     this.on("pointerdown", (e) => {
       this.style.fill = 0x0eb3e1;
       this.setupKeyboardListener();
+
+      if (!this.parent.parent.parent.children[4].isRunning) {
+        this.parent.parent.parent.children[3].fromOffScreen();
+        setTimeout(() => {
+          this.parent.parent.parent.children[4].ticker.start();
+        }, 1000);
+      }
     });
 
     this.setupModel();
   }
 
+  eventListener = (e) => {
+    this.updateInputText(e, this);
+  };
+
+  resetState() {
+    this.userGuess = "";
+    this.text = "Click to Start";
+    this.style.fill = 0xebd25b;
+    this.enabled = false;
+    window.removeEventListener("keydown", this.eventListener);
+  }
+
   setupKeyboardListener() {
     if (!this.enabled) {
       this.enabled = true;
-      window.addEventListener("keydown", (e) => {
-        this.updateInputText(e, this);
-      });
+      window.addEventListener("keydown", this.eventListener);
     }
   }
 
-  //VALIDATION FOR INPUT WORD BEFORE SENDING WORD TO TENSOR
   validateWordInput({ targetString, inputString, target }) {
     if (!inputString.length) {
       return false;
@@ -82,50 +97,51 @@ export class InputText extends PIXI.Text {
     return true;
   }
 
-  //KEYBOARD
   updateInputText(e, me) {
+    const prevWordObject = this.parent.parent.children[2].children[1];
     if (e.key === "Enter") {
-
-      this.parent.parent.parent.children[4].resetTimer()
-
-      //SET MODEL QUERYING MESSAGE
-      this.message.text = "Please wait. Tensor is thinking..."
+      if (!this.isThinking) {
+        this.message.text = "Please wait. Tensor is thinking..."
       this.message.anchor.set(0.5);
       this.addChild(this.message)
+        this.wordsContainer = this.parent.parent.parent.children[3];
+        let words = this.wordsContainer.children.slice(1);
+        let [targetWord] = words.filter((word) => word.isTarget);
+        const tensorWords = words.map((word) => word.text);
+        const validation = {
+          targetString: targetWord.text,
+          inputString: this.userGuess.toLowerCase(),
+          target: targetWord,
+        };
+        if (this.validateWordInput(validation)) {
+          this.isThinking = true;
+          this.worker.postMessage({
+            userInput: [this.userGuess],
+            tensorWords,
+          });
 
-      //ARRAY OF WORD OBJECTS
-      this.wordsContainer = this.parent.parent.parent.children[3];
-      let words = this.wordsContainer.children;
-      //TARGET WORD OBJECT
-      let [targetWord] = words.filter((word) => word.isTarget);
-      //ARRAY OF WORDS -- IN STRINGS
-      const tensorWords = words.map((word) => word.text);
-
-      const validation = {
-        targetString: targetWord.text,
-        inputString: this.userGuess.toLowerCase(),
-        target: targetWord,
-      };
-      const prevWordObject = this.parent.parent.children[2].children[1];
-
-      if (this.validateWordInput(validation)) {
-        this.speakToTensor(
-          [this.userGuess],
-          tensorWords,
-          words,
-          prevWordObject
-        );
+          this.worker.addEventListener("message", async ({ data }) => {
+            const { TFOutput } = data;
+            console.log("returned from worker: ", TFOutput);
+            this.TFOutput = TFOutput;
+            for (let i = 0; i < this.TFOutput.length; i++) {
+              words[i].similarityScore = this.TFOutput[i];
+            }
+            console.log(words);
+            this.sortBySimilarityScores(words, prevWordObject);
+            prevWordObject.updateWord(this.userGuess);
+            this.isThinking = false;
+          });
+        }
       }
 
       prevWordObject.updateWord(this.userGuess);
-
       this.userGuess = "";
       me.text = "";
     } else if (e.key === "Backspace") {
       this.userGuess = this.userGuess.slice(0, this.userGuess.length - 1);
       me.text = this.userGuess;
     } else {
-      //ONLY ALPHABET CHARACTERS AND SPACES ARE ACCEPTED
       if (this.isLetter(e.key) || e.key === " ") {
         this.userGuess += e.key.toLowerCase();
         me.text = this.userGuess;
@@ -133,70 +149,23 @@ export class InputText extends PIXI.Text {
     }
   }
 
-  //QUICK FUNCTION TO CHECK IF A KEY CODE IS A LETTER IN THE ALPHABET
   isLetter(char) {
     return char.length === 1 && char.match(/[a-z]/i);
   }
 
-  //TODO: MAYBE STORE THIS SOMEWHERE BEFORE USING SPEAK TO TENSOR
-  // async createTensorWordList(words) {
-  //   await this.model.embed(words);
-  //   return tf.slice(embeddingsFromWords, [j, 0], [1]);
-  // }
-
-  //USER INTERACTION WITH TENSOR
-  async speakToTensor(target, words, wordObjects, guessObj) {
-    console.log("start", tf.memory().numTensors);
-    // TO FIX MEMORY LEAKS, WE NEED TO MANUALLY DEFINE OUR SCOPE
-    // USE TF.ENGINE FOR ASYNC FUNCTIONS, TF.TIDY FOR OTHERS
-    tf.engine().startScope();
-
-    //TODO: MAYBE TRY TO EMBED SOMEWHERE ELSE SOONER BEFORE TARGET IS AVAILABLE
-
-    const embeddingsFromWords = await this.model.embed(words);
-    const embeddingsFromTarget = await this.model.embed(target);
-    //TODO: THIS DOESN'T RETURN THE SAME INFORMATION THAT ON GOOGLE'S REF
-    for (let i = 0; i < target.length; i++) {
-      for (let j = i; j < words.length; j++) {
-        const wordI = tf.slice(embeddingsFromTarget, [i, 0], [1]);
-        const wordJ = tf.slice(embeddingsFromWords, [j, 0], [1]);
-        const wordITranspose = false;
-        const wordJTranspose = true;
-
-        const score = tf
-          .matMul(wordI, wordJ, wordITranspose, wordJTranspose)
-          .dataSync();
-
-        // console.log(`${words[j]} -- ${target}`, score);
-
-        //ADDING=THE SIMILARITY SCORE TO EACH WORD OBJECT
-        wordObjects[j].similarityScore = score[0];
-      }
-    }
-
-    this.assignSimilarityIndex(wordObjects, guessObj);
-    this.removeChild(this.message)
-    tf.engine().endScope();
-    console.log("end", tf.memory().numTensors);
-  }
-
-  //AFTER RUNNING TENSOR, UPDATE EACH WORD'S INDEX STATE
-  assignSimilarityIndex(wordsObjectArray, guessObj) {
+  sortBySimilarityScores(wordsObjectArray, guessObj) {
     wordsObjectArray.sort((a, b) => {
       return b.similarityScore - a.similarityScore;
     });
     wordsObjectArray.forEach((word, i) => {
       word.index = i;
-      //THIS WILL ANIMATE THE WORDS INTO THE NEW PLACE
       word.updatePosition();
     });
-    //REMOVE TOP 4 WORDS IF TARGET HAS AN INDEX OF 3 OR LESS
     this.wordsContainer.checkTargetPosition(guessObj);
   }
 
-  //PRETRAINED MODEL
   async setupModel() {
     this.model = await use.load();
-    console.log("Tensorflow model was loaded.");
+    this.parent.parent.isLoaded = true;
   }
 }

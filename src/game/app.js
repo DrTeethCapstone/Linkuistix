@@ -1,14 +1,12 @@
 import * as PIXI from "pixi.js";
-import { GameContainer } from "./GameContainer/GameContainer";
+import { GameMenu } from "./GameContainer/GameMenu/GameMenu";
 //ANIMATION PLUGINS
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
-import { BackgroundScape } from './BackgroundScape'
 import { TutorialContainer } from "./GameContainer/TutorialContainer/TutorialContainer"
 gsap.registerPlugin(PixiPlugin);
 
 export class Sketch {
-  //CREATE AND ADD A NEW INSTANCE OF THE CANVAS WITH STYLES
   constructor() {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
@@ -20,7 +18,6 @@ export class Sketch {
     this.playing = false
     this.tutorial = true
 
-    this.backgroundScape = new BackgroundScape(this.app.stage);
 
     document.body.appendChild(this.app.view);
 
@@ -28,29 +25,16 @@ export class Sketch {
 
     this.user = {}
     this.time = 0;
-    this.gameOver = false
-    // const test = new GameMenu(this.app.stage);
+    this.gameOver = false;
 
-    //THIS CURRENTLY INITIATES THE GAME LOOP
-    // this.render();
-  }
-  //RUNS GAME LOOP AND TRIGGERS THINGS THAT SHOULD RENDER ON EACH FRAME
-  render() {
-    this.app.ticker.add((delta) => {
-      // const wordsContainer = this.gameContainer.children[3];
-      this.time += 1;
-      console.log(this.time)
-      if (Math.floor(this.time) === 500) {
-        // this.time = 0;
-        this.gameOver = true
-      }
-    });
+    this.gameMenu = new GameMenu(this.app.stage);
+    document.body.appendChild(this.app.view);
   }
 
   checkPlaying() {
     if (this.playing) {
-      this.gameContainer = new GameContainer(this.app.stage);
-      this.gameContainer.position.set(this.width / 2, 0);
+      // this.gameContainer = new GameContainer(this.app.stage);
+      // this.gameContainer.position.set(this.width / 2, 0);
       // this.render()
       if (this.tutorial) {
         this.tutorial = false
@@ -59,15 +43,12 @@ export class Sketch {
     }
   }
   setPlaying(torf) {
-    this.playing = torf
+    this.playing = torf;
   }
   setUser(user) {
-
-    this.gameContainer.user = user
-
+    this.gameContainer.user = user;
   }
   checkUser() {
-    console.log(this.gameContainer.user)
+    console.log(this.gameContainer.user);
   }
-
 }

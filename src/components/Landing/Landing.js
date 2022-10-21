@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-// import Sidebar from './Sidebar';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
-//sounds
-import { Howl, Howler } from 'howler';
+import { Howl } from "howler";
 
 function Landing({ sketch, setShowSidebar }) {
-  const [chatState, setChatState] = useState(false);
-  // const { currentUser } = useAuth();
-  const [zoomState, setZoomState] = useState('splash-container');
+  const [zoomState, setZoomState] = useState("splash-container");
   const currentUser = useAuth().currentUser;
-  console.log(currentUser);
   const navigate = useNavigate();
 
-  //SFX
   const coinDrop = new Howl({
-    src: ['/sounds/coin.mp3'],
+    src: ["/sounds/coin.mp3"],
     volume: 0.5,
   });
 
   const handleAnimation = () => {
     coinDrop.play();
     setShowSidebar(true);
-    setZoomState('splash-container zoomout-splash');
+    setZoomState("splash-container zoomout-splash");
     setTimeout(() => {
-      navigate('/game');
+      navigate("/game");
       sketch.setPlaying(true);
       sketch.checkPlaying();
       sketch.setUser({
@@ -33,18 +27,16 @@ function Landing({ sketch, setShowSidebar }) {
         id: currentUser.uid,
         username: currentUser.displayName,
       });
-      sketch.checkUser();
-      console.log(sketch);
     }, 1900);
   };
 
+  return;
   return (
     <>
-      {/* <Sidebar /> */}
       <div className={zoomState}>
         <div className="header-container">
-          <h1>NOT SEMANTRIS</h1>
-          <h6>Word association games powered by machine learning and teeth</h6>
+          <h1>Linkuistix</h1>
+          <h6>Word association game powered by machine learning</h6>
         </div>
         <div className="play-container">
           <div>
@@ -56,7 +48,6 @@ function Landing({ sketch, setShowSidebar }) {
             </div>
             <div className="button-container">
               <button onClick={handleAnimation}>PLAY</button>
-              {/* <button>SKIP TUTORIAL</button> */}
             </div>
           </div>
         </div>

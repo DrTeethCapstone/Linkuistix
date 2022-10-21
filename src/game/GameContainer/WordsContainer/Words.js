@@ -1,9 +1,6 @@
 import * as PIXI from "pixi.js";
 
-//ANIMATION PLUGINS
 import { gsap } from "gsap";
-import { PixiPlugin } from "gsap/PixiPlugin";
-gsap.registerPlugin(PixiPlugin);
 
 //CREATE A NEW INSTANCE OF A WORD OBJECT
 export class Word extends PIXI.Text {
@@ -17,9 +14,9 @@ export class Word extends PIXI.Text {
     });
 
     this.parent = parent;
-    this.anchor.set(0.5, 1);
+    this.anchor.set(0, 1);
     this.isWord = true;
-    this.similarityScores = [];
+    this.similarityScores = 0;
 
     if (isTarget) {
       this.isTarget = isTarget;
@@ -29,7 +26,8 @@ export class Word extends PIXI.Text {
     if (this.parent) {
       this.index = this.parent.children.length;
       this.parent.addChild(this);
-      this.position.y = -this.parent.getGlobalPosition().y;
+      this.position.y = this.parent.height - this.height * this.index;
+      this.position.x = this.parent.width / 2 - this.width / 2;
     }
   }
 
@@ -39,30 +37,27 @@ export class Word extends PIXI.Text {
     const tempText = `(${originalText.slice(0, num)})${originalText.slice(
       num
     )}`;
-
     this.text = tempText;
-
     setTimeout(() => {
       this.text = originalText;
       this.style.fill = 0xffffff;
     }, 1500);
-    // SHAKE AND INVALID WORD TO RED ANIMATIONS
-    gsap.to(this, {x: 8, repeat: 0, ease: "elastic(1, 0.5"})
-    gsap.to(this, {x: 0})
     gsap.to(this.style, { fill: "red", duration: 1 });
   }
 
   updatePosition() {
     if (this.index > -1) {
-      gsap.to(this, { y: -this.height * this.index, duration: 1 });
+      gsap.to(this, {
+        y: this.parent.height - this.height * this.index,
+        duration: 1,
+      });
     }
   }
 
-  removeWord() {
-    //TODO: ANIMATE THINGS OFF THE SCREEN, REINDEX THE CHILDREN, ANIMATE NEW POSITIONS, REMOVE THINGS OFF SCREEN
-    gsap.to(this, { x: -100, duration: 4 });
-    this.parent.removeChild(this);
-  }
+  // removeWord() {
+  //   gsap.to(this, { x: -100, duration: 4 });
+  //   this.parent.removeChild(this);
+  // }
 
   updateWord(word) {
     this.text = word;

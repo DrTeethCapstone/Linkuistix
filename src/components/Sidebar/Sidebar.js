@@ -1,39 +1,40 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import RegisterGuestModal from './modals/RegisterGuestModal';
-import LeaderboardModal from './modals/LeaderboardModal';
-import ProfileModal from './modals/ProfileModal';
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import RegisterGuestModal from "./modals/RegisterGuestModal";
+import LeaderboardModal from "./modals/LeaderboardModal";
+import ProfileModal from "./modals/ProfileModal";
+import AboutModal from "./modals/AboutModal";
+
 //user auth
-import { getAuth } from 'firebase/auth';
-import { useAuth } from '../../contexts/AuthContext';
+import { getAuth } from "firebase/auth";
+import { useAuth } from "../../contexts/AuthContext";
 
 //tooltips
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 //icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFloppyDisk,
   faUser,
-  faGamepad,
   faTrophy,
   faCircleXmark,
-  faHome,
   faVolumeHigh,
   faVolumeXmark,
   faPlay,
   faStop,
-} from '@fortawesome/free-solid-svg-icons';
+  faCircleInfo,
+} from "@fortawesome/free-solid-svg-icons";
 
 //animation
-import { useSpring, animated, config } from '@react-spring/web';
+import { useSpring, animated, config } from "@react-spring/web";
 
 //sounds
-import { Howler, Howl } from 'howler';
+import { Howler, Howl } from "howler";
 
 function Sidebar({ sketch, setShowSidebar, showSidebar }) {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const auth = getAuth();
 
@@ -59,13 +60,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   //state
   const [soundOn, setSoundOn] = useState(true); //sound on or not
   const [musicOn, setMusicOn] = useState(false); //music playing or stopped
-  const getFirstLogin = window.localStorage.getItem('isFirstLogin')
+  const getFirstLogin = window.localStorage.getItem("isFirstLogin")
     ? false
     : true;
   const [isFirstLogin, setIsFirstLogin] = useState(getFirstLogin); //your first login, innit, mate?
   const [showSound, setShowSound] = useState({}); //show the sound tooltip song and dance
   const [showMusic, setShowMusic] = useState({}); //show the music tooltip song and dance
-  const [musicId, setMusicId] = useState(''); //store the music Howler ID because Howler
+  const [musicId, setMusicId] = useState(""); //store the music Howler ID because Howler
 
   //register guest modal
   const [showRegisterGuest, setShowRegisterGuest] = useState(false);
@@ -81,6 +82,11 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const handleLeaderboardClose = () => setShowLeaderboard(false);
   const handleLeaderboardShow = () => setShowLeaderboard(true);
+
+  //about modal
+  const [showAbout, setShowAbout] = useState(false);
+  const handleAboutClose = () => setShowAbout(false);
+  const handleAboutShow = () => setShowAbout(true);
 
   //toggles global app sound on/off
   const handleSoundOnOff = () => {
@@ -111,8 +117,8 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
 
   //our little music piece
   const music = new Howl({
-    src: ['/sounds/fantasy.mp3'],
-    volume: 0.5,
+    src: ["/sounds/fantasy.mp3"],
+    volume: 0.15,
     loop: true,
   });
 
@@ -125,9 +131,10 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const [isBoopedHome, setBoopedHome] = useState(false);
   const [isBoopedSound, setBoopedSound] = useState(false);
   const [isBoopedMusic, setBoopedMusic] = useState(false);
+  const [isBoopedAbout, setBoopedAbout] = useState(false);
 
   //highlight the mute and music buttons on first login
-  console.log('ifl: ', isFirstLogin, 'sS: ', showSidebar);
+  // console.log('ifl: ', isFirstLogin, 'sS: ', showSidebar);
   if (isFirstLogin && showSidebar) {
     setTimeout(() => {
       setBoopedSound(true);
@@ -150,50 +157,56 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     //set first login to false
     //we store it in localStorage so we can hold onto the info on refresh
     setIsFirstLogin(false);
-    window.localStorage.setItem('isFirstLogin', false);
+    window.localStorage.setItem("isFirstLogin", false);
   }
 
   const [styleSave, apiSave] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
+    borderWidth: "2px",
     config: config.slow,
   }));
   const [styleUser, apiUser] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
+    borderWidth: "2px",
     config: config.slow,
   }));
   const [styleGame, apiGame] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
+    borderWidth: "2px",
     config: config.slow,
   }));
   const [styleLeaderboard, apiLeaderboard] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
+    borderWidth: "2px",
     config: config.slow,
   }));
   const [styleLogout, apiLogout] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
-    borderColor: 'red',
+    borderWidth: "2px",
+    borderColor: "red",
     config: config.slow,
   }));
   const [styleHome, apiHome] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
+    borderWidth: "2px",
     config: config.slow,
   }));
   const [styleSound, apiSound] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
-    borderColor: 'cornflowerblue',
+    borderWidth: "2px",
+    borderColor: "cornflowerblue",
     config: config.slow,
   }));
   const [styleMusic, apiMusic] = useSpring(() => ({
     opacity: 0.3,
-    borderWidth: '2px',
-    borderColor: 'lightgreen',
+    borderWidth: "2px",
+    borderColor: "lightgreen",
+    config: config.slow,
+  }));
+  const [styleAbout, apiAbout] = useSpring(() => ({
+    opacity: 0.3,
+    borderWidth: "2px",
+    borderColor: "lightgreen",
     config: config.slow,
   }));
 
@@ -214,18 +227,20 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   const onMouseLeave7 = useCallback(() => setBoopedSound(false), []);
   const onMouseEnter8 = useCallback(() => setBoopedMusic(true), []);
   const onMouseLeave8 = useCallback(() => setBoopedMusic(false), []);
+  const onMouseEnter9 = useCallback(() => setBoopedAbout(true), []);
+  const onMouseLeave9 = useCallback(() => setBoopedAbout(false), []);
 
   useEffect(() => {
     if (isBoopedSave) {
       apiSave.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiSave.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
@@ -234,13 +249,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     if (isBoopedUser) {
       apiUser.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiUser.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
@@ -249,13 +264,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     if (isBoopedGame) {
       apiGame.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiGame.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
@@ -264,13 +279,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     if (isBoopedRank) {
       apiLeaderboard.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiLeaderboard.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
@@ -279,13 +294,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     if (isBoopedLogout) {
       apiLogout.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiLogout.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
@@ -294,13 +309,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     if (isBoopedHome) {
       apiHome.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiHome.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
@@ -309,13 +324,13 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     if (isBoopedSound) {
       apiSound.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiSound.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
@@ -324,81 +339,103 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
     if (isBoopedMusic) {
       apiMusic.start({
         opacity: 1,
-        borderWidth: '5px',
+        borderWidth: "5px",
         scale: 1.2,
       });
     } else {
       apiMusic.start({
         opacity: 0.3,
-        borderWidth: '2px',
+        borderWidth: "2px",
         scale: 1,
       });
     }
   }, [isBoopedMusic, apiMusic]);
+  useEffect(() => {
+    if (isBoopedAbout) {
+      apiAbout.start({
+        opacity: 1,
+        borderWidth: "5px",
+        scale: 1.2,
+      });
+    } else {
+      apiAbout.start({
+        opacity: 0.3,
+        borderWidth: "2px",
+        scale: 1,
+      });
+    }
+  }, [isBoopedAbout, apiAbout]);
 
   const navigate = useNavigate();
 
   const goHome = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const startGame = () => {
-    navigate('/game');
+    navigate("/game");
     sketch.setPlaying(true);
     sketch.checkPlaying();
   };
 
   const handleLogout = async () => {
-    setError('');
+    setError("");
     try {
       await logout();
       setShowSidebar(false);
 
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      setError('failed to log out');
+      setError("failed to log out");
     }
   };
 
   //tooltip renderer
   const renderTooltipSave = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      Save Progress{' '}
+      Save Progress{" "}
     </Tooltip>
   );
   const renderTooltipProfile = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      User Profile{' '}
+      User Profile{" "}
     </Tooltip>
   );
   const renderTooltipGame = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      Play Game{' '}
+      Play Game{" "}
     </Tooltip>
   );
   const renderTooltipLeaderboard = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      Leaderboard{' '}
+      Leaderboard{" "}
     </Tooltip>
   );
+
+  const renderTooltipAbout = (props) => (
+    <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
+      About{" "}
+    </Tooltip>
+  );
+
   const renderTooltipLogout = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      Log Out{' '}
+      Log Out{" "}
     </Tooltip>
   );
   const renderTooltipHome = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      Home{' '}
+      Home{" "}
     </Tooltip>
   );
   const renderTooltipSound = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      Sound On/Off{' '}
+      Sound On/Off{" "}
     </Tooltip>
   );
   const renderTooltipMusic = (props) => (
     <Tooltip id="button-tooltip" {...props} className="sidebarTooltip">
-      Music On/Off{' '}
+      Music On/Off{" "}
     </Tooltip>
   );
 
@@ -411,7 +448,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
       > */}
       {/* <animated.div
           style={styleHome}
-          onMouseEnter={onMouseEnter6}
+          onMouseEnter={onMouseEnter6} 
           onMouseLeave={onMouseLeave6}
           onClick={goHome}
         > */}
@@ -462,7 +499,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
           onMouseLeave={onMouseLeave2}
           onClick={handleUserShow}
         >
-          {/* <Link to="/profile"> */}{' '}
+          {/* <Link to="/profile"> */}{" "}
           <FontAwesomeIcon
             icon={faUser}
             size="lg"
@@ -484,7 +521,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
           onMouseLeave={onMouseLeave3}
           onClick={startGame}
         > */}
-      {/* <Link to="/game"> */}{' '}
+      {/* <Link to="/game"> */}{" "}
       {/* <FontAwesomeIcon
             icon={faGamepad}
             size="lg"
@@ -506,7 +543,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
           onMouseLeave={onMouseLeave4}
           onClick={handleLeaderboardShow}
         >
-          {/* <Link to="/leaderboards"> */}{' '}
+          {/* <Link to="/leaderboards"> */}{" "}
           <FontAwesomeIcon
             icon={faTrophy}
             size="lg"
@@ -529,7 +566,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
           onMouseLeave={onMouseLeave7}
         >
           <span onClick={handleSoundOnOff}>
-            {' '}
+            {" "}
             <FontAwesomeIcon
               icon={soundOn ? faVolumeHigh : faVolumeXmark}
               className="soundIcon"
@@ -552,7 +589,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
           onMouseLeave={onMouseLeave8}
         >
           <span onClick={musicOn ? handleMusicOff : handleMusicOn}>
-            {' '}
+            {" "}
             <FontAwesomeIcon
               icon={musicOn ? faStop : faPlay}
               className="soundIcon"
@@ -561,6 +598,29 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
               inverse
             />
           </span>
+        </animated.div>
+      </OverlayTrigger>
+      {/* //THIS ONE */}
+      <OverlayTrigger
+        placement="left"
+        delay={{ show: 100, hide: 100 }}
+        overlay={renderTooltipAbout}
+      >
+        <animated.div
+          style={styleAbout}
+          onMouseEnter={onMouseEnter9}
+          onMouseLeave={onMouseLeave9}
+          onClick={handleAboutShow}
+        >
+          {/* <Link to="/leaderboards"> */}{" "}
+          <FontAwesomeIcon
+            icon={faCircleInfo}
+            size="lg"
+            fixedWidth
+            className="sidebarIcon"
+            inverse
+          />
+          {/* </Link> */}
         </animated.div>
       </OverlayTrigger>
       <OverlayTrigger
@@ -574,7 +634,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
           onMouseLeave={onMouseLeave5}
         >
           <span onClick={handleLogout}>
-            {' '}
+            {" "}
             <FontAwesomeIcon
               icon={faCircleXmark}
               className="logoutIcon"
@@ -593,6 +653,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
         showLeaderboard={showLeaderboard}
         handleLeaderboardClose={handleLeaderboardClose}
       />
+      <AboutModal showAbout={showAbout} handleAboutClose={handleAboutClose} />
       {currentUser ? (
         <ProfileModal
           showUser={showUser}
