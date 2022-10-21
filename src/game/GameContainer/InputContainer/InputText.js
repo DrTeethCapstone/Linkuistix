@@ -127,6 +127,10 @@ export class InputText extends PIXI.Text {
             for (let i = 0; i < this.TFOutput.length; i++) {
               words[i].similarityScore = this.TFOutput[i];
             }
+<<<<<<< HEAD
+=======
+            this.setSimilarityBonus(words.filter(elem=> elem.isTarget)[0].similarityScore)
+>>>>>>> 638386114bb9fa6f37427e3016fb62b8ffeb9063
             this.sortBySimilarityScores(words, prevWordObject);
             prevWordObject.updateWord(this.userGuess);
             this.isThinking = false;
@@ -166,4 +170,9 @@ export class InputText extends PIXI.Text {
     this.model = await use.load();
     this.parent.parent.isLoaded = true;
   }
+  setSimilarityBonus(similarityScore){
+    this.similarityBonus = Math.floor(50*similarityScore)
+  }
 }
+
+
