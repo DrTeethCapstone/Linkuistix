@@ -31,7 +31,6 @@ function MusicButton({
 
   //first load animation
   //highlight the music button on first login
-  console.log('music is first and showS: ', isFirstLogin, showSidebar);
   if (isFirstLogin && showSidebar) {
     setTimeout(() => {
       setBoopedMusic(true);

@@ -254,7 +254,6 @@ LOG OUT
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log('that user useEffect: ', user);
       setCurrentUser(user);
       setLoading(false);
     });
