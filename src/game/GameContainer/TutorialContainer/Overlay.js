@@ -9,8 +9,8 @@ export class Overlay extends PIXI.Sprite {
     this.parent = parent;
     this.height = height;
     this.width = width;
-    this.anchor.set(0.5);
-    this.position.x = window.innerWidth / 2;
+    // this.anchor.set(0.5);
+    // this.position.x = window.innerWidth / 2;
     // this.position.y = this.height;
     this.position.y = window.innerHeight / 2;
   }

@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 
+import { gsap } from "gsap";
 //CREATE A NEW INSTANCE OF THE SCORE OBJECT
 export class Score extends PIXI.Text {
   constructor(parent = null) {
@@ -10,12 +11,25 @@ export class Score extends PIXI.Text {
       align: "center",
     });
 
-    this.alpha = 0.5;
+    this.alpha = 0;
     this.parent = parent;
     if (this.parent) {
       this.parent.addChild(this);
       this.updatePosition();
       this.position.y = this.parent.height / 3;
+    }
+  }
+  animateOpacity(boolean) {
+    if (boolean) {
+      gsap.to(this, {
+        alpha: 0,
+        duration: 1.5,
+      });
+    } else {
+      gsap.to(this, {
+        alpha: 1,
+        duration: 1,
+      });
     }
   }
 

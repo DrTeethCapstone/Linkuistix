@@ -6,22 +6,22 @@ import { InPlayMessage } from "./InPlayMessage";
 //CREATE A NEW INSTANCE OF A USER INPUT FIELD
 export class InputText extends PIXI.Text {
   constructor(parent = null) {
-    super('type here', {
-      fontFamily: 'Press Start 2P',
+    super("type here", {
+      fontFamily: "Press Start 2P",
       fontSize: 24,
       fill: 0xebd25b,
-      align: 'center',
+      align: "center",
     });
 
     this.parent = parent;
-    this.userGuess = '';
+    this.userGuess = "";
     this.interactive = true;
     this.enabled = false;
     this.isThinking = false;
-    this.message = new InPlayMessage(this)
+    this.message = new InPlayMessage(this);
 
-    this.worker = new Worker(new URL('./TF_Worker.js', import.meta.url), {
-      type: 'module',
+    this.worker = new Worker(new URL("./TF_Worker.js", import.meta.url), {
+      type: "module",
     });
 
     this.TFOutput = [];
@@ -43,7 +43,7 @@ export class InputText extends PIXI.Text {
       this.anchor.set(0.5);
     }
 
-    this.on('pointerdown', (e) => {
+    this.on("pointerdown", (e) => {
       this.style.fill = 0x0eb3e1;
       this.setupKeyboardListener();
 
@@ -63,17 +63,17 @@ export class InputText extends PIXI.Text {
   };
 
   resetState() {
-    this.userGuess = '';
-    this.text = 'Click to Start';
+    this.userGuess = "";
+    this.text = "Click to Start";
     this.style.fill = 0xebd25b;
     this.enabled = false;
-    window.removeEventListener('keydown', this.eventListener);
+    window.removeEventListener("keydown", this.eventListener);
   }
 
   setupKeyboardListener() {
     if (!this.enabled) {
       this.enabled = true;
-      window.addEventListener('keydown', this.eventListener);
+      window.addEventListener("keydown", this.eventListener);
     }
   }
 
@@ -84,13 +84,13 @@ export class InputText extends PIXI.Text {
     if (targetString.length <= 3 && inputString.length >= 3) {
       if (targetString.slice(0, 3) === inputString.slice(0, 3)) {
         target.invalidGuess(3);
-        this.removeChild(this.message)
+        this.removeChild(this.message);
         return false;
       }
     } else if (targetString.length > 3 && inputString.length > 3) {
       if (targetString.slice(0, 4) === inputString.slice(0, 4)) {
         target.invalidGuess(4);
-        this.removeChild(this.message)
+        this.removeChild(this.message);
         return false;
       }
     }
@@ -99,11 +99,11 @@ export class InputText extends PIXI.Text {
 
   updateInputText(e, me) {
     const prevWordObject = this.parent.parent.children[2].children[1];
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       if (!this.isThinking) {
-        this.message.text = "Please wait. Tensor is thinking..."
-      this.message.anchor.set(0.5);
-      this.addChild(this.message)
+        this.message.text = "Please wait. Tensor is thinking...";
+        this.message.anchor.set(0.5);
+        this.addChild(this.message);
         this.wordsContainer = this.parent.parent.parent.children[3];
         let words = this.wordsContainer.children.slice(1);
         let [targetWord] = words.filter((word) => word.isTarget);
@@ -120,29 +120,31 @@ export class InputText extends PIXI.Text {
             tensorWords,
           });
 
-          this.worker.addEventListener('message', async ({ data }) => {
+          this.worker.addEventListener("message", async ({ data }) => {
             const { TFOutput } = data;
-            console.log('returned from worker: ', TFOutput);
+            console.log("returned from worker: ", TFOutput);
             this.TFOutput = TFOutput;
             for (let i = 0; i < this.TFOutput.length; i++) {
               words[i].similarityScore = this.TFOutput[i];
             }
-            console.log(words);
+<<<<<<< HEAD
+=======
+            this.setSimilarityBonus(words.filter(elem=> elem.isTarget)[0].similarityScore)
+>>>>>>> 638386114bb9fa6f37427e3016fb62b8ffeb9063
             this.sortBySimilarityScores(words, prevWordObject);
             prevWordObject.updateWord(this.userGuess);
             this.isThinking = false;
           });
         }
       }
-
       prevWordObject.updateWord(this.userGuess);
-      this.userGuess = '';
-      me.text = '';
-    } else if (e.key === 'Backspace') {
+      this.userGuess = "";
+      me.text = "";
+    } else if (e.key === "Backspace") {
       this.userGuess = this.userGuess.slice(0, this.userGuess.length - 1);
       me.text = this.userGuess;
     } else {
-      if (this.isLetter(e.key) || e.key === ' ') {
+      if (this.isLetter(e.key) || e.key === " ") {
         this.userGuess += e.key.toLowerCase();
         me.text = this.userGuess;
       }
@@ -168,4 +170,9 @@ export class InputText extends PIXI.Text {
     this.model = await use.load();
     this.parent.parent.isLoaded = true;
   }
+  setSimilarityBonus(similarityScore){
+    this.similarityBonus = Math.floor(50*similarityScore)
+  }
 }
+
+
