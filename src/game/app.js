@@ -23,12 +23,11 @@ export class Sketch {
 
     //CREATE GAME CONTAINER AND STORE ALL GAME CONTAINERS/ELEMENTS INSIDE
 
-    this.user = {}
     this.time = 0;
     this.gameOver = false;
 
     this.gameMenu = new GameMenu(this.app.stage);
-    
+    console.log(this)
     document.body.appendChild(this.app.view);
   }
 
@@ -47,9 +46,12 @@ export class Sketch {
     this.playing = torf;
   }
   setUser(user) {
-    this.gameContainer.user = user;
+      this.gameMenu.stage.children[0].user = user
+      this.gameMenu.user = user
+      console.log(this)
   }
   checkUser() {
-    console.log(this.gameContainer.user);
+    
+    console.log(this.gameMenu.user)
   }
 }

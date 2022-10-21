@@ -26,7 +26,7 @@ export class GameContainer extends PIXI.Container {
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
     this.timerContainer = new TimerContainer(this);
-
+  
     if (this.stage) {
       this.stage.addChild(this);
       this.position.x = this.stage.width / 2;

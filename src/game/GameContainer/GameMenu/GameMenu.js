@@ -260,7 +260,7 @@ export class GameMenu extends PIXI.Container {
     background.animationSpeed = 0.25;
     background.play();
     this.addChild(background);
-
+    console.log(this)
     if (this.stage) {
       this.stage.addChild(this);
     }
@@ -404,6 +404,9 @@ export class GameMenu extends PIXI.Container {
     playGameButtonContainer.on("pointerdown", (evt) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
+        console.log(this)
+        console.log(this.parent)
+        console.log(this.parent.user)
         this.animateOff();
       }
     });

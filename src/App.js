@@ -14,8 +14,8 @@ import PrivateRoute from "./components/Private Route/PrivateRoute";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
-
   const sketch = new Sketch();
+
   return (
     <>
       <AuthProvider>
@@ -30,11 +30,11 @@ function App() {
             exact
             index
             path="/signup"
-            element={<SignUp setShowSidebar={setShowSidebar} />}
+            element={<SignUp sketch= {sketch} setShowSidebar={setShowSidebar} />}
           />
           <Route
             path="/login"
-            element={<LogIn setShowSidebar={setShowSidebar} />}
+            element={<LogIn sketch= {sketch} setShowSidebar={setShowSidebar} />}
           />
           <Route path="/landing" element={<PrivateRoute />}>
             <Route
@@ -48,7 +48,7 @@ function App() {
               }
             />
           </Route>
-          <Route path="/game" element={<PrivateRoute />}></Route>
+          <Route path="/game" element={<PrivateRoute sketch={sketch} />}></Route>
         </Routes>
         {showSidebar && (
           <Sidebar

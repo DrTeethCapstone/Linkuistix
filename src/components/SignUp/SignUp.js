@@ -37,13 +37,13 @@ const SignupSchema = Yup.object().shape({
   }),
 });
 
-function SignUp({ setShowSidebar }) {
+function SignUp({ setShowSidebar, sketch }) {
   const [signupError, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const { signup, loginAsGuest } = useAuth();
+  const { signup, loginAsGuest, currentUser } = useAuth();
 
   //guest login handler
   const guestLogin = async (event) => {
@@ -52,6 +52,11 @@ function SignUp({ setShowSidebar }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
+      sketch.setUser({
+        email: currentUser.email,
+        id: currentUser.uid,
+        username: currentUser.displayName,
+      })
       navigate('/game');
     } catch (error) {
       setError('failed to log in');
@@ -95,6 +100,11 @@ function SignUp({ setShowSidebar }) {
 
                 if (signupSuccess.status) {
                   setShowSidebar(true);
+                  sketch.setUser({
+                    email: currentUser.email,
+                    id: currentUser.uid,
+                    username: currentUser.displayName,
+                  })
                   navigate('/game');
                 } else {
                   toast.error(signupSuccess.reason);
