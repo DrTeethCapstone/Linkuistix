@@ -54,7 +54,6 @@ SIGNUP
 
       //if the username exists in the db, we return an obj with the status 'false'
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
         if (doc.data() !== null) isUsernameUnique = false;
       });
       if (!isUsernameUnique)
@@ -185,7 +184,9 @@ GUEST => REGISTERED USER
               );
               const scoresSnapshot = await getDocs(scoreQ);
               scoresSnapshot.forEach(async (document) => {
+                console.log('doccies! ', document.id);
                 const docRef = doc(db, 'scores', document.id);
+                console.log('DN: ', user.displayName);
                 await updateDoc(docRef, { username: username });
               });
             }
@@ -229,7 +230,7 @@ LOGIN AS GUEST
         if (user) {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
-          await updateProfile(user, { displayName: 'guest' });
+          updateProfile(user, { displayName: 'guest' });
           // ...
         } else {
           // User is signed out

@@ -1,4 +1,4 @@
-https://capstone-dev-940e9.web.app/
+linkuistix.com/
 
 Linkuistix is a word association game that uses an artificial intelligence that was trained by machine learning.  The AI, Tensor Flow Universal Sentence Encoder, created by Google, was trained by countless conversations on the internet and can predict words or phrases that might come next in a given conversation.
 

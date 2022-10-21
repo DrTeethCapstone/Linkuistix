@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import About from '../../About/About';
+import React from "react";
+import Modal from "react-bootstrap/Modal";
+import About from "../../About/About";
 
 function AboutModal({ handleAboutClose, showAbout }) {
-    return (
-        <Modal
-            show={showAbout}
-            onHide={handleAboutClose}
-            dialogClassName="modalStyle"
-        >
-            <About />
-        </Modal>
-    )
+  return (
+    <Modal
+      show={showAbout}
+      onHide={handleAboutClose}
+      dialogClassName="modalStyle"
+    >
+      <About />
+    </Modal>
+  );
 }
 
-export default AboutModal
+export default AboutModal;
