@@ -115,19 +115,16 @@ export class InputText extends PIXI.Text {
 
           this.worker.addEventListener("message", async ({ data }) => {
             const { TFOutput } = data;
-            console.log("returned from worker: ", TFOutput);
             this.TFOutput = TFOutput;
             for (let i = 0; i < this.TFOutput.length; i++) {
               words[i].similarityScore = this.TFOutput[i];
             }
-            console.log(words);
             this.sortBySimilarityScores(words, prevWordObject);
             prevWordObject.updateWord(this.userGuess);
             this.isThinking = false;
           });
         }
       }
-
       prevWordObject.updateWord(this.userGuess);
       this.userGuess = "";
       me.text = "";
