@@ -17,6 +17,10 @@ export class InputText extends PIXI.Text {
     this.enabled = false;
     this.isThinking = false;
     this.message = new InPlayMessage(this);
+    this.randomMessages = [
+      `Buffering...`,
+      `Having a jolly good think...`
+    ]
 
     this.worker = new Worker(new URL("./TF_Worker.js", import.meta.url), {
       type: "module",
@@ -94,7 +98,8 @@ export class InputText extends PIXI.Text {
     const prevWordObject = this.parent.parent.children[2].children[1];
     if (e.key === "Enter") {
       if (!this.isThinking) {
-        this.message.text = "Please wait. Tensor is thinking...";
+        this.message.text = this.randomMessages[Math.floor(Math.random() * this.randomMessages.length)]
+        // this.message.text = "Please wait. Tensor is thinking...";
         this.message.anchor.set(0.5);
         this.addChild(this.message);
         this.wordsContainer = this.parent.parent.parent.children[3];
