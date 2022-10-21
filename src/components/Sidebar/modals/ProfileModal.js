@@ -64,13 +64,7 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
         </h1>
         <div>
           <h3>Player Scores:</h3>
-          {showData
-            ? showData.map((ele) => (
-                <>
-                  <p>{ele}</p>
-                </>
-              ))
-            : null}
+          {showData ? showData.map((ele, idx) => <p key={idx}>{ele}</p>) : null}
           {!showData ? <p>No scores!</p> : <></>}
           <div className="profile-button-container">
             <button onClick={goToPreviousPage}>{'<'}</button>
