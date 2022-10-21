@@ -10,7 +10,7 @@ export class TipText extends PIXI.Text {
       visible: true,
       wordWrap: true,
       wordWrapWidth: 600,
-      // lineHeight: 800,
+      lineHeight: 80,
     });
   }
 }

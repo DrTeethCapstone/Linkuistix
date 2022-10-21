@@ -5,8 +5,6 @@ import { TipHighlight } from './TipHighlight';
 import { TipText } from './TipText';
 import { GlowFilter } from '@pixi/filter-glow';
 import { Word } from '../WordsContainer/Words';
-import { Multiplier } from '../InputContainer/Multiplier';
-import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 
 gsap.registerPlugin(PixiPlugin);
 
@@ -26,7 +24,6 @@ export class TutorialContainer extends PIXI.Container {
 
     // FOR DIMENSION CALCULATIONS
     this.wordHeight = new Word('').style.fontSize;
-    // TODO this.multiplierWidth =
 
     // TUTORIAL PT 1: WORDS LIST
     this.tipHighlightWords = new TipHighlight(
@@ -197,7 +194,7 @@ export class TutorialContainer extends PIXI.Container {
         onComplete: () =>
           removeElems([this.tipHighlightTimer], [this.tipTextTimer]),
       })
-      .to(this.tipTextTimer, { alpha: 1, duration: timeMultiplier * 17 });
+      .to(this.tipTextTimer, { alpha: 1, duration: timeMultiplier * 20 });
   }
   removeAllChildren() {
     while (this.children[0]) {

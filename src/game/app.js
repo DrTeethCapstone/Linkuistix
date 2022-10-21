@@ -20,7 +20,7 @@ export class Sketch {
     this.playing = false
     this.tutorial = true
 
-    // this.backgroundScape = new BackgroundScape(this.app.stage);
+    this.backgroundScape = new BackgroundScape(this.app.stage);
 
     document.body.appendChild(this.app.view);
 
