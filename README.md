@@ -1,3 +1,29 @@
+<h1 align="center">
+  <img alt="Linkuistix logo" src="https://i.imgur.com/tc3VRgf.png" width=320/><br/>
+  Linkuistix
+</h1>
+<p align="center">...Desc...</p>
+
+<p align="center">
+<a href="">
+<img src="https://img.shields.io/badge/Release-1.0-00ADD8?style=for-the-badge" alt="linkuistix version" />
+</a>&nbsp;
+<a href="">
+<img src="https://img.shields.io/badge/First_Commit-10/22-success?style=for-the-badge&logo=none" alt="linkuistix cover" />
+</a></p>
+
+## About
+...Summary, built with, basic rules...
+
+## Getting Started
+...Installation instructions...
+
+## Contributing Features
+...git instructions...
+
+## Contact
+...details...
+
 linkuistix.com/
 
 Linkuistix is a word association game that uses an artificial intelligence that was trained by machine learning.  The AI, Tensor Flow Universal Sentence Encoder, created by Google, was trained by countless conversations on the internet and can predict words or phrases that might come next in a given conversation.
