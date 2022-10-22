@@ -52,12 +52,11 @@ function SignUp({ setShowSidebar, sketch }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
-      sketch.setUser({
+      sketch.gameMenu.setUser({
         email: currentUser.email,
         id: currentUser.uid,
-        username: currentUser.displayName,
-      })
-      navigate('/game');
+        username: currentUser.displayName
+      }) 
     } catch (error) {
       setError('failed to log in');
     }
@@ -100,11 +99,11 @@ function SignUp({ setShowSidebar, sketch }) {
 
                 if (signupSuccess.status) {
                   setShowSidebar(true);
-                  sketch.setUser({
+                  sketch.gameMenu.setUser({
                     email: currentUser.email,
                     id: currentUser.uid,
-                    username: currentUser.displayName,
-                  })
+                    username: currentUser.displayName
+                  }) 
                   navigate('/game');
                 } else {
                   toast.error(signupSuccess.reason);

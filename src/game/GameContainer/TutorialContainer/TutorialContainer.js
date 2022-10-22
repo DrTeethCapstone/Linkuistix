@@ -1,12 +1,9 @@
-import * as PIXI from 'pixi.js';
-import { gsap } from 'gsap';
-import { PixiPlugin } from 'gsap/PixiPlugin';
-import { TipHighlight } from './TipHighlight';
-import { TipText } from './TipText';
-import { GlowFilter } from '@pixi/filter-glow';
-import { Word } from '../WordsContainer/Words';
-
-gsap.registerPlugin(PixiPlugin);
+import * as PIXI from "pixi.js";
+import { gsap } from "gsap";
+import { TipHighlight } from "./TipHighlight";
+import { TipText } from "./TipText";
+import { GlowFilter } from "@pixi/filter-glow";
+import { Word } from "../WordsContainer/Words";
 
 export class TutorialContainer extends PIXI.Container {
   constructor(parent) {
@@ -15,15 +12,35 @@ export class TutorialContainer extends PIXI.Container {
     this.overlay = new PIXI.Sprite(PIXI.Texture.WHITE);
     if (this.parent) {
       this.parent.addChild(this);
+      this.position.x = -this.parent.width;
     }
+    this.interactive = true;
     this.overlay.tint = 0x000000;
     this.overlay.alpha = 0.7;
     this.overlay.parent = parent;
     this.overlay.height = window.innerHeight;
     this.overlay.width = window.innerWidth;
+    this.phase = 0;
 
+    this.on("click", () => {
+      this.phase++;
+      if (this.parent.isLoaded) {
+        if (this.phase === 1) {
+          this.phaseOne();
+        } else if (this.phase === 2) {
+          this.phaseTwo();
+        } else if (this.phase === 3) {
+          this.phaseThree();
+        } else if (this.phase === 4) {
+          this.phaseFour();
+        } else if (this.phase === 5) {
+          this.parent.removeChild(this);
+        }
+      }
+    });
+    // console.log(this.overlay, this);
     // FOR DIMENSION CALCULATIONS
-    this.wordHeight = new Word('').style.fontSize;
+    this.wordHeight = new Word("").style.fontSize;
 
     // TUTORIAL PT 1: WORDS LIST
     this.tipHighlightWords = new TipHighlight(
@@ -37,7 +54,7 @@ export class TutorialContainer extends PIXI.Container {
 
     this.tipTextWords = new TipText(this);
     this.setTextProperties(
-      'Your objective is to think of the word most closely related to the highlighted word.\n\n\nThe closer you are, the more you score!',
+      "Your objective is to think of the word most closely related to the highlighted word.\n\n\nThe closer you are, the more you score!",
       this.tipTextWords
     );
 
@@ -112,90 +129,20 @@ export class TutorialContainer extends PIXI.Container {
     this.addChild(this.tipHighlightTimer);
 
     // ANIMATING TUTORIAL STEPS
-    const highlightAlpha = 0.6;
-    const timeMultiplier = 1.5;
+    this.highlightAlpha = 0.6;
+    this.animationDuration = 1;
 
-    const addElems = (tipHighlightsArray, tipTextArray) => {
-      console.log('--addElem---');
+    this.addElems = (tipHighlightsArray, tipTextArray) => {
       tipHighlightsArray.forEach((highlight) => (highlight.visible = true));
       tipTextArray.forEach((text) => this.addChild(text));
     };
 
-    const removeElems = (tipHighlightsArray, tipTextArray) => {
-      console.log('--removeElem---');
+    this.removeElems = (tipHighlightsArray, tipTextArray) => {
       tipHighlightsArray.forEach((highlight) => this.removeChild(highlight));
       tipTextArray.forEach((text) => (text.visible = false));
     };
-
-    // ANIMATE PT 1: WORDS LIST
-    gsap
-      .timeline({
-        onComplete: () =>
-          removeElems([this.tipHighlightWords], [this.tipTextWords]),
-      })
-      .to(this.tipHighlightWords, {
-        alpha: highlightAlpha,
-        duration: timeMultiplier * 5,
-      });
-    // ANIMATE PT 2: INPUT TEXT
-    gsap
-      .timeline({
-        onComplete: () =>
-          addElems([this.tipHighlightInputText], [this.tipTextInputText]),
-      })
-      .to(this.tipHighlightInputText, {
-        alpha: highlightAlpha,
-        duration: timeMultiplier * 5,
-      });
-    gsap
-      .timeline({
-        onComplete: () =>
-          removeElems([this.tipHighlightInputText], [this.tipTextInputText]),
-      })
-      .to(this.tipTextInputText, { alpha: 1, duration: timeMultiplier * 10 });
-    // ANIMATE PT 3: MULTIPLIER / SCORE
-    gsap
-      .timeline({
-        onComplete: () =>
-          addElems(
-            [this.tipHighlightMultiplier, this.tipHighlightScore],
-            [this.tipTextMultiplierAndScore]
-          ),
-      })
-      .to(this.tipHighlightMultiplier, {
-        alpha: highlightAlpha,
-        duration: timeMultiplier * 5,
-      })
-      .to(this.tipHighlightScore, {
-        alpha: highlightAlpha,
-        duration: timeMultiplier * 5,
-      });
-    // ANIMATE PT 4: TIMER
-    gsap
-      .timeline({
-        onComplete: () =>
-          removeElems(
-            [this.tipHighlightMultiplier, this.tipHighlightScore],
-            [this.tipTextMultiplierAndScore]
-          ),
-      })
-      .to(this.tipTextInputText, { alpha: 1, duration: timeMultiplier * 15 });
-    gsap
-      .timeline({
-        onComplete: () =>
-          addElems([this.tipHighlightTimer], [this.tipTextTimer]),
-      })
-      .to(this.tipHighlightTimer, {
-        alpha: highlightAlpha,
-        duration: timeMultiplier * 15,
-      });
-    gsap
-      .timeline({
-        onComplete: () =>
-          removeElems([this.tipHighlightTimer], [this.tipTextTimer]),
-      })
-      .to(this.tipTextTimer, { alpha: 1, duration: timeMultiplier * 20 });
   }
+
   removeAllChildren() {
     while (this.children[0]) {
       this.removeChild(this.children[0]);
@@ -206,5 +153,45 @@ export class TutorialContainer extends PIXI.Container {
     target.anchor.set(0.5);
     target.position.x = window.innerWidth / 2;
     target.position.y = window.innerHeight / 2;
+  }
+  phaseOne() {
+    gsap.to(this.tipHighlightWords, {
+      alpha: this.highlightAlpha,
+      duration: this.animationDuration,
+    });
+  }
+  phaseTwo() {
+    this.removeElems([this.tipHighlightWords], [this.tipTextWords]);
+    this.addElems([this.tipHighlightInputText], [this.tipTextInputText]);
+    gsap.to(this.tipHighlightInputText, {
+      alpha: this.highlightAlpha,
+      duration: 5,
+    });
+  }
+  phaseThree() {
+    this.removeElems([this.tipHighlightInputText], [this.tipTextInputText]);
+    this.addElems(
+      [this.tipHighlightMultiplier, this.tipHighlightScore],
+      [this.tipTextMultiplierAndScore]
+    );
+    gsap.to(this.tipHighlightMultiplier, {
+      alpha: this.highlightAlpha,
+      duration: this.animationDuration,
+    });
+    gsap.to(this.tipHighlightScore, {
+      alpha: this.highlightAlpha,
+      duration: this.animationDuration,
+    });
+  }
+  phaseFour() {
+    this.removeElems(
+      [this.tipHighlightMultiplier, this.tipHighlightScore],
+      [this.tipTextMultiplierAndScore]
+    );
+    this.addElems([this.tipHighlightTimer], [this.tipTextTimer]);
+    gsap.to(this.tipHighlightTimer, {
+      alpha: this.highlightAlpha,
+      duration: this.animationDuration,
+    });
   }
 }

@@ -5,6 +5,7 @@ import { InputContainer } from "./InputContainer/InputContainer";
 import { WordsContainer } from "./WordsContainer/WordsContainer";
 import { ScoreContainer } from "./ScoreContainer/ScoreContainer";
 import { TimerContainer } from "./TimerContainer/TimerContainer";
+import { TutorialContainer } from "./TutorialContainer/TutorialContainer";
 
 export class GameContainer extends PIXI.Container {
   constructor(parent) {
@@ -21,12 +22,13 @@ export class GameContainer extends PIXI.Container {
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);
     this.addChild(bg);
-
+    
     this.inputContainer = new InputContainer(this);
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
     this.timerContainer = new TimerContainer(this);
-  
+    this.tutorialContainer = new TutorialContainer(this);
+
     if (this.stage) {
       this.stage.addChild(this);
       this.position.x = this.stage.width / 2;

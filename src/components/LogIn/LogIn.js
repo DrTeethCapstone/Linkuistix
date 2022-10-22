@@ -21,7 +21,7 @@ function LogIn({ setShowSidebar, sketch }) {
   const [loginError, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  console.log(sketch)
+
 
   if (loginError !== '') toast.error(loginError);
 
@@ -34,13 +34,11 @@ function LogIn({ setShowSidebar, sketch }) {
       await loginAsGuest();
       setShowSidebar(true);
       navigate('/game');
-      console.log(currentUser)
-      sketch.setUser({
+      sketch.gameMenu.setUser({
         email: currentUser.email,
         id: currentUser.uid,
-        username: currentUser.displayName,
-      })
-      sketch.checkUser()
+        username: currentUser.displayName
+      }) 
     } catch (error) {
       setError('failed to log in');
     }
@@ -71,11 +69,13 @@ function LogIn({ setShowSidebar, sketch }) {
                 setLoading(true);
                 await login(castValues.email, castValues.password);
                 setShowSidebar(true);
-                sketch.setUser({
+                console.log(currentUser)
+                sketch.gameMenu.setUser({
                   email: currentUser.email,
                   id: currentUser.uid,
-                  username: currentUser.displayName,
+                  username: currentUser.displayName
                 })
+                console.log(window.user)
                 navigate('/game'); 
               } catch (error) {
                 setError('failed to log in');

@@ -3,7 +3,6 @@ import { GameMenu } from "./GameContainer/GameMenu/GameMenu";
 //ANIMATION PLUGINS
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
-import { TutorialContainer } from "./GameContainer/TutorialContainer/TutorialContainer"
 gsap.registerPlugin(PixiPlugin);
 
 export class Sketch {
@@ -15,19 +14,21 @@ export class Sketch {
       resolution: window.devicePixelRatio || 1,
       resizeTo: window,
     });
-    this.playing = false
-    this.tutorial = true
+    this.playing = false;
+    this.tutorial = true;
 
-
-    document.body.appendChild(this.app.view);
+    // document.body.appendChild(this.app.view);
 
     //CREATE GAME CONTAINER AND STORE ALL GAME CONTAINERS/ELEMENTS INSIDE
 
+    this.user = {};
     this.time = 0;
     this.gameOver = false;
 
     this.gameMenu = new GameMenu(this.app.stage);
-    console.log(this)
+    if(this.user.username){ 
+      this.gameMenu.user = this.user
+    }
     document.body.appendChild(this.app.view);
   }
 
@@ -36,19 +37,20 @@ export class Sketch {
       // this.gameContainer = new GameContainer(this.app.stage);
       // this.gameContainer.position.set(this.width / 2, 0);
       // this.render()
-      if (this.tutorial) {
-        this.tutorial = false
-        this.tutorialContainer = new TutorialContainer(this.app.stage)
-      }
+      // if (this.tutorial) {
+      //   this.tutorial = false
+      //   this.tutorialContainer = new TutorialContainer(this.app.stage)
+      // }
     }
   }
   setPlaying(torf) {
     this.playing = torf;
   }
   setUser(user) {
-      this.gameMenu.stage.children[0].user = user
+      this.user = user
+      this.gameMenu.stage.user = user
       this.gameMenu.user = user
-      console.log(this)
+      this.gameMenu.stage.user = user
   }
   checkUser() {
     

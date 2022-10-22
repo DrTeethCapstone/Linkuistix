@@ -260,11 +260,9 @@ export class GameMenu extends PIXI.Container {
     background.animationSpeed = 0.25;
     background.play();
     this.addChild(background);
-    console.log(this)
     if (this.stage) {
       this.stage.addChild(this);
     }
-
     const splashTitleContainer = new PIXI.Container();
     const splashContainerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
     const splashTitle = new PIXI.Text("Linkuistix", {
@@ -404,9 +402,6 @@ export class GameMenu extends PIXI.Container {
     playGameButtonContainer.on("pointerdown", (evt) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        console.log(this)
-        console.log(this.parent)
-        console.log(this.parent.user)
         this.animateOff();
       }
     });
@@ -433,5 +428,10 @@ export class GameMenu extends PIXI.Container {
 
   createLoadingScreen() {
     new LoadingContainer(this.stage);
+  }
+  setUser(user){
+    this.user = user
+    window.user = user
+    console.log(window.user)
   }
 }
