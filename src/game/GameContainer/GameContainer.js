@@ -22,7 +22,7 @@ export class GameContainer extends PIXI.Container {
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);
     this.addChild(bg);
-
+    
     this.inputContainer = new InputContainer(this);
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);

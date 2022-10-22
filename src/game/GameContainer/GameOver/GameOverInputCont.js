@@ -6,10 +6,10 @@ export class GameOverInputContainer extends PIXI.Container {
     super();
     this.parent = parent;
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
-    bg.alpha = 0.8;
+    bg.alpha = 0.2;
     bg.tint = "#ff71ce";
     bg.anchor.set(0.5, 1);
-    bg.height = 100;
+    bg.height = 50;
     bg.width = 500;
     this.addChild(bg);
     this.interaction = new GameOverInput(this);

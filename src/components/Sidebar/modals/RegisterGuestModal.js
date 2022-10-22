@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import Modal from 'react-bootstrap/Modal';
 
@@ -41,9 +41,6 @@ const SignupSchema = Yup.object().shape({
 });
 
 function RegisterGuestModal({ handleRegisterGuestClose, showRegisterGuest }) {
-  const [signupError, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const goToLogin = () => {
@@ -87,9 +84,6 @@ function RegisterGuestModal({ handleRegisterGuestClose, showRegisterGuest }) {
                 resetForm();
                 setSubmitting(false);
                 try {
-                  setError('');
-                  setLoading(true);
-
                   //we try to authenticate the user
                   // if the user exists, signupSuccess returns false
                   const signupSuccess = await registerGuest(
@@ -105,9 +99,7 @@ function RegisterGuestModal({ handleRegisterGuestClose, showRegisterGuest }) {
                   }
                 } catch (error) {
                   console.log(error);
-                  setError('failed to create account: ', error);
                 }
-                setLoading(false);
               }}
             >
               {({

@@ -17,10 +17,7 @@ export class GameOverContainer extends PIXI.Container {
     if (this.parent) {
       this.parent.addChild(this);
     }
-    const bg = new PIXI.Sprite.from(img);
-    bg.anchor.set(0.5);
     this.sortableChildren = true;
-    this.addChild(bg);
     const coinImg = new PIXI.Sprite.from(coin);
     coinImg.anchor.set(0.5);
     coinImg.height = 100;
@@ -105,7 +102,8 @@ export class GameOverContainer extends PIXI.Container {
       leader.interactive = true;
       leader.addListener("click", clickLeader);
       function clickLeader(e) {
-        let user = this.parent.parent.children[1].user;
+        // let user = this.parent.parent.children[1].user;
+        let user = window.user
         if (user.username === "guest") {
           this.parent.parent.cursor = "default";
           const inputCont = new GameOverInputContainer(this.parent);

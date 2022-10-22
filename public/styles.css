@@ -232,8 +232,17 @@ canvas {
 .sidebar-container :hover .logoutIcon {
   color: red;
 }
+.sidebar-container :hover .aboutIcon {
+  color: alicewhite;
+}
 .sidebar-container :hover .sidebarIcon {
   color: #ebd25b;
+}
+.sidebar-container :hover .soundIcon {
+  color: cornflowerblue;
+}
+.sidebar-container :hover .musicIcon {
+  color: lightgreen;
 }
 .tooltip-inner {
   color: #260941 !important;
