@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { toast } from 'react-toastify';
 
 import { Formik } from 'formik';
@@ -19,9 +19,24 @@ const LoginSchema = Yup.object().shape({
 
 function LogIn({ setShowSidebar, sketch }) {
   const [loginError, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const auth = getAuth();
+
+  //if already logged in, redirect to game
+  const [isNewUser, setIsNewUser] = useState(false);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setShowSidebar(true);
+      navigate('/game');
+      // ...
+    } else {
+      // User is signed out
+      setIsNewUser(true);
+      // ...
+    }
+  });
 
   if (loginError !== '') toast.error(loginError);
 
@@ -45,104 +60,103 @@ function LogIn({ setShowSidebar, sketch }) {
    
   };
 
-  return (
-    <>
-      <div className="form-container">
-        <h2>Login</h2>
-        <div>
-          <Formik
-            initialValues={{
-              password: '',
-              email: '',
-            }}
-            validationSchema={LoginSchema}
-            validateOnChange={false}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              setSubmitting(true);
-              const castValues = LoginSchema.cast(values);
+  if (isNewUser) {
+    return (
+      <>
+        <div className="form-container">
+          <h2>Login</h2>
+          <div>
+            <Formik
+              initialValues={{
+                password: '',
+                email: '',
+              }}
+              validationSchema={LoginSchema}
+              validateOnChange={false}
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
+                setSubmitting(true);
+                const castValues = LoginSchema.cast(values);
 
-              resetForm();
-              setSubmitting(false);
+                resetForm();
+                setSubmitting(false);
 
-              try {
-                setError('');
-                setLoading(true);
-                await login(castValues.email, castValues.password);
-                setShowSidebar(true);
-                console.log(currentUser)
-                sketch.gameMenu.setUser({
-                  email: currentUser.email,
-                  id: currentUser.uid,
-                  username: currentUser.displayName
-                })
-                console.log(window.user)
-                navigate('/game'); 
-              } catch (error) {
-                setError('failed to log in');
-              }
-              setLoading(false);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-            }) => (
-              <form onSubmit={handleSubmit}>
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="me@web.com"
-                  autoFocus
-                  onChange={handleChange}
-                  value={values.email}
-                  autoComplete="email"
-                  autoCapitalize="off"
-                  className={touched.email && errors.email ? 'error' : null}
-                />
-                {errors.email && touched.email ? (
-                  <div className="error-message">{errors.email}</div>
-                ) : null}
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  onChange={handleChange}
-                  value={values.password}
-                  autoComplete="current-password"
-                  autoCapitalize="off"
-                  className={
-                    touched.password && errors.password ? 'error' : null
-                  }
-                />
-                {errors.password && touched.password ? (
-                  <div className="error-message">{errors.password}</div>
-                ) : null}
-                <button type="submit" variant="primary" disabled={isSubmitting}>
-                  Sign In
-                </button>
-              </form>
-            )}
-          </Formik>
+                try {
+                  setError('');
+                  await login(castValues.email, castValues.password);
+                  setShowSidebar(true);
+                  navigate('/game');
+                } catch (error) {
+                  console.log('failed to log in: ', error);
+                }
+              }}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleSubmit,
+                isSubmitting,
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="me@web.com"
+                    autoFocus
+                    onChange={handleChange}
+                    value={values.email}
+                    autoComplete="email"
+                    autoCapitalize="off"
+                    className={touched.email && errors.email ? 'error' : null}
+                  />
+                  {errors.email && touched.email ? (
+                    <div className="error-message">{errors.email}</div>
+                  ) : null}
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    onChange={handleChange}
+                    value={values.password}
+                    autoComplete="current-password"
+                    autoCapitalize="off"
+                    className={
+                      touched.password && errors.password ? 'error' : null
+                    }
+                  />
+                  {errors.password && touched.password ? (
+                    <div className="error-message">{errors.password}</div>
+                  ) : null}
+                  <button
+                    type="submit"
+                    variant="primary"
+                    disabled={isSubmitting}
+                  >
+                    Sign In
+                  </button>
+                </form>
+              )}
+            </Formik>
+            <hr />
+            <button className="form-button" type="button" onClick={guestLogin}>
+              Play As Guest
+            </button>
+          </div>
           <hr />
-          <button className="form-button" type="button" onClick={guestLogin}>
-            Play As Guest
-          </button>
-        </div>
-        <hr />
-        <p>Don't Have An Account?</p>
+          <p>Don't Have An Account?</p>
 
-        <Link className="link-styles" to="/SignUp">
-          Sign Up
-        </Link>
-      </div>
-    </>
-  );
+          <Link className="link-styles" to="/SignUp">
+            Sign Up
+          </Link>
+        </div>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 export default LogIn;
