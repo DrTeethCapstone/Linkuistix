@@ -17,7 +17,7 @@ export class GameContainer extends PIXI.Container {
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
     bg.tint = 0x1f1f1f;
-    bg.alpha = 0.2;
+    bg.alpha = 0;
     bg.width = (window.innerWidth * 50) / 100;
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);
@@ -47,6 +47,12 @@ export class GameContainer extends PIXI.Container {
         duration: 1,
       });
     }
+  }
+
+  animateElementsIn() {
+    this.inputContainer.fromOffScreen();
+    this.wordsContainer.fromOffScreen();
+    this.timerContainer.fromOffScreen();
   }
 
   gameOver() {

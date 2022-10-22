@@ -34,11 +34,11 @@ export class TutorialContainer extends PIXI.Container {
         } else if (this.phase === 4) {
           this.phaseFour();
         } else if (this.phase === 5) {
+          // this.parent.animateElementsIn();
           this.parent.removeChild(this);
         }
       }
     });
-    // console.log(this.overlay, this);
     // FOR DIMENSION CALCULATIONS
     this.wordHeight = new Word("").style.fontSize;
 

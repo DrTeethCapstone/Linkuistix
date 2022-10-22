@@ -1,25 +1,25 @@
 import * as PIXI from "pixi.js";
 
-import img1 from "../../img/loadingAnimation/frame_00_delay-0.06s.gif";
-import img2 from "../../img/loadingAnimation/frame_01_delay-0.06s.gif";
-import img3 from "../../img/loadingAnimation/frame_02_delay-0.06s.gif";
-import img4 from "../../img/loadingAnimation/frame_03_delay-0.06s.gif";
-import img5 from "../../img/loadingAnimation/frame_04_delay-0.06s.gif";
-import img6 from "../../img/loadingAnimation/frame_05_delay-0.06s.gif";
-import img7 from "../../img/loadingAnimation/frame_06_delay-0.06s.gif";
-import img8 from "../../img/loadingAnimation/frame_07_delay-0.06s.gif";
-import img9 from "../../img/loadingAnimation/frame_08_delay-0.06s.gif";
-import img10 from "../../img/loadingAnimation/frame_09_delay-0.06s.gif";
-import img11 from "../../img/loadingAnimation/frame_10_delay-0.06s.gif";
-import img12 from "../../img/loadingAnimation/frame_11_delay-0.06s.gif";
-import img13 from "../../img/loadingAnimation/frame_12_delay-0.06s.gif";
-import img14 from "../../img/loadingAnimation/frame_13_delay-0.06s.gif";
-import img15 from "../../img/loadingAnimation/frame_14_delay-0.06s.gif";
-import img16 from "../../img/loadingAnimation/frame_15_delay-0.06s.gif";
-import img17 from "../../img/loadingAnimation/frame_16_delay-0.06s.gif";
-import img18 from "../../img/loadingAnimation/frame_17_delay-0.06s.gif";
-import img19 from "../../img/loadingAnimation/frame_18_delay-0.06s.gif";
-import img20 from "../../img/loadingAnimation/frame_19_delay-0.06s.gif";
+import img1 from "../../../assets/loadingAnimation/frame_00_delay-0.06s.gif";
+import img2 from "../../../assets/loadingAnimation/frame_01_delay-0.06s.gif";
+import img3 from "../../../assets/loadingAnimation/frame_02_delay-0.06s.gif";
+import img4 from "../../../assets/loadingAnimation/frame_03_delay-0.06s.gif";
+import img5 from "../../../assets/loadingAnimation/frame_04_delay-0.06s.gif";
+import img6 from "../../../assets/loadingAnimation/frame_05_delay-0.06s.gif";
+import img7 from "../../../assets/loadingAnimation/frame_06_delay-0.06s.gif";
+import img8 from "../../../assets/loadingAnimation/frame_07_delay-0.06s.gif";
+import img9 from "../../../assets/loadingAnimation/frame_08_delay-0.06s.gif";
+import img10 from "../../../assets/loadingAnimation/frame_09_delay-0.06s.gif";
+import img11 from "../../../assets/loadingAnimation/frame_10_delay-0.06s.gif";
+import img12 from "../../../assets/loadingAnimation/frame_11_delay-0.06s.gif";
+import img13 from "../../../assets/loadingAnimation/frame_12_delay-0.06s.gif";
+import img14 from "../../../assets/loadingAnimation/frame_13_delay-0.06s.gif";
+import img15 from "../../../assets/loadingAnimation/frame_14_delay-0.06s.gif";
+import img16 from "../../../assets/loadingAnimation/frame_15_delay-0.06s.gif";
+import img17 from "../../../assets/loadingAnimation/frame_16_delay-0.06s.gif";
+import img18 from "../../../assets/loadingAnimation/frame_17_delay-0.06s.gif";
+import img19 from "../../../assets/loadingAnimation/frame_18_delay-0.06s.gif";
+import img20 from "../../../assets/loadingAnimation/frame_19_delay-0.06s.gif";
 
 import { GameContainer } from "../GameContainer";
 
@@ -147,10 +147,7 @@ export class LoadingContainer extends PIXI.Container {
         this.parent.removeChild(this);
         this.gameContainer.position.x = window.innerWidth / 2;
         this.gameContainer.animateOpacity(false);
-        this.gameContainer.children[1].fromOffScreen();
-        this.gameContainer.children[3].fromOffScreen();
-        this.gameContainer.children[4].fromOffScreen();
-        // this.gameContainer.children[4].startTimer();
+        this.gameContainer.animateElementsIn();
       }
     });
     this.ticker.start();
