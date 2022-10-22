@@ -18,9 +18,16 @@ export class InputText extends PIXI.Text {
     this.isThinking = false;
     this.message = new InPlayMessage(this);
     this.randomMessages = [
+      `Computer says: "uhhhhhhhhh"`,
+      `Having a jolly good think...`,
+      `You're making me work for my money...`,
+      `Running the numbers...`,
+      `We'll be right back...`,
+      `Working up a sweat...`,
       `Buffering...`,
-      `Having a jolly good think...`
-    ]
+      `Contemplating...`,
+      `Hmmmmm...`,
+    ];
 
     this.worker = new Worker(new URL("./TF_Worker.js", import.meta.url), {
       type: "module",
