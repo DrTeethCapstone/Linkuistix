@@ -34,7 +34,7 @@ export class TutorialContainer extends PIXI.Container {
         } else if (this.phase === 4) {
           this.phaseFour();
         } else if (this.phase === 5) {
-          // this.parent.animateElementsIn();
+          this.parent.animateElementsIn();
           this.parent.removeChild(this);
         }
       }

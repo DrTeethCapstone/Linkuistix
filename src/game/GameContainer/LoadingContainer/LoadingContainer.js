@@ -61,8 +61,8 @@ export class LoadingContainer extends PIXI.Container {
       `Noel's dreams are multi threaded!`,
       "Will designed this beautiful background!",
       `If you're having trouble getting a high score, try getting better at the game!`,
-      `Don't forget to breathe, Very Important!`,
-      "Bug...or Feature???",
+      `Don't forget to breathe. Very Important!`,
+      "Bug...or Feature?!",
       "This loading screen does not require that you click to continue",
       "Time is going to count down while you are thinking",
       "Try using pop culture references for a guess!",
@@ -147,7 +147,7 @@ export class LoadingContainer extends PIXI.Container {
         this.parent.removeChild(this);
         this.gameContainer.position.x = window.innerWidth / 2;
         this.gameContainer.animateOpacity(false);
-        this.gameContainer.animateElementsIn();
+        this.gameContainer.children[2].score.alpha = 0;
       }
     });
     this.ticker.start();

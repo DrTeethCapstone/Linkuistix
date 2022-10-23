@@ -26,7 +26,6 @@ async function TFWorker(target, tensorWords) {
   }
 
   const embedData = async (tensorModel, target, tensorWords) => {
-    console.log("so tensor what are the scores?", target, tensorWords);
     tf.engine().startScope();
     const embeddingsFromWords = await tensorModel.embed(tensorWords);
     const embeddingsFromTarget = await tensorModel.embed(target);

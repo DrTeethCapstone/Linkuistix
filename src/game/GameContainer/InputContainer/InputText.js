@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { InPlayMessage } from "./InPlayMessage";
+// import { InPlayMessage } from "./InPlayMessage";
 
 //CREATE A NEW INSTANCE OF A USER INPUT FIELD
 export class InputText extends PIXI.Text {
@@ -16,13 +16,13 @@ export class InputText extends PIXI.Text {
     this.interactive = true;
     this.enabled = false;
     this.isThinking = false;
-    this.message = new InPlayMessage(this);
+    // this.message = new InPlayMessage(this);
 
     this.worker = new Worker(new URL("./TF_Worker.js", import.meta.url), {
       type: "module",
     });
 
-    this.TFOutput = [];
+    // this.TFOutput = [];
 
     if (parent) {
       const container = new PIXI.Container();
@@ -46,7 +46,10 @@ export class InputText extends PIXI.Text {
       this.setupKeyboardListener();
 
       if (!this.parent.parent.parent.children[4].isRunning) {
-        this.parent.parent.parent.children[4].startTimer();
+        this.parent.parent.parent.wordsContainer.fromOffScreen();
+        setTimeout(() => {
+          this.parent.parent.parent.children[4].startTimer();
+        }, 1100);
       }
     });
   }
@@ -77,13 +80,13 @@ export class InputText extends PIXI.Text {
     if (targetString.length <= 3 && inputString.length >= 3) {
       if (targetString.slice(0, 3) === inputString.slice(0, 3)) {
         target.invalidGuess(3);
-        this.removeChild(this.message);
+        // this.removeChild(this.message);
         return false;
       }
     } else if (targetString.length > 3 && inputString.length > 3) {
       if (targetString.slice(0, 4) === inputString.slice(0, 4)) {
         target.invalidGuess(4);
-        this.removeChild(this.message);
+        // this.removeChild(this.message);
         return false;
       }
     }
@@ -94,9 +97,9 @@ export class InputText extends PIXI.Text {
     const prevWordObject = this.parent.parent.children[2].children[1];
     if (e.key === "Enter") {
       if (!this.isThinking) {
-        this.message.text = "Please wait. Tensor is thinking...";
-        this.message.anchor.set(0.5);
-        this.addChild(this.message);
+        // this.message.text = "Please wait. Tensor is thinking...";
+        // this.message.anchor.set(0.5);
+        // this.addChild(this.message);
         this.wordsContainer = this.parent.parent.parent.children[3];
         let words = this.wordsContainer.children.slice(1);
         let [targetWord] = words.filter((word) => word.isTarget);
@@ -116,16 +119,21 @@ export class InputText extends PIXI.Text {
           this.worker.addEventListener("message", async ({ data }) => {
             const { TFOutput } = data;
             this.TFOutput = TFOutput;
-            for (let i = 0; i < this.TFOutput.length; i++) {
-              words[i].similarityScore = this.TFOutput[i];
-            }
-            this.sortBySimilarityScores(words, prevWordObject);
             prevWordObject.updateWord(this.userGuess);
+            console.log(words, "prescored words");
+            console.log(TFOutput);
+            words.forEach((word, i) => {
+              word.similarityScore = TFOutput[i];
+            });
+            console.log(words, "post scoring");
+            // for (let i = 0; i < TFOutput.length; i++) {
+            //   words[i].similarityScore = TFOutput[i];
+            // }
+            // this.sortBySimilarityScores(words, prevWordObject);
             this.isThinking = false;
           });
         }
       }
-      prevWordObject.updateWord(this.userGuess);
       this.userGuess = "";
       me.text = "";
     } else if (e.key === "Backspace") {
@@ -151,7 +159,7 @@ export class InputText extends PIXI.Text {
       word.index = i;
       word.updatePosition();
     });
-    this.wordsContainer.checkTargetPosition(guessObj);
+    // this.wordsContainer.checkTargetPosition(guessObj);
   }
 
   setSimilarityBonus(similarityScore) {

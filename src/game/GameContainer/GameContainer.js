@@ -5,7 +5,8 @@ import { InputContainer } from "./InputContainer/InputContainer";
 import { WordsContainer } from "./WordsContainer/WordsContainer";
 import { ScoreContainer } from "./ScoreContainer/ScoreContainer";
 import { TimerContainer } from "./TimerContainer/TimerContainer";
-import { TutorialContainer } from "./TutorialContainer/TutorialContainer";
+// import { TutorialContainer } from "./TutorialContainer/TutorialContainer";
+import { TutorialContainer } from "./Science/TutorialContainer";
 
 export class GameContainer extends PIXI.Container {
   constructor(parent) {
@@ -53,6 +54,7 @@ export class GameContainer extends PIXI.Container {
     this.inputContainer.fromOffScreen();
     this.wordsContainer.fromOffScreen();
     this.timerContainer.fromOffScreen();
+    this.scoreContainer.alpha = 1;
   }
 
   gameOver() {

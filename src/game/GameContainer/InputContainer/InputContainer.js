@@ -69,13 +69,13 @@ export class InputContainer extends PIXI.Container {
   }
 
   toOffScreen() {
-    this.previousPosition = this.getGlobalPosition;
+    // this.previousPosition = this.getGlobalPosition;
     gsap.to(this, {
       y: this.parent.height + this.height,
       duration: 1,
     });
     setTimeout(() => {
       this.visible = false;
-    }, 1000);
+    }, 0.5);
   }
 }
