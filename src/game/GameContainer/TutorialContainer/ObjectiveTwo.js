@@ -53,20 +53,20 @@ export class ObjectiveTwo extends PIXI.Container {
     this.correctGuess = new PIXI.Text(
       "< Successful attempts\nadds to multiplier",
       {
-        fontFamily: "Press Start 2P",
-        fontSize: 12,
+        fontFamily: "Arial",
+        fontSize: 16,
         fill: 0xffffff,
         align: "center",
       }
     );
     this.correctGuess.position.x = this.inputContainer.width;
     this.correctGuess.position.y =
-      this.inputContainer.height - this.correctGuess.height * 4;
+      this.inputContainer.height - this.correctGuess.height * 3.3;
     this.inputContainer.addChild(this.correctGuess);
 
     this.failedGuess = new PIXI.Text("This is your multiplier >", {
-      fontFamily: "Press Start 2P",
-      fontSize: 12,
+      fontFamily: "Arial",
+      fontSize: 16,
       fill: 0xffffff,
       align: "center",
     });
@@ -126,8 +126,8 @@ export class ObjectiveTwo extends PIXI.Container {
     this.exampleWordsContainer.addChild(this.targetRectangle);
 
     this.thisIsTarget = new PIXI.Text("Target Area >", {
-      fontFamily: "Press Start 2P",
-      fontSize: 12,
+      fontFamily: "Arial",
+      fontSize: 16,
       fill: 0xffffff,
       align: "center",
     });
@@ -162,13 +162,13 @@ export class ObjectiveTwo extends PIXI.Container {
       const rect = new PIXI.Graphics();
       rect.beginFill(0xebd25b);
       rect.drawRect(
+        3,
         0,
-        0,
-        this.inputContainer.width / 8,
-        this.inputContainer.height / 8
+        this.multiplierSection.width * 0.24,
+        this.multiplierSection.height * 0.4
       );
       rect.endFill();
-      rect.position.x = rect.width * i + i * 10;
+      rect.position.x = rect.width * i + i * 5;
       rect.position.y = rect.height / 2;
       this.inputContainer.addChild(rect);
     }

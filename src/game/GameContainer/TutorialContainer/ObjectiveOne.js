@@ -62,28 +62,29 @@ export class ObjectiveOne extends PIXI.Container {
 
     //INTRO TO INPUT FIELD
     this.thisIsInput = new PIXI.Text("< Enter Guess Here", {
-      fontFamily: "Press Start 2P",
-      fontSize: 12,
+      fontFamily: "Arial",
+      fontSize: 16,
       fill: 0xffffff,
       align: "center",
     });
     this.thisIsInput.position.x = inputContainer.width;
     this.thisIsInput.position.y =
-      inputContainer.height - this.thisIsInput.height * 3;
+      inputContainer.height - this.thisIsInput.height * 2;
     inputContainer.addChild(this.thisIsInput);
 
     //INTRO TO PREV GUESS FIELD
     this.thisIsPrevGuess = new PIXI.Text(
       "Your Previous Guess > \nDisplays Here",
       {
-        fontFamily: "Press Start 2P",
-        fontSize: 12,
+        fontFamily: "Arial",
+        fontSize: 16,
         fill: 0xffffff,
         align: "center",
       }
     );
     this.thisIsPrevGuess.position.x = -this.thisIsPrevGuess.width;
-    this.thisIsPrevGuess.position.y = this.thisIsPrevGuess.height;
+    this.thisIsPrevGuess.position.y =
+      this.thisIsPrevGuess.height - this.thisIsPrevGuess.height / 2;
     inputContainer.addChild(this.thisIsPrevGuess);
 
     //INTRO TO WORDS CONTAINER
@@ -132,13 +133,12 @@ export class ObjectiveOne extends PIXI.Container {
     this.exampleWordsContainer.addChild(this.targetRectangle);
 
     this.thisIsTarget = new PIXI.Text("Your Target >", {
-      fontFamily: "Press Start 2P",
-      fontSize: 12,
+      fontFamily: "Arial",
+      fontSize: 16,
       fill: 0xffffff,
       align: "center",
     });
     this.thisIsTarget.position.x = -this.thisIsTarget.width - 20;
-    this.thisIsTarget.position.y = this.thisIsTarget.height;
     this.exampleWordsContainer.addChild(this.thisIsTarget);
   }
 

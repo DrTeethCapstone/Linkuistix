@@ -37,13 +37,13 @@ export class ObjectiveThree extends PIXI.Container {
     this.timerRect.position.x = -this.timerContainer.width / 2;
 
     this.target = new PIXI.Text("Your Timer >", {
-      fontFamily: "Press Start 2P",
+      fontFamily: "Arial",
       fontSize: 12,
       fill: 0xffffff,
       align: "center",
     });
     this.timerContainer.addChild(this.target);
-    this.target.position.y = this.target.height;
+    this.target.position.y = this.target.height / 2;
     this.target.position.x = -this.timerContainer.width / 2 - this.target.width;
   }
 
