@@ -177,7 +177,7 @@ export class ObjectiveTwo extends PIXI.Container {
     gsap.to(this.correctGuess, { alpha: 1, delay: 0.5, duration: 1 });
     setTimeout(() => {
       this.parent.inProgress = false;
-    }, 750);
+    }, 1300);
   }
 
   animateOff() {

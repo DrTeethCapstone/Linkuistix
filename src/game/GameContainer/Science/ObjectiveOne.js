@@ -159,7 +159,7 @@ export class ObjectiveOne extends PIXI.Container {
     gsap.to(this.thisIsPrevGuess, { alpha: 1, delay: 1.1, duration: 1 });
     setTimeout(() => {
       this.parent.inProgress = false;
-    }, 1200);
+    }, 1300);
   }
   animateWords() {
     gsap.to(this.exampleWordsContainer, { alpha: 1, duration: 1 });
@@ -167,7 +167,7 @@ export class ObjectiveOne extends PIXI.Container {
     gsap.to(this.thisIsTarget, { alpha: 1, delay: 1.1, duration: 1 });
     setTimeout(() => {
       this.parent.inProgress = false;
-    }, 1200);
+    }, 1300);
   }
 
   animateOff() {

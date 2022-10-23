@@ -76,7 +76,7 @@ export class GameContainer extends PIXI.Container {
           this.inputContainer.multiplierContainer.children[1]
         );
       }
-      this.timerContainer.increment = 1;
+      this.timerContainer.increment = 0.5;
     }, 1100);
   }
 
