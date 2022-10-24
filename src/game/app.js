@@ -16,7 +16,7 @@ export class Sketch {
     });
 
     this.playing = false;
-    this.tutorial = true;
+    // this.tutorial = true;
     document.body.appendChild(this.app.view);
     this.user = {};
     this.time = 0;

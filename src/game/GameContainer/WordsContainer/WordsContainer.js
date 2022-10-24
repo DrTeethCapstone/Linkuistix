@@ -15,8 +15,8 @@ export class WordsContainer extends PIXI.Container {
     this.wordsInPlay = [];
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
-    bg.tint = 0x000000;
-    bg.alpha = 0.3;
+    // bg.tint = 0x000000;
+    bg.alpha = 0;
     bg.width = this.parent.width;
     bg.height = this.parent.height - this.parent.children[1].height * 2.22;
     this.addChild(bg);
