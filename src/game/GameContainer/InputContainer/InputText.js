@@ -54,7 +54,7 @@ export class InputText extends PIXI.Text {
   }
 
   eventListener = (e) => {
-    this.updateInputText(e, this);
+    this.updateInputText(e);
   };
 
   resetState() {
@@ -74,18 +74,24 @@ export class InputText extends PIXI.Text {
 
   validateWordInput({ targetString, inputString, target }) {
     if (!inputString.length) {
+      this.text = "";
+      this.userGuess = "";
       return false;
     }
     if (targetString.length <= 3 && inputString.length >= 3) {
       if (targetString.slice(0, 3) === inputString.slice(0, 3)) {
         target.invalidGuess(3);
         // this.removeChild(this.message);
+        this.text = "";
+        this.userGuess = "";
         return false;
       }
     } else if (targetString.length > 3 && inputString.length > 3) {
       if (targetString.slice(0, 4) === inputString.slice(0, 4)) {
         target.invalidGuess(4);
         // this.removeChild(this.message);
+        this.text = "";
+        this.userGuess = "";
         return false;
       }
     }
@@ -125,13 +131,14 @@ export class InputText extends PIXI.Text {
             }
           }
           this.wordsContainer.dropChildrenPosition();
+          this.wordsContainer.parent.children[4].resetTimer();
         }
         this.isThinking = false;
       }
     });
   }
 
-  updateInputText(e, me) {
+  updateInputText(e) {
     this.prevWordObject = this.parent.parent.children[2].children[1];
     if (e.key === "Enter") {
       if (!this.isThinking) {
@@ -158,16 +165,16 @@ export class InputText extends PIXI.Text {
           });
           this.prevWordObject.updateWord(this.userGuess);
           this.userGuess = "";
-          me.text = "";
+          this.text = "";
         }
       }
     } else if (e.key === "Backspace") {
       this.userGuess = this.userGuess.slice(0, this.userGuess.length - 1);
-      me.text = this.userGuess;
+      this.text = this.userGuess;
     } else {
       if (this.isLetter(e.key) || e.key === " ") {
         this.userGuess += e.key.toLowerCase();
-        me.text = this.userGuess;
+        this.text = this.userGuess;
       }
     }
   }

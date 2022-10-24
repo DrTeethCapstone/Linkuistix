@@ -56,14 +56,18 @@ export class WordsContainer extends PIXI.Container {
       word.updatePosition();
     });
     while (this.children.length < 10) {
-      const word = new Word(randomWords(), this);
-      word.index -= 1;
-      console.log(word);
+      const word = new Word(randomWords());
+      this.addChild(word);
+      word.index = this.children.length - 1;
+      word.position.x = this.width / 2 - word.width / 2;
+      word.updatePosition();
     }
-    const target = new Word(randomWords(), this, true);
-    target.index -= 1;
+    const target = new Word(randomWords(), null, true);
+    this.addChild(target);
+    target.index = this.children.length - 1;
+    target.position.x = this.width / 2 - target.width / 2;
+    target.updatePosition();
     this.target = target;
-    this.children.slice(1).forEach((word) => word.updatePosition());
   }
 
   fromOffScreen() {
