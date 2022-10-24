@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -10,7 +10,7 @@ import {
   updateProfile,
   EmailAuthProvider,
   linkWithCredential,
-} from "firebase/auth";
+} from 'firebase/auth';
 import {
   collection,
   doc,
@@ -20,8 +20,8 @@ import {
   where,
   query,
   Timestamp,
-} from "firebase/firestore";
-import { auth, db } from "../firebase";
+} from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 const AuthContext = React.createContext();
 
@@ -31,8 +31,6 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
-
   const [scoreState, setScoreState] = useState(0);
 
   //----------------------auth functions--------------------------------
@@ -46,8 +44,8 @@ SIGNUP
   const signup = async (email, password, username) => {
     try {
       //first, we see if the username is already registered
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("username", "==", username));
+      const usersRef = collection(db, 'users');
+      const q = query(usersRef, where('username', '==', username));
       const querySnapshot = await getDocs(q);
 
       let isUsernameUnique = true;
@@ -59,7 +57,7 @@ SIGNUP
       if (!isUsernameUnique)
         return {
           status: false,
-          reason: "Username already exists. Please log in.",
+          reason: 'Username already exists. Please log in.',
         };
 
       //if email already exists, this will return an array with login methods
@@ -69,7 +67,7 @@ SIGNUP
         // if user exists, stop signup and an obj with the status 'false'
         return {
           status: false,
-          reason: "User email already exists. Please log in.",
+          reason: 'User email already exists. Please log in.',
         };
       } else {
         //if the email is unique to our db, proceed with signup
@@ -80,7 +78,7 @@ SIGNUP
             // https://firebase.google.com/docs/reference/js/firebase.User
 
             //create a user in our users table
-            setDoc(doc(db, "users/", user.uid), {
+            setDoc(doc(db, 'users/', user.uid), {
               email: email,
               username: username,
               uid: user.uid,
@@ -97,10 +95,10 @@ SIGNUP
           }
         });
         //The signup page needs a 'true' status to continue the signup
-        return { status: true, reason: "success" };
+        return { status: true, reason: 'success' };
       }
     } catch (error) {
-      console.log("signup error: ", error);
+      console.log('signup error: ', error);
     }
   };
 
@@ -115,8 +113,8 @@ GUEST => REGISTERED USER
   const registerGuest = async (email, password, username) => {
     try {
       //first, we see if the username is already registered
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("username", "==", username));
+      const usersRef = collection(db, 'users');
+      const q = query(usersRef, where('username', '==', username));
       const querySnapshot = await getDocs(q);
 
       let isUsernameUnique = true;
@@ -129,7 +127,7 @@ GUEST => REGISTERED USER
       if (!isUsernameUnique)
         return {
           status: false,
-          reason: "Username already exists. Please log in.",
+          reason: 'Username already exists. Please log in.',
         };
 
       //if email already exists, this will return an array with login methods
@@ -139,7 +137,7 @@ GUEST => REGISTERED USER
         // if user exists, stop signup and an obj with the status 'false'
         return {
           status: false,
-          reason: "User email already exists. Please log in.",
+          reason: 'User email already exists. Please log in.',
         };
       } else {
         //if the email is unique to our db, proceed with signup
@@ -153,10 +151,10 @@ GUEST => REGISTERED USER
         linkWithCredential(auth.currentUser, credential)
           .then((usercred) => {
             const user = usercred.user;
-            console.log("Anonymous account successfully upgraded", user);
+            console.log('Anonymous account successfully upgraded', user);
           })
           .catch((error) => {
-            console.log("Error upgrading anonymous account", error);
+            console.log('Error upgrading anonymous account', error);
           });
 
         //once that's done, we'll create the user document
@@ -166,7 +164,7 @@ GUEST => REGISTERED USER
             // https://firebase.google.com/docs/reference/js/firebase.User
 
             //create a user in our users table
-            setDoc(doc(db, "users/", user.uid), {
+            setDoc(doc(db, 'users/', user.uid), {
               email: email,
               username: username,
               uid: user.uid,
@@ -179,14 +177,14 @@ GUEST => REGISTERED USER
             //update the username in the user's score entries
             async function updateScores() {
               const scoreQ = query(
-                collection(db, "scores"),
-                where("uid", "==", user.uid)
+                collection(db, 'scores'),
+                where('uid', '==', user.uid)
               );
               const scoresSnapshot = await getDocs(scoreQ);
               scoresSnapshot.forEach(async (document) => {
-                console.log("doccies! ", document.id);
-                const docRef = doc(db, "scores", document.id);
-                console.log("DN: ", user.displayName);
+                console.log('doccies! ', document.id);
+                const docRef = doc(db, 'scores', document.id);
+                console.log('DN: ', user.displayName);
                 await updateDoc(docRef, { username: username });
               });
             }
@@ -199,10 +197,10 @@ GUEST => REGISTERED USER
           }
         });
         //The registration page needs a 'true' status to continue
-        return { status: true, reason: "success" };
+        return { status: true, reason: 'success' };
       }
     } catch (error) {
-      console.log("signup error: ", error);
+      console.log('signup error: ', error);
     }
   };
 
@@ -230,7 +228,7 @@ LOGIN AS GUEST
         if (user) {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
-          updateProfile(user, { displayName: "guest" });
+          updateProfile(user, { displayName: 'guest' });
           // ...
         } else {
           // User is signed out
@@ -255,7 +253,6 @@ LOG OUT
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      setLoading(false);
     });
 
     return unsubscribe;

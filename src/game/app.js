@@ -17,11 +17,15 @@ export class Sketch {
 
     this.playing = false;
     // this.tutorial = true;
-    document.body.appendChild(this.app.view);
+    // document.body.appendChild(this.app.view);
     this.user = {};
     this.time = 0;
     this.gameOver = false;
     this.gameMenu = new GameMenu(this.app.stage);
+    if (this.user.username) {
+      this.gameMenu.user = this.user;
+    }
+    document.body.appendChild(this.app.view);
   }
 
   checkPlaying() {
@@ -32,9 +36,12 @@ export class Sketch {
     this.playing = torf;
   }
   setUser(user) {
-    this.gameContainer.user = user;
+    this.user = user;
+    this.gameMenu.stage.user = user;
+    this.gameMenu.user = user;
+    this.gameMenu.stage.user = user;
   }
   checkUser() {
-    console.log(this.gameContainer.user);
+    console.log(this.gameMenu.user);
   }
 }

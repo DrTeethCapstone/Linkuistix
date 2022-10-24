@@ -41,7 +41,7 @@ export class InputContainer extends PIXI.Container {
   updateMultiplier(boolean) {
     const children = this.multiplierContainer.children.slice(1);
     const scoreObject = this.parent.children[2].children[1].children[1];
-    // const similarityBonus = this.children[1].children[1].similarityBonus;
+    const similarityBonus = this.children[1].children[1].similarityBonus;
     if (boolean) {
       const baseScore = 25;
       scoreObject.updateScore(baseScore * this.multiplier);

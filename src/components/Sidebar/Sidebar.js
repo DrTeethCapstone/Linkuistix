@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+//Modals
 import RegisterGuestModal from './modals/RegisterGuestModal';
 import LeaderboardModal from './modals/LeaderboardModal';
 import ProfileModal from './modals/ProfileModal';
@@ -20,6 +22,7 @@ import { useAuth } from '../../contexts/AuthContext';
 //sounds
 import { Howler, Howl } from 'howler';
 
+//------------------------------------------------------------------------------------------------------------------->
 function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   //our current user info and logout method
   const { currentUser, logout } = useAuth();
@@ -27,13 +30,16 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   //state
   const [soundOn, setSoundOn] = useState(true); //sound on or not
   const [musicOn, setMusicOn] = useState(false); //music playing or stopped
-  const getFirstLogin = window.localStorage.getItem('isFirstLogin')
-    ? false
-    : true;
-  const [isFirstLogin, setIsFirstLogin] = useState(getFirstLogin); //your first login, innit, mate?
   const [showSound, setShowSound] = useState({}); //show the sound tooltip song and dance
   const [showMusic, setShowMusic] = useState({}); //show the music tooltip song and dance
   const [musicId, setMusicId] = useState(''); //store the music Howler ID because Howler
+
+  //if isFirstLogin doesn't exist on window, you ain't been here before, so false
+  const getFirstLogin = window.localStorage.getItem('isFirstLogin')
+    ? false
+    : true;
+  //Then set it
+  const [isFirstLogin, setIsFirstLogin] = useState(getFirstLogin); //your first login, innit, mate?
 
   //register guest modal
   const [showRegisterGuest, setShowRegisterGuest] = useState(false);
@@ -92,7 +98,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
   //highlight the mute and music buttons on first login
   if (isFirstLogin && showSidebar) {
     const showOpeningTips = async () => {
-      const delayTips = () => {
+      const delayTips = async () => {
         setTimeout(() => {
           setShowSound({ show: true });
         }, 6000);
@@ -108,6 +114,7 @@ function Sidebar({ sketch, setShowSidebar, showSidebar }) {
         }, 5700);
       };
       await delayTips();
+
       //set first login to false
       //we store it in localStorage so we can hold onto the info on refresh
       setIsFirstLogin(false);

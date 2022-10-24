@@ -197,6 +197,7 @@ export class InputText extends PIXI.Text {
   }
 
   setSimilarityBonus(similarityScore) {
+    if (!similarityScore) similarityScore = 0;
     this.similarityBonus = Math.floor(50 * similarityScore);
   }
 }

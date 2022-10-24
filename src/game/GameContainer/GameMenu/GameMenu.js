@@ -259,11 +259,9 @@ export class GameMenu extends PIXI.Container {
     background.animationSpeed = 0.25;
     background.play();
     this.addChild(background);
-
     if (this.stage) {
       this.stage.addChild(this);
     }
-
     const splashTitleContainer = new PIXI.Container();
     const splashContainerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
     const splashTitle = new PIXI.Text("Linkuistix", {
@@ -428,5 +426,10 @@ export class GameMenu extends PIXI.Container {
 
   createLoadingScreen() {
     new LoadingContainer(this.stage);
+  }
+  setUser(user){
+    this.user = user
+    window.user = user
+    console.log(window.user)
   }
 }

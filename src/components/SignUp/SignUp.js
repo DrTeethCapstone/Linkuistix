@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -37,13 +37,10 @@ const SignupSchema = Yup.object().shape({
   }),
 });
 
-function SignUp({ setShowSidebar }) {
-  const [signupError, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
+function SignUp({ setShowSidebar, sketch }) {
   const navigate = useNavigate();
 
-  const { signup, loginAsGuest } = useAuth();
+  const { signup, loginAsGuest, currentUser } = useAuth();
 
   //guest login handler
   const guestLogin = async (event) => {
@@ -52,9 +49,14 @@ function SignUp({ setShowSidebar }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
-      navigate('/game');
+      console.log(currentUser)
+      sketch.gameMenu.setUser({
+        email: currentUser.email,
+        id: currentUser.uid,
+        username: currentUser.displayName
+      }) 
     } catch (error) {
-      setError('failed to log in');
+      console.log('failed to log in: ', error);
     }
   };
 
@@ -82,9 +84,6 @@ function SignUp({ setShowSidebar }) {
               resetForm();
               setSubmitting(false);
               try {
-                setError('');
-                setLoading(true);
-
                 //we try to authenticate the user
                 // if the user exists, signupSuccess returns false
                 const signupSuccess = await signup(
@@ -95,6 +94,11 @@ function SignUp({ setShowSidebar }) {
 
                 if (signupSuccess.status) {
                   setShowSidebar(true);
+                  sketch.gameMenu.setUser({
+                    email: currentUser.email,
+                    id: currentUser.uid,
+                    username: currentUser.displayName
+                  }) 
                   navigate('/game');
                 } else {
                   toast.error(signupSuccess.reason);
@@ -102,9 +106,8 @@ function SignUp({ setShowSidebar }) {
                 }
               } catch (error) {
                 console.log(error);
-                setError('failed to create account: ', error);
+                console.log('failed to create account: ', error);
               }
-              setLoading(false);
             }}
           >
             {({

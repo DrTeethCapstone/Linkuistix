@@ -52,7 +52,8 @@ export class GameOverInput extends PIXI.Text {
     if (e.key === "Enter") {
       this.userName = this.userInput;
       let score = Number(this.parent.parent.parent.score);
-      let user = this.parent.parent.parent.parent.children[1].user;
+      let user = window.user
+      console.log(user)
       let newUser = {
         username: this.userInput,
         id: user.id,
