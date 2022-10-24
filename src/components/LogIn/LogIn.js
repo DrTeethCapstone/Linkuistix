@@ -40,7 +40,7 @@ function LogIn({ setShowSidebar, sketch }) {
 
   if (loginError !== '') toast.error(loginError);
 
-  const { login, loginAsGuest, currentUser } = useAuth();
+  const { login, loginAsGuest} = useAuth();
 
   const guestLogin = async (event) => {
     event.preventDefault();
