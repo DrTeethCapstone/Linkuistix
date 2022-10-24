@@ -23,10 +23,12 @@ export class TutorialContainer extends PIXI.Container {
     size.position.x = -size.width / 2;
     this.addChild(size);
 
+    this.pulse = 0;
     this.clickToContinue = new PIXI.Text("Click to Continue...", {
       fontFamily: "Press Start 2P",
       fontSize: 10,
-      fill: 0xffffff,
+      // fill: 0xff71ce,
+      fill: 0xf62e97,
       align: "center",
       visible: true,
     });
@@ -104,5 +106,24 @@ export class TutorialContainer extends PIXI.Container {
         }
       }
     });
+    this.startTicker();
+  }
+  startTicker() {
+    this.ticker = new PIXI.Ticker();
+    let boolean = false;
+    this.ticker.add((delta) => {
+      this.pulse += 0.5;
+
+      if (this.pulse % 100 === 1) {
+        boolean = !boolean;
+        console.log(boolean);
+      }
+
+      if (boolean) {
+        gsap.to(this.clickToContinue, { alpha: 1, duration: 0.5 });
+        gsap.to(this.clickToContinue, { alpha: 0, delay: 0.5, duration: 0.5 });
+      }
+    });
+    this.ticker.start();
   }
 }
