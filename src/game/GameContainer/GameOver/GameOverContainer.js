@@ -102,6 +102,7 @@ export class GameOverContainer extends PIXI.Container {
       leader.interactive = true;
       leader.addListener("click", clickLeader);
       function clickLeader(e) {
+        console.log(e)
         // let user = this.parent.parent.children[1].user;
         let user = window.user
         if (user.username === "guest") {
