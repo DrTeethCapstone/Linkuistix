@@ -69,6 +69,7 @@ export class GameContainer extends PIXI.Container {
       this.wordsContainer.removeAllChildren();
       this.wordsContainer.setupFirstChildren();
       this.scoreContainer.score.resetScore();
+      this.scoreContainer.score.updatePosition();
 
       this.inputContainer.multiplier = 1;
       this.inputContainer.prevGuess.updateWord(" ");
