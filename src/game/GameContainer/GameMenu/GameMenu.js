@@ -419,7 +419,9 @@ export class GameMenu extends PIXI.Container {
   animateOff() {
     gsap.to(this, { alpha: 0, duration: 1 });
     setTimeout(() => {
-      this.stage.removeChild(this);
+      while (this.children.length > 1) {
+        this.removeChild(this.children[this.children.length - 1]);
+      }
       this.createLoadingScreen();
     }, 1100);
   }

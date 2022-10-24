@@ -53,6 +53,8 @@ export class GameContainer extends PIXI.Container {
   }
 
   animateElementsIn() {
+    gsap.to(this.parent.children[0], { alpha: 1, duration: 0.5 });
+    // this.parent.children[0].alpha = 1;
     this.inputContainer.fromOffScreen();
     this.wordsContainer.fromOffScreen();
     this.timerContainer.fromOffScreen();
