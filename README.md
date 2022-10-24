@@ -144,7 +144,7 @@ If you are interested in reporting any issues, would like to ask further questio
 | [linkedin.com/in/tandrewlopez](https://linkedin.com/in/tandrewlopez) | [github.com/TAndrewLopez](https://github.com/TAndrewLopez) |
 
 **Bill Munkacsy**
-| [linkedin.com/in/billmunkacsy](https://linkedin.com/in/billmunkacsy) | [github.com/BillMun](https://github.com/BillMun) |
+| [linkedin.com/in/williammunkacsy](https://linkedin.com/in/williammunkacsy) | [github.com/BillMun](https://github.com/BillMun) |
 
 **Will Siddons** 
 | [linkedin.com/in/willsiddons](https://linkedin.com/in/willsiddons) | [github.com/wsiddons](https://github.com/wsiddons) |
