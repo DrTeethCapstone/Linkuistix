@@ -56,7 +56,7 @@ export class GameContainer extends PIXI.Container {
     this.inputContainer.fromOffScreen();
     this.wordsContainer.fromOffScreen();
     this.timerContainer.fromOffScreen();
-    this.scoreContainer.alpha = 1;
+    this.scoreContainer.score.alpha = 1;
   }
 
   gameOver() {

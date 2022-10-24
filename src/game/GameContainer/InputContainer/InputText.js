@@ -131,7 +131,16 @@ export class InputText extends PIXI.Text {
             }
           }
           this.wordsContainer.dropChildrenPosition();
+          this.parent.parent.updateMultiplier(true);
+          console.log(
+            this.parent.parent,
+            "looking for input container to update multiplier"
+          );
+          // addtoscore
+          //update multiplier
           this.wordsContainer.parent.children[4].resetTimer();
+        } else {
+          this.parent.parent.updateMultiplier(false);
         }
         this.isThinking = false;
       }
