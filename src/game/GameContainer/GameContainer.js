@@ -8,9 +8,10 @@ import { TimerContainer } from "./TimerContainer/TimerContainer";
 import { TutorialContainer } from "./TutorialContainer/TutorialContainer";
 
 export class GameContainer extends PIXI.Container {
-  constructor(parent) {
+  constructor(parent, tutorial = true) {
     super();
     this.stage = parent;
+    this.tutorial = tutorial;
     this.alpha = 0;
     this.isPlaying = false;
     this.isLoaded = false;
@@ -27,7 +28,9 @@ export class GameContainer extends PIXI.Container {
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
     this.timerContainer = new TimerContainer(this);
-    this.tutorialContainer = new TutorialContainer(this);
+    if (this.tutorial) {
+      this.tutorialContainer = new TutorialContainer(this);
+    }
 
     if (this.stage) {
       this.stage.addChild(this);

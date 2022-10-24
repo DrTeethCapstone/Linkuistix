@@ -12,6 +12,7 @@ export class WordsContainer extends PIXI.Container {
     this.parent = parent;
     this.target = null;
     this.isLoaded = false;
+    this.wordsInPlay = [];
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
     bg.alpha = 0.25;
@@ -29,37 +30,40 @@ export class WordsContainer extends PIXI.Container {
 
   setupFirstChildren() {
     for (let i = 0; i < 9; i++) {
-      new Word(randomWords(), this);
+      const word = new Word(randomWords(), this);
+      this.wordsInPlay.push({ word: word.text, index: word.index });
     }
     const target = new Word(randomWords(), this, true);
+    this.wordsInPlay.push({
+      word: target.text,
+      isTarget: true,
+      index: target.index,
+    });
     this.target = target;
     this.isLoaded = true;
   }
 
   removeAllChildren() {
     while (this.children.length > 1) {
+      this.children[1].destroy();
       this.removeChild(this.children[1]);
     }
   }
 
-  checkTargetPosition(prevGuessObject) {
-    if (this.target) {
-      if (this.target.index <= 3) {
-        for (let i = 0; i < 4; i++) {
-          this.removeChild(this.children[1]);
-        }
-
-        this.target = null;
-        this.children.forEach((word, i) => {
-          if (word.isWord) {
-            word.index = i;
-          }
-        });
-        prevGuessObject.parent.parent.updateMultiplier(true);
-      } else {
-        prevGuessObject.parent.parent.updateMultiplier(false);
-      }
+  dropChildrenPosition() {
+    this.children.slice(1).forEach((word, i) => {
+      word.index = i;
+      word.updatePosition();
+    });
+    while (this.children.length < 10) {
+      const word = new Word(randomWords(), this);
+      word.index -= 1;
+      console.log(word);
     }
+    const target = new Word(randomWords(), this, true);
+    target.index -= 1;
+    this.target = target;
+    this.children.slice(1).forEach((word) => word.updatePosition());
   }
 
   fromOffScreen() {

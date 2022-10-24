@@ -39,14 +39,14 @@ export class TimerContainer extends PIXI.Container {
         const parentStage = gameContainer.parent;
         const score = parentStage.children[0].children[2].userScore;
         this.ticker.stop();
-        gameContainer.gameOver();
-        setTimeout(() => {
-          const gameOver = new GameOverContainer(parentStage);
-          gameOver.score = parentStage.children[0].children[2].userScore;
-          gameOver.setupFirstChildren(score);
-          gameOver.position.x = window.innerWidth / 2;
-          gameOver.position.y = window.innerHeight / 2;
-        }, 1100);
+        // gameContainer.gameOver();
+        // setTimeout(() => {
+        //   const gameOver = new GameOverContainer(parentStage);
+        //   gameOver.score = parentStage.children[0].children[2].userScore;
+        //   gameOver.setupFirstChildren(score);
+        //   gameOver.position.x = window.innerWidth / 2;
+        //   gameOver.position.y = window.innerHeight / 2;
+        // }, 1100);
       }
     });
     this.ticker.start();
@@ -72,8 +72,9 @@ export class TimerContainer extends PIXI.Container {
 
   resetTimer() {
     this.time = this.parent.width;
-    if(this.increment<5){
-    this.increment = this.increment * 1.1;}
+    if (this.increment < 5) {
+      this.increment = this.increment * 1.1;
+    }
     gsap.to(this.timeBar, { width: this.time });
   }
 }

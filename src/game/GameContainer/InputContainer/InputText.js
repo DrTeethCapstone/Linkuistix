@@ -22,7 +22,7 @@ export class InputText extends PIXI.Text {
       type: "module",
     });
 
-    // this.TFOutput = [];
+    this.worker.addEventListener("message", this.setTFOutout);
 
     if (parent) {
       const container = new PIXI.Container();
@@ -44,7 +44,6 @@ export class InputText extends PIXI.Text {
     this.on("pointerdown", (e) => {
       this.style.fill = 0x0eb3e1;
       this.setupKeyboardListener();
-
       if (!this.parent.parent.parent.children[4].isRunning) {
         this.parent.parent.parent.wordsContainer.fromOffScreen();
         setTimeout(() => {
@@ -93,8 +92,47 @@ export class InputText extends PIXI.Text {
     return true;
   }
 
+  setTFOutout = async ({ data }) => {
+    const { TFOutput } = data;
+    this.TFOutput = TFOutput;
+  };
+
+  createTicker() {
+    this.ticker = new PIXI.Ticker();
+    this.isThinking = true;
+    this.ticker.add((delta) => {
+      if (this.TFOutput) {
+        this.ticker.stop();
+        this.wordsContainer.children.slice(1).forEach((word, i) => {
+          word.similarityScore = this.TFOutput[i];
+        });
+
+        const sortedArray = this.wordsContainer.children
+          .slice(1)
+          .sort((a, b) => {
+            return b.similarityScore - a.similarityScore;
+          });
+
+        sortedArray.forEach((word, i) => {
+          word.index = i;
+          word.updatePosition();
+        });
+
+        if (this.wordsContainer.target.index <= 3) {
+          for (let i = this.wordsContainer.children.length - 1; i > 0; i--) {
+            if (this.wordsContainer.children[i].index <= 3) {
+              this.wordsContainer.removeChild(this.wordsContainer.children[i]);
+            }
+          }
+          this.wordsContainer.dropChildrenPosition();
+        }
+        this.isThinking = false;
+      }
+    });
+  }
+
   updateInputText(e, me) {
-    const prevWordObject = this.parent.parent.children[2].children[1];
+    this.prevWordObject = this.parent.parent.children[2].children[1];
     if (e.key === "Enter") {
       if (!this.isThinking) {
         // this.message.text = "Please wait. Tensor is thinking...";
@@ -109,33 +147,20 @@ export class InputText extends PIXI.Text {
           inputString: this.userGuess.toLowerCase(),
           target: targetWord,
         };
+
         if (this.validateWordInput(validation)) {
-          this.isThinking = true;
+          this.createTicker(words);
+          this.ticker.start();
+          // this.isThinking = true;
           this.worker.postMessage({
             userInput: [this.userGuess],
             tensorWords,
           });
-
-          this.worker.addEventListener("message", async ({ data }) => {
-            const { TFOutput } = data;
-            this.TFOutput = TFOutput;
-            prevWordObject.updateWord(this.userGuess);
-            console.log(words, "prescored words");
-            console.log(TFOutput);
-            words.forEach((word, i) => {
-              word.similarityScore = TFOutput[i];
-            });
-            console.log(words, "post scoring");
-            // for (let i = 0; i < TFOutput.length; i++) {
-            //   words[i].similarityScore = TFOutput[i];
-            // }
-            // this.sortBySimilarityScores(words, prevWordObject);
-            this.isThinking = false;
-          });
+          this.prevWordObject.updateWord(this.userGuess);
+          this.userGuess = "";
+          me.text = "";
         }
       }
-      this.userGuess = "";
-      me.text = "";
     } else if (e.key === "Backspace") {
       this.userGuess = this.userGuess.slice(0, this.userGuess.length - 1);
       me.text = this.userGuess;
@@ -159,7 +184,6 @@ export class InputText extends PIXI.Text {
       word.index = i;
       word.updatePosition();
     });
-    // this.wordsContainer.checkTargetPosition(guessObj);
   }
 
   setSimilarityBonus(similarityScore) {

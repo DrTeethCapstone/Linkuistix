@@ -102,6 +102,7 @@ export class LoadingContainer extends PIXI.Container {
       fontSize: 24,
       fill: 0x000000,
     });
+
     let phrase = loadingTips[Math.floor(Math.random() * loadingTips.length)];
     this.toolTip = new PIXI.Text(phrase, {
       fontFamily: "Press Start 2P",
@@ -148,11 +149,15 @@ export class LoadingContainer extends PIXI.Container {
         this.gameContainer.position.x = window.innerWidth / 2;
         this.gameContainer.animateOpacity(false);
         this.gameContainer.children[2].score.alpha = 0;
+
+        //LOAD GAME ELEMENTS IF THERE ISN'T A TUTORIAL CONTAINER
+        if (this.gameContainer.children.length < 6) {
+          this.gameContainer.animateElementsIn();
+        }
       }
     });
     this.ticker.start();
-    this.gameContainer = new GameContainer();
-    this.parent.addChild(this.gameContainer);
+    this.gameContainer = new GameContainer(this.parent, false);
   }
 
   updateText(string) {
