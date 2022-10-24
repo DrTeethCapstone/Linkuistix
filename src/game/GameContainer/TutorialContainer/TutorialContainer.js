@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { ObjectiveOne } from "./ObjectiveOne";
 import { ObjectiveTwo } from "./ObjectiveTwo";
 import { ObjectiveThree } from "./ObjectiveThree";
+import { gsap } from "gsap";
 
 export class TutorialContainer extends PIXI.Container {
   constructor(parent = null) {
@@ -93,6 +94,10 @@ export class TutorialContainer extends PIXI.Container {
                 "Click Here to Start";
               this.parent.wordsContainer.fromOffScreen();
               this.parent.timerContainer.fromOffScreen();
+              gsap.to(this.parent.parent.children[0], {
+                alpha: 1,
+                duration: 0.5,
+              });
               this.destroy();
             }, 600);
           }
