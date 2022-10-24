@@ -49,11 +49,6 @@ function LogIn({ setShowSidebar, sketch }) {
       await loginAsGuest();
       setShowSidebar(true);
       navigate('/game');
-      sketch.gameMenu.setUser({
-        email: currentUser.email,
-        id: currentUser.uid,
-        username: currentUser.displayName
-      })
     } catch (error) {
       setError('failed to log in');
     }

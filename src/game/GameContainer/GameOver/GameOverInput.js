@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { GameOver } from "./GameOver";
+import { getAuth } from 'firebase/auth';
 
 export class GameOverInput extends PIXI.Text {
   constructor(parent = null) {
@@ -38,11 +39,23 @@ export class GameOverInput extends PIXI.Text {
   removeKeyboardListener() {
     window.removeEventListener("keydown", (e) => this.updateInputText(e, this));
   }
+  getUserInfo() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+    if (user) {
+      return user;
+
+    } else {
+
+      return null;
+    }
+  }
 
   async addLeaderBoardScore(user, score) {
     await addDoc(collection(db, "scores"), {
       score: score,
-      uid: user.id,
+      uid: user.uid,
       username: user.username,
       scoreCreatedAt: Timestamp.fromDate(new Date()),
     });
@@ -52,11 +65,10 @@ export class GameOverInput extends PIXI.Text {
     if (e.key === "Enter") {
       this.userName = this.userInput;
       let score = Number(this.parent.parent.parent.score);
-      let user = window.user
-      console.log(user)
+      const myUser = this.getUserInfo();
       let newUser = {
         username: this.userInput,
-        id: user.id,
+        uid: myUser.uid,
       };
       this.addLeaderBoardScore(newUser, score);
       this.interactive = false;
