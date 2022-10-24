@@ -275,7 +275,7 @@ export class GameMenu extends PIXI.Container {
     });
 
     const splashIntroText = new PIXI.Text(
-      "Word association games powered by machine learning and teeth",
+      "Word association games powered by machine learning.",
       {
         fontFamily: "Arial",
         fontSize: 16,
@@ -427,9 +427,9 @@ export class GameMenu extends PIXI.Container {
   createLoadingScreen() {
     new LoadingContainer(this.stage);
   }
-  setUser(user){
-    this.user = user
-    window.user = user
-    console.log(window.user)
+  setUser(user) {
+    this.user = user;
+    window.user = user;
+    console.log(window.user);
   }
 }
