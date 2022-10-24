@@ -28,9 +28,9 @@ export class GameContainer extends PIXI.Container {
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
     this.timerContainer = new TimerContainer(this);
-    if (this.tutorial) {
-      this.tutorialContainer = new TutorialContainer(this);
-    }
+    // if (this.tutorial) {
+    //   this.tutorialContainer = new TutorialContainer(this);
+    // }
 
     if (this.stage) {
       this.stage.addChild(this);

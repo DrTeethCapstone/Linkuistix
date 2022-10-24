@@ -2,13 +2,13 @@ import * as PIXI from "pixi.js";
 import { GameOver } from "./GameOver";
 import { GameOverImg } from "./GameOverImg";
 import { gsap } from "gsap";
-import img from "./vaporbg.JPG";
 import coin from "./coin.png";
 import insertCoin from "./insertCoin.PNG";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { GameOverInputContainer } from "./GameOverInputCont";
-import { GameContainer } from "../GameContainer";
+import { getAuth } from 'firebase/auth';
+
 
 export class GameOverContainer extends PIXI.Container {
   constructor(parent) {
@@ -40,11 +40,20 @@ export class GameOverContainer extends PIXI.Container {
     }
   }
 
+  getUserInfo() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  }
   async addLeaderBoardScore(user, score) {
     await addDoc(collection(db, "scores"), {
       score: score,
-      uid: user.id,
-      username: user.username,
+      uid: user.uid,
+      username: user.displayName,
       scoreCreatedAt: Timestamp.fromDate(new Date()),
     });
   }
@@ -101,10 +110,9 @@ export class GameOverContainer extends PIXI.Container {
       leader.animateLeader();
       leader.interactive = true;
       leader.addListener("click", clickLeader);
-      function clickLeader(e) {
-        // let user = this.parent.parent.children[1].user;
-        let user = window.user
-        if (user.username === "guest") {
+      async function clickLeader(e) {
+        const myUser = this.parent.getUserInfo();
+        if (myUser.displayName === "guest") {
           this.parent.parent.cursor = "default";
           const inputCont = new GameOverInputContainer(this.parent);
           inputCont.children[1].children[1].setupKeyboardListener();
@@ -112,12 +120,9 @@ export class GameOverContainer extends PIXI.Container {
           inputCont.position.y = -200;
           leader.interactive = false;
         } else {
-          let score = Number(
-            this.parent.parent.children[1].scoreContainer.score._text
-          );
-          this.parent.addLeaderBoardScore(user, score);
+          let score = Number(this.parent.score);
+          this.parent.addLeaderBoardScore(myUser, score);
           leader.interactive = false;
-          console.log(this.parent);
           const completed = new GameOver("Score Added!", this.parent.parent);
           completed.animateCompleted();
         }
