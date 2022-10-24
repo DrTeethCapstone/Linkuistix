@@ -9,6 +9,7 @@
 
 * {
   margin: 0;
+  box-sizing: border-box;
 }
 
 canvas {
@@ -139,14 +140,14 @@ canvas {
   }
 
   @media screen and (max-width: 800px) {
-    > div {
+    >div {
       top: 10vh;
       width: 75%;
     }
   }
 
   @media screen and (max-width: 1200px) and (min-width: 800px) {
-    > div {
+    >div {
       top: 20vh;
       width: 40%;
     }
@@ -213,7 +214,7 @@ canvas {
     color: aqua;
   }
 
-  > div {
+  >div {
     margin: 0 10vw;
 
     button {
@@ -279,6 +280,7 @@ canvas {
   :hover .logoutIcon {
     color: red;
   }
+
   :hover .aboutIcon {
     color: alicewhite;
   }
@@ -463,16 +465,18 @@ canvas {
   }
 }
 
-#lowerDown {
-  //moves signin splash lower down the screen
-  margin-top: 20vh;
-}
+
 
 // what to do about required pop-up
 .form-container {
-  width: 30vw;
-  margin: auto;
-  margin-top: 10vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5vw;
+  // width: 30vw;
+  // margin: auto;
+  // margin-top: 10vh;
   background-color: rgba(0, 0, 0, 0.6);
   border: 3px solid @electric-blue;
   font-family: 'Press Start 2P';
@@ -624,6 +628,13 @@ canvas {
     margin: 2vh 2vw;
     text-align: center;
   }
+}
+
+.opacity {
+  background-color: rgb(0, 0, 0);
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes slideDown {
