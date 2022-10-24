@@ -157,7 +157,7 @@ export class LoadingContainer extends PIXI.Container {
       }
     });
     this.ticker.start();
-    this.gameContainer = new GameContainer(this.parent, false);
+    this.gameContainer = new GameContainer(this.parent, true);
   }
 
   updateText(string) {
