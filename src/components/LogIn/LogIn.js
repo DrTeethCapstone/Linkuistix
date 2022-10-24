@@ -49,103 +49,113 @@ function LogIn({ setShowSidebar, sketch }) {
       await loginAsGuest();
       setShowSidebar(true);
       navigate('/game');
+<<<<<<< HEAD
+=======
+      sketch.gameMenu.setUser({
+        email: currentUser.email,
+        id: currentUser.uid,
+        username: currentUser.displayName
+      })
+>>>>>>> main
     } catch (error) {
       setError('failed to log in');
     }
-   
+
   };
 
   if (isNewUser) {
     return (
       <>
-        <div className="form-container">
-          <h2>Login</h2>
-          <div>
-            <Formik
-              initialValues={{
-                password: '',
-                email: '',
-              }}
-              validationSchema={LoginSchema}
-              validateOnChange={false}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
-                setSubmitting(true);
-                const castValues = LoginSchema.cast(values);
+        <div className='opacity'>
+          <div className="form-container">
+            <h2>Login</h2>
+            <div>
+              <Formik
+                initialValues={{
+                  password: '',
+                  email: '',
+                }}
+                validationSchema={LoginSchema}
+                validateOnChange={false}
+                onSubmit={async (values, { setSubmitting, resetForm }) => {
+                  setSubmitting(true);
+                  const castValues = LoginSchema.cast(values);
 
-                resetForm();
-                setSubmitting(false);
+                  resetForm();
+                  setSubmitting(false);
 
-                try {
-                  setError('');
-                  await login(castValues.email, castValues.password);
-                  setShowSidebar(true);
-                  navigate('/game');
-                } catch (error) {
-                  console.log('failed to log in: ', error);
-                }
-              }}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="me@web.com"
-                    autoFocus
-                    onChange={handleChange}
-                    value={values.email}
-                    autoComplete="email"
-                    autoCapitalize="off"
-                    className={touched.email && errors.email ? 'error' : null}
-                  />
-                  {errors.email && touched.email ? (
-                    <div className="error-message">{errors.email}</div>
-                  ) : null}
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={handleChange}
-                    value={values.password}
-                    autoComplete="current-password"
-                    autoCapitalize="off"
-                    className={
-                      touched.password && errors.password ? 'error' : null
-                    }
-                  />
-                  {errors.password && touched.password ? (
-                    <div className="error-message">{errors.password}</div>
-                  ) : null}
-                  <button
-                    type="submit"
-                    variant="primary"
-                    disabled={isSubmitting}
-                  >
-                    Sign In
-                  </button>
-                </form>
-              )}
-            </Formik>
+                  try {
+                    setError('');
+                    await login(castValues.email, castValues.password);
+                    setShowSidebar(true);
+                    navigate('/game');
+                  } catch (error) {
+                    console.log('failed to log in: ', error);
+                  }
+                }}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleSubmit,
+                  isSubmitting,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="me@web.com"
+                      autoFocus
+                      onChange={handleChange}
+                      value={values.email}
+                      autoComplete="email"
+                      autoCapitalize="off"
+                      className={touched.email && errors.email ? 'error' : null}
+                    />
+                    {errors.email && touched.email ? (
+                      <div className="error-message">{errors.email}</div>
+                    ) : null}
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={handleChange}
+                      value={values.password}
+                      autoComplete="current-password"
+                      autoCapitalize="off"
+                      className={
+                        touched.password && errors.password ? 'error' : null
+                      }
+                    />
+                    {errors.password && touched.password ? (
+                      <div className="error-message">{errors.password}</div>
+                    ) : null}
+                    <button
+                      type="submit"
+                      variant="primary"
+                      disabled={isSubmitting}
+                    >
+                      Sign In
+                    </button>
+                  </form>
+                )}
+              </Formik>
+              <hr />
+              <button className="form-button" type="button" onClick={guestLogin}>
+                Play As Guest
+              </button>
+            </div>
             <hr />
-            <button className="form-button" type="button" onClick={guestLogin}>
-              Play As Guest
-            </button>
-          </div>
-          <hr />
-          <p>Don't Have An Account?</p>
+            <p>Don't Have An Account?</p>
 
-          <Link className="link-styles" to="/SignUp">
-            Sign Up
-          </Link>
+            <Link className="link-styles" to="/SignUp">
+              Sign Up
+            </Link>
+          </div>
         </div>
       </>
     );
