@@ -59,7 +59,6 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
     } else {
       window.localStorage.setItem('tutorial', !checked)
     }
-    console.log(window.localStorage)
   }
 
   return (

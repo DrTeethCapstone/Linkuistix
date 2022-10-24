@@ -164,7 +164,6 @@ export class LoadingContainer extends PIXI.Container {
     } else {
       localTutorial = true
     }
-    console.log(localTutorial)
     this.gameContainer = new GameContainer(this.parent, localTutorial);
   }
 
