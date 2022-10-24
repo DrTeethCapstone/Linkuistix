@@ -152,7 +152,6 @@ export class InputText extends PIXI.Text {
         let words = this.wordsContainer.children.slice(1);
         let [targetWord] = words.filter((word) => word.isTarget);
         const tensorWords = words.map((word) => word.text);
-        this.setSimilarityBonus(words.filter((elem)=> elem.isTarget)[0].similarityScore)
         const validation = {
           targetString: targetWord.text,
           inputString: this.userGuess.toLowerCase(),
@@ -195,10 +194,5 @@ export class InputText extends PIXI.Text {
       word.index = i;
       word.updatePosition();
     });
-  }
-
-  setSimilarityBonus(similarityScore) {
-    if (!similarityScore) similarityScore = 0;
-    this.similarityBonus = Math.floor(50 * similarityScore);
   }
 }
