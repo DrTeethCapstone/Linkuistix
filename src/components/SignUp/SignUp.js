@@ -49,12 +49,6 @@ function SignUp({ setShowSidebar, sketch }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
-      console.log(currentUser)
-      sketch.gameMenu.setUser({
-        email: currentUser.email,
-        id: currentUser.uid,
-        username: currentUser.displayName
-      })
     } catch (error) {
       console.log('failed to log in: ', error);
     }
@@ -96,11 +90,6 @@ function SignUp({ setShowSidebar, sketch }) {
 
                   if (signupSuccess.status) {
                     setShowSidebar(true);
-                    sketch.gameMenu.setUser({
-                      email: currentUser.email,
-                      id: currentUser.uid,
-                      username: currentUser.displayName
-                    })
                     navigate('/game');
                   } else {
                     toast.error(signupSuccess.reason);

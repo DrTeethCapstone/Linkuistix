@@ -9,7 +9,7 @@ export class GameOverInputContainer extends PIXI.Container {
     bg.alpha = 0.2;
     bg.tint = "#ff71ce";
     bg.anchor.set(0.5, 1);
-    bg.height = 50;
+    bg.height = 75;
     bg.width = 500;
     this.addChild(bg);
     this.interaction = new GameOverInput(this);
