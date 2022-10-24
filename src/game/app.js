@@ -22,6 +22,13 @@ export class Sketch {
     this.time = 0;
     this.gameOver = false;
     this.gameMenu = new GameMenu(this.app.stage);
+    this.background = new GameMenu(this.app.stage);
+    while (this.background.children.length > 1) {
+      this.background.removeChild(
+        this.background.children[this.background.children.length - 1]
+      );
+    }
+    this.background.visible = false;
   }
 
   checkPlaying() {
