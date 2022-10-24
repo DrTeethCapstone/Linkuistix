@@ -223,6 +223,7 @@ LOGIN AS GUEST
   const loginAsGuest = async () => {
     try {
       // console.log('trying guest login');
+
       await signInAnonymously(auth);
       await onAuthStateChanged(auth, async (user) => {
         if (user) {
@@ -235,6 +236,7 @@ LOGIN AS GUEST
           // ...
         }
       });
+
     } catch (error) {
       console.log(error);
     }

@@ -290,6 +290,25 @@ canvas {
   display: flex;
   justify-content: center;
 }
+.profile-container .tut-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.profile-container .tut-container label {
+  color: #ebd25b;
+  margin-bottom: 2vh;
+}
+.profile-container .tut-container input {
+  border: 3px solid #ebd25b;
+  width: 20px;
+  height: 20px;
+  color: #000;
+  margin: 0 1vw;
+}
+.profile-container .tut-container input:checked {
+  color: #ebd25b;
+}
 .profile-container h1 {
   margin-top: 2vh;
   font-size: 1.5em;
