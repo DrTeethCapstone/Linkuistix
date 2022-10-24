@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import React, { useEffect, useState } from "react";
+import Modal from "react-bootstrap/Modal";
 import {
   collection,
   getDocs,
@@ -9,77 +9,72 @@ import {
   limit,
   startAfter,
   endBefore,
-} from 'firebase/firestore';
-import { db } from '../../../firebase';
+} from "firebase/firestore";
+import { db } from "../../../firebase";
 
 function LeaderboardModal({ handleLeaderboardClose, showLeaderboard }) {
-
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
-
-  
   useEffect(() => {
     const getData = async () => {
       const first = query(
-        collection(db, 'scores'),
-        orderBy('score', 'desc'),
+        collection(db, "scores"),
+        orderBy("score", "desc"),
         limit(10)
       );
       const docSnap = await getDocs(first);
-      let newArr = []
+      let newArr = [];
       docSnap.forEach((doc) => {
         newArr.push(doc.data());
       });
-      setLeaderboard(newArr)
+      setLeaderboard(newArr);
       setLoading(false);
     };
     getData();
-  },[showLeaderboard]);
+  }, [showLeaderboard]);
 
   const handleNext = async () => {
     const lastVisible = leaderboard[leaderboard.length - 1];
     const next = query(
-      collection(db, 'scores'),
-      orderBy('score', 'desc'),
+      collection(db, "scores"),
+      orderBy("score", "desc"),
       startAfter(lastVisible.score),
       limit(10)
     );
-    console.log(next)
     const nextDoc = await getDocs(next);
     if (nextDoc.docs.length) {
-      setMessage('');
+      setMessage("");
       let newArr = [];
       nextDoc.forEach((doc) => {
-        console.log(doc.data())
         newArr.push(doc.data());
       });
       setLeaderboard(newArr);
     } else {
-      setMessage('Last page');
+      setMessage("Last page");
     }
   };
 
   const handlePrev = async () => {
     const firstVisible = leaderboard[0];
     const next = query(
-      collection(db, 'scores'),
-      orderBy('score', 'desc'),
+      collection(db, "scores"),
+      orderBy("score", "desc"),
       endBefore(firstVisible.score),
       limitToLast(10)
     );
 
     const nextDoc = await getDocs(next);
     if (nextDoc.docs.length) {
-      setMessage('');
+      setMessage("");
       let newArr = [];
       nextDoc.forEach((doc, idx, arr) => {
         newArr.push(doc.data());
       });
       setLeaderboard(newArr);
     } else {
-      setMessage('Cant go back');
+      setMessage("Cant go back");
     }
   };
 
@@ -102,13 +97,13 @@ function LeaderboardModal({ handleLeaderboardClose, showLeaderboard }) {
           <>
             {leaderboard.map((ele, idx) => (
               <div key={idx}>
-                <p>{ele.username ? ele.username : 'guest'}</p>
+                <p>{ele.username ? ele.username : "guest"}</p>
                 <p>{ele.score}</p>
               </div>
             ))}
             <div className="lb-button-container">
-              <button onClick={handlePrev}>{'<'}</button>
-              <button onClick={handleNext}>{'>'}</button>
+              <button onClick={handlePrev}>{"<"}</button>
+              <button onClick={handleNext}>{">"}</button>
             </div>
             <p>{message}</p>
           </>

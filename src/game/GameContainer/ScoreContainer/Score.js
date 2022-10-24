@@ -11,7 +11,7 @@ export class Score extends PIXI.Text {
       align: "center",
     });
 
-    this.alpha = 0;
+    this.alpha = 1;
     this.parent = parent;
     if (this.parent) {
       this.parent.addChild(this);

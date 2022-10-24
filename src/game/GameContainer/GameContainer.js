@@ -8,16 +8,17 @@ import { TimerContainer } from "./TimerContainer/TimerContainer";
 import { TutorialContainer } from "./TutorialContainer/TutorialContainer";
 
 export class GameContainer extends PIXI.Container {
-  constructor(parent) {
+  constructor(parent, tutorial = true) {
     super();
     this.stage = parent;
+    this.tutorial = tutorial;
     this.alpha = 0;
     this.isPlaying = false;
     this.isLoaded = false;
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
     bg.tint = 0x1f1f1f;
-    bg.alpha = 0.2;
+    bg.alpha = 0;
     bg.width = (window.innerWidth * 50) / 100;
     bg.height = window.innerHeight;
     bg.anchor.set(0.5, 0);
@@ -27,7 +28,9 @@ export class GameContainer extends PIXI.Container {
     this.scoreContainer = new ScoreContainer(this);
     this.wordsContainer = new WordsContainer(this);
     this.timerContainer = new TimerContainer(this);
-    this.tutorialContainer = new TutorialContainer(this);
+    if (this.tutorial) {
+      this.tutorialContainer = new TutorialContainer(this);
+    }
 
     if (this.stage) {
       this.stage.addChild(this);
@@ -49,6 +52,15 @@ export class GameContainer extends PIXI.Container {
     }
   }
 
+  animateElementsIn() {
+    gsap.to(this.parent.children[0], { alpha: 1, duration: 0.5 });
+    // this.parent.children[0].alpha = 1;
+    this.inputContainer.fromOffScreen();
+    this.wordsContainer.fromOffScreen();
+    this.timerContainer.fromOffScreen();
+    this.scoreContainer.score.alpha = 1;
+  }
+
   gameOver() {
     this.inputContainer.toOffScreen();
     this.wordsContainer.toOffScreen();
@@ -59,6 +71,7 @@ export class GameContainer extends PIXI.Container {
       this.wordsContainer.removeAllChildren();
       this.wordsContainer.setupFirstChildren();
       this.scoreContainer.score.resetScore();
+      this.scoreContainer.score.updatePosition();
 
       this.inputContainer.multiplier = 1;
       this.inputContainer.prevGuess.updateWord(" ");
@@ -68,7 +81,7 @@ export class GameContainer extends PIXI.Container {
           this.inputContainer.multiplierContainer.children[1]
         );
       }
-      this.timerContainer.increment = 1;
+      this.timerContainer.increment = 0.5;
     }, 1100);
   }
 

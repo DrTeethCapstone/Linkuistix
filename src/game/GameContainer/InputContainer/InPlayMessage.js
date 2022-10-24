@@ -5,7 +5,7 @@ export class InPlayMessage extends PIXI.Text {
     super("", {
       fontFamily: "Press Start 2P",
       fontSize: 18,
-      fill: 0xffffff, //0x200145,
+      fill: 0xffffff,
       align: "center",
     });
   }

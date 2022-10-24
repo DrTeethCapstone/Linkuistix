@@ -16,7 +16,7 @@ export class Word extends PIXI.Text {
     this.parent = parent;
     this.anchor.set(0, 1);
     this.isWord = true;
-    this.similarityScores = 0;
+    this.similarityScore = 0;
 
     if (isTarget) {
       this.isTarget = isTarget;
@@ -53,11 +53,6 @@ export class Word extends PIXI.Text {
       });
     }
   }
-
-  // removeWord() {
-  //   gsap.to(this, { x: -100, duration: 4 });
-  //   this.parent.removeChild(this);
-  // }
 
   updateWord(word) {
     this.text = word;

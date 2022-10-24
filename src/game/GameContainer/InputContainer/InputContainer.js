@@ -42,11 +42,10 @@ export class InputContainer extends PIXI.Container {
     const children = this.multiplierContainer.children.slice(1);
     const scoreObject = this.parent.children[2].children[1].children[1];
     const similarityBonus = this.children[1].children[1].similarityBonus;
-    console.log(this.children[1])
-    console.log(similarityBonus)
     if (boolean) {
       const baseScore = 25;
-      scoreObject.updateScore(baseScore * this.multiplier + similarityBonus);
+      scoreObject.updateScore(baseScore * this.multiplier);
+      // scoreObject.updateScore(baseScore * this.multiplier + similarityBonus);
       this.parent.children[4].resetTimer();
       if (this.multiplier <= 4) {
         this.multiplier++;
@@ -71,13 +70,13 @@ export class InputContainer extends PIXI.Container {
   }
 
   toOffScreen() {
-    this.previousPosition = this.getGlobalPosition;
+    // this.previousPosition = this.getGlobalPosition;
     gsap.to(this, {
       y: this.parent.height + this.height,
       duration: 1,
     });
     setTimeout(() => {
       this.visible = false;
-    }, 1000);
+    }, 0.5);
   }
 }

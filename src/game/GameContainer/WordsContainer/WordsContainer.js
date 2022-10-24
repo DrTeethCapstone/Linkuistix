@@ -12,9 +12,11 @@ export class WordsContainer extends PIXI.Container {
     this.parent = parent;
     this.target = null;
     this.isLoaded = false;
+    this.wordsInPlay = [];
 
     const bg = new PIXI.Sprite(PIXI.Texture.WHITE);
-    bg.alpha = 0.25;
+    bg.tint = 0x000000;
+    bg.alpha = 0.3;
     bg.width = this.parent.width;
     bg.height = this.parent.height - this.parent.children[1].height * 2.22;
     this.addChild(bg);
@@ -29,37 +31,44 @@ export class WordsContainer extends PIXI.Container {
 
   setupFirstChildren() {
     for (let i = 0; i < 9; i++) {
-      new Word(randomWords(), this);
+      const word = new Word(randomWords(), this);
+      this.wordsInPlay.push({ word: word.text, index: word.index });
     }
     const target = new Word(randomWords(), this, true);
+    this.wordsInPlay.push({
+      word: target.text,
+      isTarget: true,
+      index: target.index,
+    });
     this.target = target;
     this.isLoaded = true;
   }
 
   removeAllChildren() {
     while (this.children.length > 1) {
+      this.children[1].destroy();
       this.removeChild(this.children[1]);
     }
   }
 
-  checkTargetPosition(prevGuessObject) {
-    if (this.target) {
-      if (this.target.index <= 3) {
-        for (let i = 0; i < 4; i++) {
-          this.removeChild(this.children[1]);
-        }
-
-        this.target = null;
-        this.children.forEach((word, i) => {
-          if (word.isWord) {
-            word.index = i;
-          }
-        });
-        prevGuessObject.parent.parent.updateMultiplier(true);
-      } else {
-        prevGuessObject.parent.parent.updateMultiplier(false);
-      }
+  dropChildrenPosition() {
+    this.children.slice(1).forEach((word, i) => {
+      word.index = i;
+      word.updatePosition();
+    });
+    while (this.children.length < 10) {
+      const word = new Word(randomWords());
+      this.addChild(word);
+      word.index = this.children.length - 1;
+      word.position.x = this.width / 2 - word.width / 2;
+      word.updatePosition();
     }
+    const target = new Word(randomWords(), null, true);
+    this.addChild(target);
+    target.index = this.children.length - 1;
+    target.position.x = this.width / 2 - target.width / 2;
+    target.updatePosition();
+    this.target = target;
   }
 
   fromOffScreen() {

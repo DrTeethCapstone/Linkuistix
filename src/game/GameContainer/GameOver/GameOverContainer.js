@@ -82,7 +82,7 @@ export class GameOverContainer extends PIXI.Container {
         const parent = this.parent;
         parent.cursor = "auto";
         parent.removeChild(this);
-        parent.children[0].gameOverStartGame();
+        parent.children[1].gameOverStartGame();
       });
 
       gsap.fromTo(
