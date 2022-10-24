@@ -9,6 +9,17 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser } = useAuth();
   const [checked, setChecked] = useState(true)
+  useEffect(() => {
+    if (window.localStorage.getItem('tutorial')) {
+      let localTutorial = window.localStorage.getItem('tutorial')
+      if (localTutorial === 'false') {
+        setChecked(false)
+      } else {
+        setChecked(true)
+      }
+    }
+  }, [])
+
   // const [userData, setUserData] = useState({});
 
   useEffect(() => {

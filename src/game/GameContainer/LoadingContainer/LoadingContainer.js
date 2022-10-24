@@ -158,11 +158,13 @@ export class LoadingContainer extends PIXI.Container {
     });
     this.ticker.start();
     let localTutorial = window.localStorage.getItem('tutorial')
-    if (localTutorial === 'true') {
-      localTutorial = true
-    } else {
+
+    if (localTutorial === 'false') {
       localTutorial = false
+    } else {
+      localTutorial = true
     }
+    console.log(localTutorial)
     this.gameContainer = new GameContainer(this.parent, localTutorial);
   }
 
