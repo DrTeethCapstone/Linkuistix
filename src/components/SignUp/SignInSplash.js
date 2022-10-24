@@ -86,34 +86,36 @@ function SignInSplash({ setShowSidebar }) {
   if (isNewUser) {
     return (
       <>
-        <div className="header-container d-flex flex-column w-100 align-items-center">
+        {/* <div className="header-container d-flex flex-column w-100 align-items-center">
           <h1>Linkuistix</h1>
           <h6>Word association game powered by machine learning</h6>
-        </div>
-        <div id="lowerDown" className="form-container">
-          <h2>Welcome, Player</h2>
-          <div className="splashButtonContainer">
-            <animated.button
-              type="button"
-              className="form-button"
-              style={style1}
-              onMouseEnter={onMouseEnter1}
-              onMouseLeave={onMouseLeave1}
-              onClick={guestLogin}
-            >
-              Play As Guest
-            </animated.button>
+        </div> */}
+        <div className='opacity'>
+          <div className="form-container">
+            <h2>Welcome, Player</h2>
+            <div className="splashButtonContainer">
+              <animated.button
+                type="button"
+                className="form-button"
+                style={style1}
+                onMouseEnter={onMouseEnter1}
+                onMouseLeave={onMouseLeave1}
+                onClick={guestLogin}
+              >
+                Play As Guest
+              </animated.button>
+            </div>
+            <hr />
+            <p>Already Have An Account?</p>
+            <Link className="link-styles" to="/login">
+              Log In
+            </Link>
+            <hr />
+            <p>Want to register?</p>
+            <Link className="link-styles" to="/SignUp">
+              Sign Up
+            </Link>
           </div>
-          <hr />
-          <p>Already Have An Account?</p>
-          <Link className="link-styles" to="/login">
-            Log In
-          </Link>
-          <hr />
-          <p>Want to register?</p>
-          <Link className="link-styles" to="/SignUp">
-            Sign Up
-          </Link>
         </div>
       </>
     );

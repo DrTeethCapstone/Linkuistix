@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { Sketch } from "./game/app";
@@ -14,7 +14,10 @@ import PrivateRoute from "./components/Private Route/PrivateRoute";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const sketch = new Sketch();
+  useEffect(()=>{
+    new Sketch()
+  },[])
+
 
   return (
     <>
@@ -30,29 +33,28 @@ function App() {
             exact
             index
             path="/signup"
-            element={<SignUp sketch= {sketch} setShowSidebar={setShowSidebar} />}
+            element={<SignUp setShowSidebar={setShowSidebar} />}
           />
           <Route
             path="/login"
-            element={<LogIn sketch= {sketch} setShowSidebar={setShowSidebar} />}
+            element={<LogIn setShowSidebar={setShowSidebar} />}
           />
           <Route path="/landing" element={<PrivateRoute />}>
             <Route
               path="/landing"
               element={
                 <Landing
-                  sketch={sketch}
+  
                   setShowSidebar={setShowSidebar}
                   showSidebar={showSidebar}
                 />
               }
             />
           </Route>
-          <Route path="/game" element={<PrivateRoute sketch={sketch} />}></Route>
+          <Route path="/game" element={<PrivateRoute />}></Route>
         </Routes>
         {showSidebar && (
           <Sidebar
-            sketch={sketch}
             setShowSidebar={setShowSidebar}
             showSidebar={showSidebar}
           />
