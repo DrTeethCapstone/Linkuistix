@@ -352,6 +352,32 @@ canvas {
     justify-content: center;
   }
 
+  .tut-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    label {
+      color: @sun-yellow;
+      margin-bottom: 2vh;
+      // background-image: url(http://csscheckbox.com/checkboxes/dark-plus-orange.png);
+    }
+
+    input {
+      border: 3px solid @sun-yellow;
+      width: 20px;
+      height: 20px;
+      color: #000;
+      margin: 0 1vw;
+    }
+
+    input:checked {
+      color: @sun-yellow;
+    }
+
+  }
+
   h1 {
     margin-top: 2vh;
     font-size: 1.5em;
