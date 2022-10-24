@@ -157,7 +157,13 @@ export class LoadingContainer extends PIXI.Container {
       }
     });
     this.ticker.start();
-    this.gameContainer = new GameContainer(this.parent, false);
+    let localTutorial = window.localStorage.getItem('tutorial')
+    if (localTutorial === 'true') {
+      localTutorial = true
+    } else {
+      localTutorial = false
+    }
+    this.gameContainer = new GameContainer(this.parent, localTutorial);
   }
 
   updateText(string) {

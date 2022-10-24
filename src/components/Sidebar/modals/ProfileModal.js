@@ -8,6 +8,7 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
   const [scoreData, setScoreData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser } = useAuth();
+  const [checked, setChecked] = useState(true)
   // const [userData, setUserData] = useState({});
 
   useEffect(() => {
@@ -37,6 +38,19 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
   let sortedData = scoreData.length ? scoreData.sort((a, b) => b - a) : null;
   let showData = scoreData.length ? getPaginationData(sortedData) : null;
 
+  const handleTutorial = (e) => {
+    setChecked(!checked)
+    // e.target.checked = !e.target.checked
+    // console.log(e.target.checked)
+    let localTutorial = window.localStorage.getItem('tutorial')
+    if (!localTutorial) {
+      window.localStorage.setItem('tutorial', checked)
+    } else {
+      window.localStorage.setItem('tutorial', !checked)
+    }
+    console.log(window.localStorage)
+  }
+
   return (
     <Modal
       show={showUser}
@@ -54,6 +68,11 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
             ? "Username: " + currentUser.displayName
             : "Guest User"}
         </h1>
+        <div className="tut-container">
+          <label>Enable tutorial
+            <input onChange={handleTutorial} checked={checked} type='checkbox' />
+          </label>
+        </div>
         <div>
           <h3>Player Scores:</h3>
           {showData ? showData.map((ele, idx) => <p key={idx}>{ele}</p>) : null}
@@ -63,6 +82,7 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
             <button onClick={goToNextPage}>{">"}</button>
           </div>
         </div>
+
       </div>
     </Modal>
   );
