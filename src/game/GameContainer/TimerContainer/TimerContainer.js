@@ -35,11 +35,10 @@ export class TimerContainer extends PIXI.Container {
       this.time -= this.increment;
       this.updateTimer(this.timeBar);
       if (this.time <= 0) {
+        this.ticker.stop();
         const gameContainer = this.parent;
         const parentStage = gameContainer.parent;
         const score = parentStage.children[1].children[2].userScore;
-        console.log(score)
-        this.ticker.stop();
         gameContainer.gameOver();
         setTimeout(() => {
           const gameOver = new GameOverContainer(parentStage);
