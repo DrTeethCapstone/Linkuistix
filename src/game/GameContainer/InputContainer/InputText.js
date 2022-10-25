@@ -125,8 +125,10 @@ export class InputText extends PIXI.Text {
         });
 
         if (this.wordsContainer.target.index <= 3) {
-          let targetedSimilarityScore = sortedArray.filter(elem=>elem.isTarget)[0].similarityScore
-          this.setSimilarityBonus(targetedSimilarityScore)
+          let targetedSimilarityScore = sortedArray.filter(
+            (elem) => elem.isTarget
+          )[0].similarityScore;
+          this.setSimilarityBonus(targetedSimilarityScore);
           for (let i = this.wordsContainer.children.length - 1; i > 0; i--) {
             if (this.wordsContainer.children[i].index <= 3) {
               this.wordsContainer.removeChild(this.wordsContainer.children[i]);
@@ -197,9 +199,9 @@ export class InputText extends PIXI.Text {
       word.updatePosition();
     });
   }
-  setSimilarityBonus(similarityScore){
-    if(!similarityScore) similarityScore = 0
-    this.similarityBonus = Math.floor(50*similarityScore)
- 
+
+  setSimilarityBonus(similarityScore) {
+    if (!similarityScore) similarityScore = 0;
+    this.similarityBonus = Math.floor(50 * similarityScore);
   }
 }

@@ -275,7 +275,7 @@ export class GameMenu extends PIXI.Container {
     });
 
     const splashIntroText = new PIXI.Text(
-      "Word association games powered by machine learning.",
+      "Word association game powered by machine learning.",
       {
         fontFamily: "Arial",
         fontSize: 16,
