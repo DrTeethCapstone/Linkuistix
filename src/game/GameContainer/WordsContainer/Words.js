@@ -9,7 +9,7 @@ export class Word extends PIXI.Text {
     super(word, {
       fontFamily: "Press Start 2P",
       fontSize: 24,
-      fill: 0x000000,
+      fill: 0xffffff,
       align: "center",
     });
 
@@ -20,7 +20,7 @@ export class Word extends PIXI.Text {
 
     if (isTarget) {
       this.isTarget = isTarget;
-      this.style.fill = 0xffffff;
+      this.style.fill = 0xf62e97;
     }
 
     if (this.parent) {
