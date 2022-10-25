@@ -116,7 +116,6 @@ export class TutorialContainer extends PIXI.Container {
 
       if (this.pulse % 100 === 1) {
         boolean = !boolean;
-        console.log(boolean);
       }
 
       if (boolean) {

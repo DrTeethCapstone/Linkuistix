@@ -8,19 +8,16 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
   const [scoreData, setScoreData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser } = useAuth();
-  const [checked, setChecked] = useState(true)
-  useEffect(() => {
-    if (window.localStorage.getItem('tutorial')) {
-      let localTutorial = window.localStorage.getItem('tutorial')
-      if (localTutorial === 'false') {
-        setChecked(false)
-      } else {
-        setChecked(true)
-      }
-    }
-  }, [])
+  const [checked, setChecked] = useState(true);
 
-  // const [userData, setUserData] = useState({});
+  useEffect(() => {
+    const localTutorial = window.localStorage.getItem("tutorial");
+    if (localTutorial) {
+      localTutorial === "false" ? setChecked(false) : setChecked(true);
+    } else {
+      window.localStorage.setItem("tutorial", true);
+    }
+  }, []);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -50,16 +47,14 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
   let showData = scoreData.length ? getPaginationData(sortedData) : null;
 
   const handleTutorial = (e) => {
-    setChecked(!checked)
-    // e.target.checked = !e.target.checked
-    // console.log(e.target.checked)
-    let localTutorial = window.localStorage.getItem('tutorial')
+    setChecked(!checked);
+    let localTutorial = window.localStorage.getItem("tutorial");
     if (!localTutorial) {
-      window.localStorage.setItem('tutorial', checked)
+      window.localStorage.setItem("tutorial", checked);
     } else {
-      window.localStorage.setItem('tutorial', !checked)
+      window.localStorage.setItem("tutorial", !checked);
     }
-  }
+  };
 
   return (
     <Modal
@@ -79,8 +74,13 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
             : "Guest User"}
         </h1>
         <div className="tut-container">
-          <label>Enable tutorial
-            <input onChange={handleTutorial} checked={checked} type='checkbox' />
+          <label>
+            Enable tutorial
+            <input
+              onChange={handleTutorial}
+              checked={checked}
+              type="checkbox"
+            />
           </label>
         </div>
         <div>
@@ -92,7 +92,6 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
             <button onClick={goToNextPage}>{">"}</button>
           </div>
         </div>
-
       </div>
     </Modal>
   );
