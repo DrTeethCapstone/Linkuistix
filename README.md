@@ -22,7 +22,7 @@ A word association game built upon a pre-trained AI model, <b>Linkuistix</b> is 
 
 <!-- VIDEO LINK -->
 <div align="center">
-<a href="" alt="video-demonstration">
+<a href="https://youtu.be/GvZ8XhF3Jz4" alt="video-demonstration">
 <b>📺 Video Demonstration</b>
 </a>
 </div>
