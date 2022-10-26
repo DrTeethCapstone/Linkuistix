@@ -114,7 +114,7 @@ If you would like to download and run the source code for this game onto your ow
 
 The AI allows Linkuistix to present a set of words to the player and then rank how closely each of the presented words is associated with the player's input. If the player inputs a word that is closely associated with the targeted word the player gets points added to their score and a new set of words is presented. The time the player has to input words decreases the more they play until eventually the player is unable to enter a closely associated word in time.
 
-To get started, simply navigate to [linkuistix.com](https://www.linkuistix.com), select an option to play as a guest or user and follow along with the in-game tutorial.
+To get started, simply navigate to [linkuistix.com](https://www.linkuistix.com) or https://capstone-dev-940e9.web.app/, select an option to play as a guest (or sign up) and follow along with the in-game tutorial.
 
 ### Contributing
 
