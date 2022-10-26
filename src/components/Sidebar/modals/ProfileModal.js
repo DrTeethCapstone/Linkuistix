@@ -30,7 +30,7 @@ function ProfileModal({ handleUserClose, showUser, userId }) {
       setScoreData(newArr);
     };
     getUserData();
-  }, [userId]);
+  }, [showUser]);
 
   function goToNextPage() {
     setCurrentPage(currentPage + 1);

@@ -128,7 +128,7 @@ export class GameOver extends PIXI.Text {
     );
     gsap.to(this.style, {
       fontSize: 25,
-      fill: "#b967ff",
+      fill: "0xf62e97",
     });
   }
   animateCompleted() {
@@ -140,7 +140,7 @@ export class GameOver extends PIXI.Text {
         ease: "elastic",
       },
       {
-        y: -300,
+        y: 100,
         ease: "elastic",
         duration: 3,
       }

@@ -123,7 +123,7 @@ export class GameOverContainer extends PIXI.Container {
           let score = Number(this.parent.score);
           this.parent.addLeaderBoardScore(myUser, score);
           leader.interactive = false;
-          const completed = new GameOver("Score Added!", this.parent.parent);
+          const completed = new GameOver("Score Added!", this.parent);
           completed.animateCompleted();
         }
       }
