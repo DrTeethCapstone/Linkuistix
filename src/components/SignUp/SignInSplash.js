@@ -4,9 +4,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import ThreeApp from './ThreeAnimation/ThreeApp';
 
-//howler sounds
-import { Howl } from 'howler';
-
 //animation
 import { useSpring, animated, config } from '@react-spring/web';
 
@@ -31,12 +28,6 @@ function SignInSplash({ setShowSidebar }) {
     }
   });
 
-  //SFX
-  const coinDrop = new Howl({
-    src: ['/sounds/coin.mp3'],
-    volume: 0.25,
-  });
-
   //func which allows user to login as guest
   const { loginAsGuest } = useAuth();
 
@@ -45,10 +36,6 @@ function SignInSplash({ setShowSidebar }) {
     event.preventDefault();
 
     try {
-      setTimeout(() => {
-        coinDrop.play();
-      }, 500);
-
       await loginAsGuest();
       setShowSidebar(true);
       //play the coin sound

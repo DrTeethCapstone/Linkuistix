@@ -7,9 +7,6 @@ import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-//howler sounds
-import { Howl } from 'howler';
-
 //define the Yup validation schema for LOGIN
 const LoginSchema = Yup.object().shape({
   email: Yup.string().trim().email('Invalid email').required('Required'),
@@ -24,12 +21,6 @@ function LogIn({ setShowSidebar, sketch }) {
   const [loginError, setError] = useState('');
   const navigate = useNavigate();
 
-  //SFX
-  const coinDrop = new Howl({
-    src: ['/sounds/coin.mp3'],
-    volume: 0.25,
-  });
-
   const auth = getAuth();
 
   //if already logged in, redirect to game
@@ -37,9 +28,6 @@ function LogIn({ setShowSidebar, sketch }) {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setTimeout(() => {
-        coinDrop.play();
-      }, 500);
       setShowSidebar(true);
       navigate('/game');
       // ...

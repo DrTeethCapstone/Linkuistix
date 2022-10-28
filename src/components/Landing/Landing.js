@@ -2,20 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-import { Howl } from 'howler';
-
 function Landing({ sketch, setShowSidebar }) {
   const [zoomState, setZoomState] = useState('splash-container');
   const currentUser = useAuth().currentUser;
   const navigate = useNavigate();
 
-  const coinDrop = new Howl({
-    src: ['/sounds/coin.mp3'],
-    volume: 0.5,
-  });
-
   const handleAnimation = () => {
-    coinDrop.play();
     setShowSidebar(true);
     setZoomState('splash-container zoomout-splash');
     setTimeout(() => {

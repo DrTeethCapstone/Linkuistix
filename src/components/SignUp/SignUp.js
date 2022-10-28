@@ -6,9 +6,6 @@ import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
 //Toast
 import { toast } from 'react-toastify';
 
-//howler sounds
-import { Howl } from 'howler';
-
 //Form validation
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -44,12 +41,6 @@ const SignupSchema = Yup.object().shape({
 function SignUp({ setShowSidebar, sketch }) {
   const navigate = useNavigate();
 
-  //SFX
-  const coinDrop = new Howl({
-    src: ['/sounds/coin.mp3'],
-    volume: 0.25,
-  });
-
   const { signup, loginAsGuest, currentUser } = useAuth();
 
   //guest login handler
@@ -59,9 +50,6 @@ function SignUp({ setShowSidebar, sketch }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
-      setTimeout(() => {
-        coinDrop.play();
-      }, 500);
     } catch (error) {
       console.log('failed to log in: ', error);
     }
