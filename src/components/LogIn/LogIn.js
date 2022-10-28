@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
+// import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -151,7 +151,7 @@ function LogIn({ setShowSidebar, sketch }) {
               Sign Up
             </Link>
           </div>
-          <ThreeApp />
+          {/* <ThreeApp /> */}
         </div>
       </>
     );

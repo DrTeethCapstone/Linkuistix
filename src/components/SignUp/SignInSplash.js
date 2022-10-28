@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import ThreeApp from './ThreeAnimation/ThreeApp';
+// import ThreeApp from './ThreeAnimation/ThreeApp';
 
 //animation
 import { useSpring, animated, config } from '@react-spring/web';
@@ -107,7 +107,7 @@ function SignInSplash({ setShowSidebar }) {
               Sign Up
             </Link>
           </div>
-          <ThreeApp />
+          {/* <ThreeApp /> */}
         </div>
       </>
     );

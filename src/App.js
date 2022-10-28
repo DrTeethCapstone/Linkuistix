@@ -7,6 +7,7 @@ import SignUp from './components/SignUp/SignUp';
 import SignInSplash from './components/SignUp/SignInSplash';
 import Sidebar from './components/Sidebar/Sidebar';
 import ThreeApp from './components/SignUp/ThreeAnimation/ThreeApp';
+import { Sketch } from './game/app.js';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,6 +15,9 @@ import PrivateRoute from './components/Private Route/PrivateRoute';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
+  useEffect(() => {
+    new Sketch();
+  }, []);
 
   return (
     <>

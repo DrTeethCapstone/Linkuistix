@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
+// import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
 
 //Toast
 import { toast } from 'react-toastify';
@@ -203,7 +203,7 @@ function SignUp({ setShowSidebar, sketch }) {
             Log In
           </Link>
         </div>
-        <ThreeApp />
+        {/* <ThreeApp /> */}
       </div>
     </>
   );
