@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { toast } from 'react-toastify';
-
+import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -40,7 +40,7 @@ function LogIn({ setShowSidebar, sketch }) {
 
   if (loginError !== '') toast.error(loginError);
 
-  const { login, loginAsGuest} = useAuth();
+  const { login, loginAsGuest } = useAuth();
 
   const guestLogin = async (event) => {
     event.preventDefault();
@@ -52,13 +52,12 @@ function LogIn({ setShowSidebar, sketch }) {
     } catch (error) {
       setError('failed to log in');
     }
-
   };
 
   if (isNewUser) {
     return (
       <>
-        <div className='opacity'>
+        <div className="opacity">
           <div className="form-container">
             <h2>Login</h2>
             <div>
@@ -137,7 +136,11 @@ function LogIn({ setShowSidebar, sketch }) {
                 )}
               </Formik>
               <hr />
-              <button className="form-button" type="button" onClick={guestLogin}>
+              <button
+                className="form-button"
+                type="button"
+                onClick={guestLogin}
+              >
                 Play As Guest
               </button>
             </div>
@@ -148,6 +151,7 @@ function LogIn({ setShowSidebar, sketch }) {
               Sign Up
             </Link>
           </div>
+          <ThreeApp />
         </div>
       </>
     );

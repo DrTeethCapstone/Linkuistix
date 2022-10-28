@@ -1,127 +1,131 @@
-import * as PIXI from "pixi.js";
-import back1 from "../../../assets/backgroundAnimation/0001.jpg";
-import back2 from "../../../assets/backgroundAnimation/0002.jpg";
-import back3 from "../../../assets/backgroundAnimation/0003.jpg";
-import back4 from "../../../assets/backgroundAnimation/0004.jpg";
-import back5 from "../../../assets/backgroundAnimation/0005.jpg";
-import back6 from "../../../assets/backgroundAnimation/0006.jpg";
-import back7 from "../../../assets/backgroundAnimation/0007.jpg";
-import back8 from "../../../assets/backgroundAnimation/0008.jpg";
-import back9 from "../../../assets/backgroundAnimation/0009.jpg";
-import back10 from "../../../assets/backgroundAnimation/0010.jpg";
-import back11 from "../../../assets/backgroundAnimation/0011.jpg";
-import back12 from "../../../assets/backgroundAnimation/0012.jpg";
-import back13 from "../../../assets/backgroundAnimation/0013.jpg";
-import back14 from "../../../assets/backgroundAnimation/0014.jpg";
-import back15 from "../../../assets/backgroundAnimation/0015.jpg";
-import back16 from "../../../assets/backgroundAnimation/0016.jpg";
-import back17 from "../../../assets/backgroundAnimation/0017.jpg";
-import back18 from "../../../assets/backgroundAnimation/0018.jpg";
-import back19 from "../../../assets/backgroundAnimation/0019.jpg";
-import back20 from "../../../assets/backgroundAnimation/0020.jpg";
-import back21 from "../../../assets/backgroundAnimation/0021.jpg";
-import back22 from "../../../assets/backgroundAnimation/0022.jpg";
-import back23 from "../../../assets/backgroundAnimation/0023.jpg";
-import back24 from "../../../assets/backgroundAnimation/0024.jpg";
-import back25 from "../../../assets/backgroundAnimation/0025.jpg";
-import back26 from "../../../assets/backgroundAnimation/0026.jpg";
-import back27 from "../../../assets/backgroundAnimation/0027.jpg";
-import back28 from "../../../assets/backgroundAnimation/0028.jpg";
-import back29 from "../../../assets/backgroundAnimation/0029.jpg";
-import back30 from "../../../assets/backgroundAnimation/0030.jpg";
-import back31 from "../../../assets/backgroundAnimation/0031.jpg";
-import back32 from "../../../assets/backgroundAnimation/0032.jpg";
-import back33 from "../../../assets/backgroundAnimation/0033.jpg";
-import back34 from "../../../assets/backgroundAnimation/0034.jpg";
-import back35 from "../../../assets/backgroundAnimation/0035.jpg";
-import back36 from "../../../assets/backgroundAnimation/0036.jpg";
-import back37 from "../../../assets/backgroundAnimation/0037.jpg";
-import back38 from "../../../assets/backgroundAnimation/0038.jpg";
-import back39 from "../../../assets/backgroundAnimation/0039.jpg";
-import back40 from "../../../assets/backgroundAnimation/0040.jpg";
-import back41 from "../../../assets/backgroundAnimation/0041.jpg";
-import back42 from "../../../assets/backgroundAnimation/0042.jpg";
-import back43 from "../../../assets/backgroundAnimation/0043.jpg";
-import back44 from "../../../assets/backgroundAnimation/0044.jpg";
-import back45 from "../../../assets/backgroundAnimation/0045.jpg";
-import back46 from "../../../assets/backgroundAnimation/0046.jpg";
-import back47 from "../../../assets/backgroundAnimation/0047.jpg";
-import back48 from "../../../assets/backgroundAnimation/0048.jpg";
-import back49 from "../../../assets/backgroundAnimation/0049.jpg";
-import back50 from "../../../assets/backgroundAnimation/0050.jpg";
-import back51 from "../../../assets/backgroundAnimation/0051.jpg";
-import back52 from "../../../assets/backgroundAnimation/0052.jpg";
-import back53 from "../../../assets/backgroundAnimation/0053.jpg";
-import back54 from "../../../assets/backgroundAnimation/0054.jpg";
-import back55 from "../../../assets/backgroundAnimation/0055.jpg";
-import back56 from "../../../assets/backgroundAnimation/0056.jpg";
-import back57 from "../../../assets/backgroundAnimation/0057.jpg";
-import back58 from "../../../assets/backgroundAnimation/0058.jpg";
-import back59 from "../../../assets/backgroundAnimation/0059.jpg";
-import back60 from "../../../assets/backgroundAnimation/0060.jpg";
-import back61 from "../../../assets/backgroundAnimation/0061.jpg";
-import back62 from "../../../assets/backgroundAnimation/0062.jpg";
-import back63 from "../../../assets/backgroundAnimation/0063.jpg";
-import back64 from "../../../assets/backgroundAnimation/0064.jpg";
-import back65 from "../../../assets/backgroundAnimation/0065.jpg";
-import back66 from "../../../assets/backgroundAnimation/0066.jpg";
-import back67 from "../../../assets/backgroundAnimation/0067.jpg";
-import back68 from "../../../assets/backgroundAnimation/0068.jpg";
-import back69 from "../../../assets/backgroundAnimation/0069.jpg";
-import back70 from "../../../assets/backgroundAnimation/0070.jpg";
-import back71 from "../../../assets/backgroundAnimation/0071.jpg";
-import back72 from "../../../assets/backgroundAnimation/0072.jpg";
-import back73 from "../../../assets/backgroundAnimation/0073.jpg";
-import back74 from "../../../assets/backgroundAnimation/0074.jpg";
-import back75 from "../../../assets/backgroundAnimation/0075.jpg";
-import back76 from "../../../assets/backgroundAnimation/0076.jpg";
-import back77 from "../../../assets/backgroundAnimation/0077.jpg";
-import back78 from "../../../assets/backgroundAnimation/0078.jpg";
-import back79 from "../../../assets/backgroundAnimation/0079.jpg";
-import back80 from "../../../assets/backgroundAnimation/0080.jpg";
-import back81 from "../../../assets/backgroundAnimation/0081.jpg";
-import back82 from "../../../assets/backgroundAnimation/0082.jpg";
-import back83 from "../../../assets/backgroundAnimation/0083.jpg";
-import back84 from "../../../assets/backgroundAnimation/0084.jpg";
-import back85 from "../../../assets/backgroundAnimation/0085.jpg";
-import back86 from "../../../assets/backgroundAnimation/0086.jpg";
-import back87 from "../../../assets/backgroundAnimation/0087.jpg";
-import back88 from "../../../assets/backgroundAnimation/0088.jpg";
-import back89 from "../../../assets/backgroundAnimation/0089.jpg";
-import back90 from "../../../assets/backgroundAnimation/0090.jpg";
-import back91 from "../../../assets/backgroundAnimation/0091.jpg";
-import back92 from "../../../assets/backgroundAnimation/0092.jpg";
-import back93 from "../../../assets/backgroundAnimation/0093.jpg";
-import back94 from "../../../assets/backgroundAnimation/0094.jpg";
-import back95 from "../../../assets/backgroundAnimation/0095.jpg";
-import back96 from "../../../assets/backgroundAnimation/0096.jpg";
-import back97 from "../../../assets/backgroundAnimation/0097.jpg";
-import back98 from "../../../assets/backgroundAnimation/0098.jpg";
-import back99 from "../../../assets/backgroundAnimation/0099.jpg";
-import back100 from "../../../assets/backgroundAnimation/0100.jpg";
-import back101 from "../../../assets/backgroundAnimation/0101.jpg";
-import back102 from "../../../assets/backgroundAnimation/0102.jpg";
-import back103 from "../../../assets/backgroundAnimation/0103.jpg";
-import back104 from "../../../assets/backgroundAnimation/0104.jpg";
-import back105 from "../../../assets/backgroundAnimation/0105.jpg";
-import back106 from "../../../assets/backgroundAnimation/0106.jpg";
-import back107 from "../../../assets/backgroundAnimation/0107.jpg";
-import back108 from "../../../assets/backgroundAnimation/0108.jpg";
-import back109 from "../../../assets/backgroundAnimation/0109.jpg";
-import back110 from "../../../assets/backgroundAnimation/0110.jpg";
-import back111 from "../../../assets/backgroundAnimation/0111.jpg";
-import back112 from "../../../assets/backgroundAnimation/0112.jpg";
-import back113 from "../../../assets/backgroundAnimation/0113.jpg";
-import back114 from "../../../assets/backgroundAnimation/0114.jpg";
-import back115 from "../../../assets/backgroundAnimation/0115.jpg";
-import back116 from "../../../assets/backgroundAnimation/0116.jpg";
-import back117 from "../../../assets/backgroundAnimation/0117.jpg";
-import back118 from "../../../assets/backgroundAnimation/0118.jpg";
-import back119 from "../../../assets/backgroundAnimation/0119.jpg";
-import back120 from "../../../assets/backgroundAnimation/0120.jpg";
+import * as PIXI from 'pixi.js';
 
-import { LoadingContainer } from "../LoadingContainer/LoadingContainer";
-import { gsap } from "gsap";
+//howler sounds
+import { Howl } from 'howler';
+
+import back1 from '../../../assets/backgroundAnimation/0001.jpg';
+import back2 from '../../../assets/backgroundAnimation/0002.jpg';
+import back3 from '../../../assets/backgroundAnimation/0003.jpg';
+import back4 from '../../../assets/backgroundAnimation/0004.jpg';
+import back5 from '../../../assets/backgroundAnimation/0005.jpg';
+import back6 from '../../../assets/backgroundAnimation/0006.jpg';
+import back7 from '../../../assets/backgroundAnimation/0007.jpg';
+import back8 from '../../../assets/backgroundAnimation/0008.jpg';
+import back9 from '../../../assets/backgroundAnimation/0009.jpg';
+import back10 from '../../../assets/backgroundAnimation/0010.jpg';
+import back11 from '../../../assets/backgroundAnimation/0011.jpg';
+import back12 from '../../../assets/backgroundAnimation/0012.jpg';
+import back13 from '../../../assets/backgroundAnimation/0013.jpg';
+import back14 from '../../../assets/backgroundAnimation/0014.jpg';
+import back15 from '../../../assets/backgroundAnimation/0015.jpg';
+import back16 from '../../../assets/backgroundAnimation/0016.jpg';
+import back17 from '../../../assets/backgroundAnimation/0017.jpg';
+import back18 from '../../../assets/backgroundAnimation/0018.jpg';
+import back19 from '../../../assets/backgroundAnimation/0019.jpg';
+import back20 from '../../../assets/backgroundAnimation/0020.jpg';
+import back21 from '../../../assets/backgroundAnimation/0021.jpg';
+import back22 from '../../../assets/backgroundAnimation/0022.jpg';
+import back23 from '../../../assets/backgroundAnimation/0023.jpg';
+import back24 from '../../../assets/backgroundAnimation/0024.jpg';
+import back25 from '../../../assets/backgroundAnimation/0025.jpg';
+import back26 from '../../../assets/backgroundAnimation/0026.jpg';
+import back27 from '../../../assets/backgroundAnimation/0027.jpg';
+import back28 from '../../../assets/backgroundAnimation/0028.jpg';
+import back29 from '../../../assets/backgroundAnimation/0029.jpg';
+import back30 from '../../../assets/backgroundAnimation/0030.jpg';
+import back31 from '../../../assets/backgroundAnimation/0031.jpg';
+import back32 from '../../../assets/backgroundAnimation/0032.jpg';
+import back33 from '../../../assets/backgroundAnimation/0033.jpg';
+import back34 from '../../../assets/backgroundAnimation/0034.jpg';
+import back35 from '../../../assets/backgroundAnimation/0035.jpg';
+import back36 from '../../../assets/backgroundAnimation/0036.jpg';
+import back37 from '../../../assets/backgroundAnimation/0037.jpg';
+import back38 from '../../../assets/backgroundAnimation/0038.jpg';
+import back39 from '../../../assets/backgroundAnimation/0039.jpg';
+import back40 from '../../../assets/backgroundAnimation/0040.jpg';
+import back41 from '../../../assets/backgroundAnimation/0041.jpg';
+import back42 from '../../../assets/backgroundAnimation/0042.jpg';
+import back43 from '../../../assets/backgroundAnimation/0043.jpg';
+import back44 from '../../../assets/backgroundAnimation/0044.jpg';
+import back45 from '../../../assets/backgroundAnimation/0045.jpg';
+import back46 from '../../../assets/backgroundAnimation/0046.jpg';
+import back47 from '../../../assets/backgroundAnimation/0047.jpg';
+import back48 from '../../../assets/backgroundAnimation/0048.jpg';
+import back49 from '../../../assets/backgroundAnimation/0049.jpg';
+import back50 from '../../../assets/backgroundAnimation/0050.jpg';
+import back51 from '../../../assets/backgroundAnimation/0051.jpg';
+import back52 from '../../../assets/backgroundAnimation/0052.jpg';
+import back53 from '../../../assets/backgroundAnimation/0053.jpg';
+import back54 from '../../../assets/backgroundAnimation/0054.jpg';
+import back55 from '../../../assets/backgroundAnimation/0055.jpg';
+import back56 from '../../../assets/backgroundAnimation/0056.jpg';
+import back57 from '../../../assets/backgroundAnimation/0057.jpg';
+import back58 from '../../../assets/backgroundAnimation/0058.jpg';
+import back59 from '../../../assets/backgroundAnimation/0059.jpg';
+import back60 from '../../../assets/backgroundAnimation/0060.jpg';
+import back61 from '../../../assets/backgroundAnimation/0061.jpg';
+import back62 from '../../../assets/backgroundAnimation/0062.jpg';
+import back63 from '../../../assets/backgroundAnimation/0063.jpg';
+import back64 from '../../../assets/backgroundAnimation/0064.jpg';
+import back65 from '../../../assets/backgroundAnimation/0065.jpg';
+import back66 from '../../../assets/backgroundAnimation/0066.jpg';
+import back67 from '../../../assets/backgroundAnimation/0067.jpg';
+import back68 from '../../../assets/backgroundAnimation/0068.jpg';
+import back69 from '../../../assets/backgroundAnimation/0069.jpg';
+import back70 from '../../../assets/backgroundAnimation/0070.jpg';
+import back71 from '../../../assets/backgroundAnimation/0071.jpg';
+import back72 from '../../../assets/backgroundAnimation/0072.jpg';
+import back73 from '../../../assets/backgroundAnimation/0073.jpg';
+import back74 from '../../../assets/backgroundAnimation/0074.jpg';
+import back75 from '../../../assets/backgroundAnimation/0075.jpg';
+import back76 from '../../../assets/backgroundAnimation/0076.jpg';
+import back77 from '../../../assets/backgroundAnimation/0077.jpg';
+import back78 from '../../../assets/backgroundAnimation/0078.jpg';
+import back79 from '../../../assets/backgroundAnimation/0079.jpg';
+import back80 from '../../../assets/backgroundAnimation/0080.jpg';
+import back81 from '../../../assets/backgroundAnimation/0081.jpg';
+import back82 from '../../../assets/backgroundAnimation/0082.jpg';
+import back83 from '../../../assets/backgroundAnimation/0083.jpg';
+import back84 from '../../../assets/backgroundAnimation/0084.jpg';
+import back85 from '../../../assets/backgroundAnimation/0085.jpg';
+import back86 from '../../../assets/backgroundAnimation/0086.jpg';
+import back87 from '../../../assets/backgroundAnimation/0087.jpg';
+import back88 from '../../../assets/backgroundAnimation/0088.jpg';
+import back89 from '../../../assets/backgroundAnimation/0089.jpg';
+import back90 from '../../../assets/backgroundAnimation/0090.jpg';
+import back91 from '../../../assets/backgroundAnimation/0091.jpg';
+import back92 from '../../../assets/backgroundAnimation/0092.jpg';
+import back93 from '../../../assets/backgroundAnimation/0093.jpg';
+import back94 from '../../../assets/backgroundAnimation/0094.jpg';
+import back95 from '../../../assets/backgroundAnimation/0095.jpg';
+import back96 from '../../../assets/backgroundAnimation/0096.jpg';
+import back97 from '../../../assets/backgroundAnimation/0097.jpg';
+import back98 from '../../../assets/backgroundAnimation/0098.jpg';
+import back99 from '../../../assets/backgroundAnimation/0099.jpg';
+import back100 from '../../../assets/backgroundAnimation/0100.jpg';
+import back101 from '../../../assets/backgroundAnimation/0101.jpg';
+import back102 from '../../../assets/backgroundAnimation/0102.jpg';
+import back103 from '../../../assets/backgroundAnimation/0103.jpg';
+import back104 from '../../../assets/backgroundAnimation/0104.jpg';
+import back105 from '../../../assets/backgroundAnimation/0105.jpg';
+import back106 from '../../../assets/backgroundAnimation/0106.jpg';
+import back107 from '../../../assets/backgroundAnimation/0107.jpg';
+import back108 from '../../../assets/backgroundAnimation/0108.jpg';
+import back109 from '../../../assets/backgroundAnimation/0109.jpg';
+import back110 from '../../../assets/backgroundAnimation/0110.jpg';
+import back111 from '../../../assets/backgroundAnimation/0111.jpg';
+import back112 from '../../../assets/backgroundAnimation/0112.jpg';
+import back113 from '../../../assets/backgroundAnimation/0113.jpg';
+import back114 from '../../../assets/backgroundAnimation/0114.jpg';
+import back115 from '../../../assets/backgroundAnimation/0115.jpg';
+import back116 from '../../../assets/backgroundAnimation/0116.jpg';
+import back117 from '../../../assets/backgroundAnimation/0117.jpg';
+import back118 from '../../../assets/backgroundAnimation/0118.jpg';
+import back119 from '../../../assets/backgroundAnimation/0119.jpg';
+import back120 from '../../../assets/backgroundAnimation/0120.jpg';
+
+import { LoadingContainer } from '../LoadingContainer/LoadingContainer';
+import { gsap } from 'gsap';
 
 export class GameMenu extends PIXI.Container {
   constructor(parent) {
@@ -249,6 +253,7 @@ export class GameMenu extends PIXI.Container {
       back119,
       back120,
     ];
+
     this.isPlaying = false;
     this.backgroundTextures = [];
     this.createBackgroundTextures();
@@ -264,23 +269,23 @@ export class GameMenu extends PIXI.Container {
     }
     const splashTitleContainer = new PIXI.Container();
     const splashContainerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
-    const splashTitle = new PIXI.Text("Linkuistix", {
-      fontFamily: "Press Start 2P",
+    const splashTitle = new PIXI.Text('Linkuistix', {
+      fontFamily: 'Press Start 2P',
       fontSize: 52,
       fill: 0x121212,
-      align: "center",
+      align: 'center',
       dropShadow: true,
       dropShadowColor: 0xffff,
       dropShadowAngle: 6,
     });
 
     const splashIntroText = new PIXI.Text(
-      "Word association game powered by machine learning.",
+      'Word association game powered by machine learning.',
       {
-        fontFamily: "Arial",
-        fontSize: 16,
+        fontFamily: 'Silkscreen',
+        fontSize: 14,
         fill: 0xffffff,
-        align: "center",
+        align: 'center',
       }
     );
 
@@ -302,23 +307,23 @@ export class GameMenu extends PIXI.Container {
 
     const timeattackContainer = new PIXI.Container();
     const timeattackContainerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
-    const timeattackTitle = new PIXI.Text("Time Attack", {
-      fontFamily: "Arial",
+    const timeattackTitle = new PIXI.Text('Time Attack', {
+      fontFamily: 'Silkscreen',
       fontSize: 52,
-      fill: 0xffff,
-      align: "center",
+      fill: '#F9B4F6',
+      align: 'center',
     });
-    const timeAttackText1 = new PIXI.Text("Think fast,", {
-      fontFamily: "Arial",
-      fontSize: 24,
-      fill: 0xffff,
-      align: "center",
+    const timeAttackText1 = new PIXI.Text('Think fast,', {
+      fontFamily: 'Silkscreen',
+      fontSize: 22,
+      fill: '#001d3d',
+      align: 'center',
     });
-    const timeAttackText2 = new PIXI.Text("type faster!", {
-      fontFamily: "Arial",
-      fontSize: 24,
-      fill: 0xffff,
-      align: "center",
+    const timeAttackText2 = new PIXI.Text('type faster!', {
+      fontFamily: 'Silkscreen',
+      fontSize: 22,
+      fill: '#001d3d',
+      align: 'center',
     });
 
     this.addChild(timeattackContainer);
@@ -351,11 +356,11 @@ export class GameMenu extends PIXI.Container {
     const playGameButtonContainer = new PIXI.Container();
     const playgameButtonBG1 = new PIXI.Sprite(PIXI.Texture.WHITE);
     const playgameButtonBG2 = new PIXI.Sprite(PIXI.Texture.WHITE);
-    const playGameText = new PIXI.Text("PLAY", {
-      fontFamily: "Arial",
+    const playGameText = new PIXI.Text('PLAY', {
+      fontFamily: 'Press Start 2P',
       fontSize: 24,
       fill: 0xffff,
-      align: "center",
+      align: 'center',
     });
 
     timeattackContainer.addChild(playGameButtonContainer);
@@ -386,20 +391,20 @@ export class GameMenu extends PIXI.Container {
       playGameButtonContainer.height / 2 - playGameText.height / 2;
     playGameButtonContainer.interactive = true;
 
-    playGameButtonContainer.on("mouseover", (evt) => {
+    playGameButtonContainer.on('mouseover', (evt) => {
       playgameButtonBG1.tint = 0x000000;
       playgameButtonBG2.tint = 0xffff;
       playGameText.style.fill = 0x000000;
-      playGameButtonContainer.cursor = "pointer";
+      playGameButtonContainer.cursor = 'pointer';
     });
 
-    playGameButtonContainer.on("mouseout", (evt) => {
+    playGameButtonContainer.on('mouseout', (evt) => {
       playgameButtonBG1.tint = 0xffff;
       playgameButtonBG2.tint = 0x000000;
       playGameText.style.fill = 0xffff;
     });
 
-    playGameButtonContainer.on("pointerdown", (evt) => {
+    playGameButtonContainer.on('pointerdown', (evt) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
         this.animateOff();
@@ -415,6 +420,15 @@ export class GameMenu extends PIXI.Container {
   }
 
   animateOff() {
+    //SFX
+    const coinDrop = new Howl({
+      src: ['/sounds/coin.mp3'],
+      volume: 0.25,
+    });
+    setTimeout(() => {
+      coinDrop.play();
+    }, 1000);
+
     gsap.to(this, { alpha: 0, duration: 1 });
     setTimeout(() => {
       while (this.children.length > 1) {

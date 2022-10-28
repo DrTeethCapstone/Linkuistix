@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
-import { Sketch } from "./game/app";
-import Landing from "./components/Landing/Landing";
-import LogIn from "./components/LogIn/LogIn";
-import SignUp from "./components/SignUp/SignUp";
-import SignInSplash from "./components/SignUp/SignInSplash";
-import Sidebar from "./components/Sidebar/Sidebar";
+import React, { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import Landing from './components/Landing/Landing';
+import LogIn from './components/LogIn/LogIn';
+import SignUp from './components/SignUp/SignUp';
+import SignInSplash from './components/SignUp/SignInSplash';
+import Sidebar from './components/Sidebar/Sidebar';
+import ThreeApp from './components/SignUp/ThreeAnimation/ThreeApp';
 
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import PrivateRoute from "./components/Private Route/PrivateRoute";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoute from './components/Private Route/PrivateRoute';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
-  useEffect(()=>{
-    new Sketch()
-  },[])
-
 
   return (
     <>
@@ -27,7 +23,11 @@ function App() {
             exact
             index
             path="/"
-            element={<SignInSplash setShowSidebar={setShowSidebar} />}
+            element={
+              <>
+                <SignInSplash setShowSidebar={setShowSidebar} />
+              </>
+            }
           />
           <Route
             exact
@@ -44,7 +44,6 @@ function App() {
               path="/landing"
               element={
                 <Landing
-  
                   setShowSidebar={setShowSidebar}
                   showSidebar={showSidebar}
                 />
@@ -54,10 +53,7 @@ function App() {
           <Route path="/game" element={<PrivateRoute />}></Route>
         </Routes>
         {showSidebar && (
-          <Sidebar
-            setShowSidebar={setShowSidebar}
-            showSidebar={showSidebar}
-          />
+          <Sidebar setShowSidebar={setShowSidebar} showSidebar={showSidebar} />
         )}
       </AuthProvider>
       <ToastContainer

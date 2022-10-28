@@ -1,16 +1,19 @@
-import * as PIXI from "pixi.js";
+import * as PIXI from 'pixi.js';
 
-import { gsap } from "gsap";
+import { gsap } from 'gsap';
+
+//howler sounds
+import { Howl } from 'howler';
 
 //CREATE A NEW INSTANCE OF A WORD OBJECT
 export class Word extends PIXI.Text {
   //REQUIRES A STRING TO BE CREATED, PARENT CONTAINER OPTIONAL
   constructor(word, parent = null, isTarget = false) {
     super(word, {
-      fontFamily: "Press Start 2P",
-      fontSize: 24,
+      fontFamily: 'Press Start 2P',
+      fontSize: 34,
       fill: 0xffffff,
-      align: "center",
+      align: 'center',
     });
 
     this.parent = parent;
@@ -20,7 +23,7 @@ export class Word extends PIXI.Text {
 
     if (isTarget) {
       this.isTarget = isTarget;
-      this.style.fill = 0xf62e97;
+      this.style.fill = '#FFE87C';
     }
 
     if (this.parent) {
@@ -33,6 +36,14 @@ export class Word extends PIXI.Text {
 
   //HIGHLIGHTS WORD IN RED IF GUESS WASN'T VALID
   invalidGuess(num) {
+    const error = new Howl({
+      src: ['/sounds/error.mp3'],
+      volume: 0.25,
+    });
+
+    setTimeout(() => {
+      error.play();
+    }, 100);
     const originalText = this.text;
     const tempText = `(${originalText.slice(0, num)})${originalText.slice(
       num
@@ -40,9 +51,9 @@ export class Word extends PIXI.Text {
     this.text = tempText;
     setTimeout(() => {
       this.text = originalText;
-      this.style.fill = 0xffffff;
+      this.style.fill = '#FFE87C';
     }, 1500);
-    gsap.to(this.style, { fill: "red", duration: 1 });
+    gsap.to(this.style, { fill: 'red', duration: 1 });
   }
 
   updatePosition() {

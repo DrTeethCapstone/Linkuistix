@@ -1,13 +1,16 @@
-import * as PIXI from "pixi.js";
-import { gsap } from "gsap";
+import * as PIXI from 'pixi.js';
+import { gsap } from 'gsap';
+
+//howler sounds
+import { Howl } from 'howler';
 
 export class GameOver extends PIXI.Text {
   constructor(word, parent = null) {
     super(word, {
-      fontFamily: "Press Start 2P",
+      fontFamily: 'Press Start 2P',
       fontSize: 50,
-      align: "center",
-      fill: 0x5dade2,
+      align: 'center',
+      fill: '0x5dade2',
     });
     this.parent = parent;
     this.anchor.set(0.5);
@@ -19,21 +22,31 @@ export class GameOver extends PIXI.Text {
   }
 
   animateGameOn() {
+    //SFX
+    const gameOver = new Howl({
+      src: ['/sounds/gameover.mp3'],
+      volume: 0.25,
+    });
+
+    setTimeout(() => {
+      gameOver.play();
+    }, 100);
+
     gsap.fromTo(
       this,
       {
         y: 1200,
         duration: 5,
-        ease: "elastic",
+        ease: 'elastic',
       },
       {
         y: -100,
         duration: 5,
-        ease: "elastic",
+        ease: 'elastic',
       }
     );
     gsap.to(this.style, {
-      fill: "purple",
+      fill: 'purple',
       duration: 5,
       fontSize: 80,
     });
@@ -44,16 +57,16 @@ export class GameOver extends PIXI.Text {
       {
         y: -1200,
         duration: 5,
-        ease: "elastic",
+        ease: 'elastic',
       },
       {
         y: 0,
         duration: 5,
-        ease: "elastic",
+        ease: 'elastic',
       }
     );
     gsap.to(this.style, {
-      fill: "purple",
+      fill: 'purple',
       duration: 5,
       fontSize: 80,
     });
@@ -82,33 +95,33 @@ export class GameOver extends PIXI.Text {
     gsap.to(this, {
       y: -150,
       duration: 3,
-      ease: "elastic",
+      ease: 'elastic',
     });
     gsap.to(this.style, {
       fontSize: 80,
       duration: 3,
-      ease: "elastic",
-      fill: "white",
+      ease: 'elastic',
+      fill: 'white',
     });
   }
   animateMessage() {
     gsap.to(this, {
       y: 0,
       duration: 3,
-      ease: "elastic",
+      ease: 'elastic',
     });
     gsap.fromTo(
       this.style,
       {
         fontSize: 40,
         duration: 4,
-        fill: "white",
+        fill: 'white',
         repeat: 1,
       },
       {
         repeat: 100,
         duration: 1,
-        fill: "#FBB03B",
+        fill: '#FBB03B',
       }
     );
   }
@@ -120,7 +133,7 @@ export class GameOver extends PIXI.Text {
         y: 150,
       },
       {
-        ease: "elastic",
+        ease: 'elastic',
         duration: 3,
         x: 300,
         y: 150,
@@ -128,7 +141,7 @@ export class GameOver extends PIXI.Text {
     );
     gsap.to(this.style, {
       fontSize: 25,
-      fill: "0xf62e97",
+      fill: '#FFE87C',
     });
   }
   animateCompleted() {
@@ -137,11 +150,11 @@ export class GameOver extends PIXI.Text {
       {
         y: 1000,
         x: 0,
-        ease: "elastic",
+        ease: 'elastic',
       },
       {
         y: 100,
-        ease: "elastic",
+        ease: 'elastic',
         duration: 3,
       }
     );
@@ -152,11 +165,11 @@ export class GameOver extends PIXI.Text {
       {
         y: 1000,
         x: 0,
-        ease: "elastic",
+        ease: 'elastic',
       },
       {
         y: 100,
-        ease: "elastic",
+        ease: 'elastic',
         duration: 3,
       }
     );
