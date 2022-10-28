@@ -49,9 +49,11 @@ export class Word extends PIXI.Text {
       num
     )}`;
     this.text = tempText;
+    this.position.x = this.parent.width / 2 - this.width / 2;
     setTimeout(() => {
       this.text = originalText;
       this.style.fill = '#FFE87C';
+      this.position.x = this.parent.width / 2 - this.width / 2;
     }, 1500);
     gsap.to(this.style, { fill: 'red', duration: 1 });
   }
