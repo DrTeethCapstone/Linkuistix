@@ -3,9 +3,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { toast } from 'react-toastify';
-
+import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+
+//howler sounds
+import { Howl } from 'howler';
 
 //define the Yup validation schema for LOGIN
 const LoginSchema = Yup.object().shape({
@@ -21,6 +24,12 @@ function LogIn({ setShowSidebar, sketch }) {
   const [loginError, setError] = useState('');
   const navigate = useNavigate();
 
+  //SFX
+  const coinDrop = new Howl({
+    src: ['/sounds/coin.mp3'],
+    volume: 0.25,
+  });
+
   const auth = getAuth();
 
   //if already logged in, redirect to game
@@ -28,6 +37,9 @@ function LogIn({ setShowSidebar, sketch }) {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      setTimeout(() => {
+        coinDrop.play();
+      }, 500);
       setShowSidebar(true);
       navigate('/game');
       // ...
@@ -40,7 +52,7 @@ function LogIn({ setShowSidebar, sketch }) {
 
   if (loginError !== '') toast.error(loginError);
 
-  const { login, loginAsGuest} = useAuth();
+  const { login, loginAsGuest } = useAuth();
 
   const guestLogin = async (event) => {
     event.preventDefault();
@@ -52,13 +64,12 @@ function LogIn({ setShowSidebar, sketch }) {
     } catch (error) {
       setError('failed to log in');
     }
-
   };
 
   if (isNewUser) {
     return (
       <>
-        <div className='opacity'>
+        <div className="opacity">
           <div className="form-container">
             <h2>Login</h2>
             <div>
@@ -137,7 +148,11 @@ function LogIn({ setShowSidebar, sketch }) {
                 )}
               </Formik>
               <hr />
-              <button className="form-button" type="button" onClick={guestLogin}>
+              <button
+                className="form-button"
+                type="button"
+                onClick={guestLogin}
+              >
                 Play As Guest
               </button>
             </div>
@@ -148,6 +163,7 @@ function LogIn({ setShowSidebar, sketch }) {
               Sign Up
             </Link>
           </div>
+          <ThreeApp />
         </div>
       </>
     );

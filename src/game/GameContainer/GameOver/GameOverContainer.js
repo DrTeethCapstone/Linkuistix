@@ -1,14 +1,13 @@
-import * as PIXI from "pixi.js";
-import { GameOver } from "./GameOver";
-import { GameOverImg } from "./GameOverImg";
-import { gsap } from "gsap";
-import coin from "./coin.png";
-import insertCoin from "./insertCoin.PNG";
-import { addDoc, Timestamp, collection } from "firebase/firestore";
-import { db } from "../../../firebase";
-import { GameOverInputContainer } from "./GameOverInputCont";
+import * as PIXI from 'pixi.js';
+import { GameOver } from './GameOver';
+import { GameOverImg } from './GameOverImg';
+import { gsap } from 'gsap';
+import coin from './coin.png';
+import insertCoin from './insertCoin.PNG';
+import { addDoc, Timestamp, collection } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { GameOverInputContainer } from './GameOverInputCont';
 import { getAuth } from 'firebase/auth';
-
 
 export class GameOverContainer extends PIXI.Container {
   constructor(parent) {
@@ -24,10 +23,10 @@ export class GameOverContainer extends PIXI.Container {
     coinImg.width = 100;
     coinImg.zIndex = 5;
     coinImg.alpha = 0.8;
-    this.parent.cursor = "none";
+    this.parent.cursor = 'none';
     this.addChild(coinImg);
     this.parent.interactive = true;
-    this.parent.on("pointermove", moveCoin);
+    this.parent.on('pointermove', moveCoin);
     function moveCoin(e) {
       let pos = e.data.global;
       coinImg.x = pos.x - window.innerWidth / 2;
@@ -50,7 +49,7 @@ export class GameOverContainer extends PIXI.Container {
     }
   }
   async addLeaderBoardScore(user, score) {
-    await addDoc(collection(db, "scores"), {
+    await addDoc(collection(db, 'scores'), {
       score: score,
       uid: user.uid,
       username: user.displayName,
@@ -59,9 +58,9 @@ export class GameOverContainer extends PIXI.Container {
   }
 
   setupFirstChildren(currentScore) {
-    const game = new GameOver("GAME", this);
+    const game = new GameOver('GAME', this);
     game.animateGameOn();
-    const over = new GameOver("OVER", this);
+    const over = new GameOver('OVER', this);
     over.animateOverOn();
     const score = new GameOver(`Score:${currentScore}`, this);
     setTimeout(() => {
@@ -72,7 +71,7 @@ export class GameOverContainer extends PIXI.Container {
       score.animateScoreOff();
     }, 4500);
     setTimeout(() => {
-      const message = new GameOver("Insert Coin to Continue", this);
+      const message = new GameOver('Insert Coin to Continue', this);
       message.position.x = 0;
       message.position.y = -1000;
       message.animateMessage();
@@ -87,9 +86,9 @@ export class GameOverContainer extends PIXI.Container {
       insert.zIndex = 0;
       insert.alpha = 0.9;
 
-      insert.addListener("click", () => {
+      insert.addListener('click', () => {
         const parent = this.parent;
-        parent.cursor = "auto";
+        parent.cursor = 'auto';
         parent.removeChild(this);
         parent.children[1].gameOverStartGame();
       });
@@ -100,20 +99,23 @@ export class GameOverContainer extends PIXI.Container {
           x: 1000,
         },
         {
-          ease: "elastic",
+          ease: 'elastic',
           duration: 3,
           x: -300,
           y: 100,
         }
       );
-      const leader = new GameOver(`Add score to\nLeader Board`, this);
+      const leader = new GameOver(
+        `Click Here to \nAdd score to\nLeader Board`,
+        this
+      );
       leader.animateLeader();
       leader.interactive = true;
-      leader.addListener("click", clickLeader);
+      leader.addListener('click', clickLeader);
       async function clickLeader(e) {
         const myUser = this.parent.getUserInfo();
-        if (myUser.displayName === "guest") {
-          this.parent.parent.cursor = "default";
+        if (myUser.displayName === 'guest') {
+          this.parent.parent.cursor = 'default';
           const inputCont = new GameOverInputContainer(this.parent);
           inputCont.children[1].children[1].setupKeyboardListener();
           inputCont.position.x = 0;
@@ -123,7 +125,7 @@ export class GameOverContainer extends PIXI.Container {
           let score = Number(this.parent.score);
           this.parent.addLeaderBoardScore(myUser, score);
           leader.interactive = false;
-          const completed = new GameOver("Score Added!", this.parent);
+          const completed = new GameOver('Score Added!', this.parent);
           completed.animateCompleted();
         }
       }

@@ -1,9 +1,9 @@
-import * as PIXI from "pixi.js";
-import * as randomWords from "random-words";
-import { Word } from "./Words";
+import * as PIXI from 'pixi.js';
+import * as randomWords from 'random-words';
+import { Word } from './Words';
 
 //ANIMATION PLUGINS
-import { gsap } from "gsap";
+import { gsap } from 'gsap';
 
 //CREATE A NEW INSTANCE OF A PIXI CONTAINER USED TO STORE LIST OF WORDS
 export class WordsContainer extends PIXI.Container {

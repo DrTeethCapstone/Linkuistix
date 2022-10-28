@@ -1,28 +1,31 @@
-import * as PIXI from "pixi.js";
+import * as PIXI from 'pixi.js';
 // import { InPlayMessage } from "./InPlayMessage";
+
+//howler sounds
+import { Howl } from 'howler';
 
 //CREATE A NEW INSTANCE OF A USER INPUT FIELD
 export class InputText extends PIXI.Text {
   constructor(parent = null) {
-    super("type here", {
-      fontFamily: "Press Start 2P",
+    super('type here', {
+      fontFamily: 'Press Start 2P',
       fontSize: 24,
       fill: 0xebd25b,
-      align: "center",
+      align: 'center',
     });
 
     this.parent = parent;
-    this.userGuess = "";
+    this.userGuess = '';
     this.interactive = true;
     this.enabled = false;
     this.isThinking = false;
     // this.message = new InPlayMessage(this);
 
-    this.worker = new Worker(new URL("./TF_Worker.js", import.meta.url), {
-      type: "module",
+    this.worker = new Worker(new URL('./TF_Worker.js', import.meta.url), {
+      type: 'module',
     });
 
-    this.worker.addEventListener("message", this.setTFOutout);
+    this.worker.addEventListener('message', this.setTFOutout);
 
     if (parent) {
       const container = new PIXI.Container();
@@ -41,7 +44,7 @@ export class InputText extends PIXI.Text {
       this.anchor.set(0.5);
     }
 
-    this.on("pointerdown", (e) => {
+    this.on('pointerdown', (e) => {
       this.style.fill = 0x0eb3e1;
       this.setupKeyboardListener();
       if (!this.parent.parent.parent.children[4].isRunning) {
@@ -58,40 +61,40 @@ export class InputText extends PIXI.Text {
   };
 
   resetState() {
-    this.userGuess = "";
-    this.text = "Click to Start";
+    this.userGuess = '';
+    this.text = 'Click to Start';
     this.style.fill = 0xebd25b;
     this.enabled = false;
-    window.removeEventListener("keydown", this.eventListener);
+    window.removeEventListener('keydown', this.eventListener);
   }
 
   setupKeyboardListener() {
     if (!this.enabled) {
       this.enabled = true;
-      window.addEventListener("keydown", this.eventListener);
+      window.addEventListener('keydown', this.eventListener);
     }
   }
 
   validateWordInput({ targetString, inputString, target }) {
     if (!inputString.length) {
-      this.text = "";
-      this.userGuess = "";
+      this.text = '';
+      this.userGuess = '';
       return false;
     }
     if (targetString.length <= 3 && inputString.length >= 3) {
       if (targetString.slice(0, 3) === inputString.slice(0, 3)) {
         target.invalidGuess(3);
         // this.removeChild(this.message);
-        this.text = "";
-        this.userGuess = "";
+        this.text = '';
+        this.userGuess = '';
         return false;
       }
     } else if (targetString.length > 3 && inputString.length > 3) {
       if (targetString.slice(0, 4) === inputString.slice(0, 4)) {
         target.invalidGuess(4);
         // this.removeChild(this.message);
-        this.text = "";
-        this.userGuess = "";
+        this.text = '';
+        this.userGuess = '';
         return false;
       }
     }
@@ -147,7 +150,7 @@ export class InputText extends PIXI.Text {
 
   updateInputText(e) {
     this.prevWordObject = this.parent.parent.children[2].children[1];
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       if (!this.isThinking) {
         // this.message.text = "Please wait. Tensor is thinking...";
         // this.message.anchor.set(0.5);
@@ -163,6 +166,15 @@ export class InputText extends PIXI.Text {
         };
 
         if (this.validateWordInput(validation)) {
+          //SFX
+          const submit = new Howl({
+            src: ['/sounds/submit.mp3'],
+            volume: 0.25,
+          });
+
+          setTimeout(() => {
+            submit.play();
+          }, 100);
           this.createTicker(words);
           this.ticker.start();
           // this.isThinking = true;
@@ -171,15 +183,15 @@ export class InputText extends PIXI.Text {
             tensorWords,
           });
           this.prevWordObject.updateWord(this.userGuess);
-          this.userGuess = "";
-          this.text = "";
+          this.userGuess = '';
+          this.text = '';
         }
       }
-    } else if (e.key === "Backspace") {
+    } else if (e.key === 'Backspace') {
       this.userGuess = this.userGuess.slice(0, this.userGuess.length - 1);
       this.text = this.userGuess;
     } else {
-      if (this.isLetter(e.key) || e.key === " ") {
+      if (this.isLetter(e.key) || e.key === ' ') {
         this.userGuess += e.key.toLowerCase();
         this.text = this.userGuess;
       }

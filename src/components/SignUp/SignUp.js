@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import ThreeApp from '../SignUp/ThreeAnimation/ThreeApp';
 
 //Toast
 import { toast } from 'react-toastify';
+
+//howler sounds
+import { Howl } from 'howler';
 
 //Form validation
 import { Formik } from 'formik';
@@ -40,6 +44,12 @@ const SignupSchema = Yup.object().shape({
 function SignUp({ setShowSidebar, sketch }) {
   const navigate = useNavigate();
 
+  //SFX
+  const coinDrop = new Howl({
+    src: ['/sounds/coin.mp3'],
+    volume: 0.25,
+  });
+
   const { signup, loginAsGuest, currentUser } = useAuth();
 
   //guest login handler
@@ -49,6 +59,9 @@ function SignUp({ setShowSidebar, sketch }) {
     try {
       await loginAsGuest();
       setShowSidebar(true);
+      setTimeout(() => {
+        coinDrop.play();
+      }, 500);
     } catch (error) {
       console.log('failed to log in: ', error);
     }
@@ -56,8 +69,7 @@ function SignUp({ setShowSidebar, sketch }) {
 
   return (
     <>
-      <div className='opacity'>
-
+      <div className="opacity">
         <div className="form-container">
           <h2>Sign Up</h2>
           <div>
@@ -192,10 +204,10 @@ function SignUp({ setShowSidebar, sketch }) {
                 </form>
               )}
             </Formik>
-            <p>Or</p>
+            {/* <p>Or</p>
             <button type="button" className="form-button" onClick={guestLogin}>
               Play As guest
-            </button>
+            </button> */}
           </div>
           <hr />
           <p>Already Have An Account?</p>
@@ -203,6 +215,7 @@ function SignUp({ setShowSidebar, sketch }) {
             Log In
           </Link>
         </div>
+        <ThreeApp />
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import ThreeApp from './ThreeAnimation/ThreeApp';
 
 //howler sounds
 import { Howl } from 'howler';
@@ -33,7 +34,7 @@ function SignInSplash({ setShowSidebar }) {
   //SFX
   const coinDrop = new Howl({
     src: ['/sounds/coin.mp3'],
-    volume: 0.5,
+    volume: 0.25,
   });
 
   //func which allows user to login as guest
@@ -44,10 +45,13 @@ function SignInSplash({ setShowSidebar }) {
     event.preventDefault();
 
     try {
+      setTimeout(() => {
+        coinDrop.play();
+      }, 500);
+
       await loginAsGuest();
       setShowSidebar(true);
       //play the coin sound
-      coinDrop.play();
       navigate('/game');
     } catch (error) {
       console.log('failed to log in: ', error);
@@ -90,8 +94,8 @@ function SignInSplash({ setShowSidebar }) {
           <h1>Linkuistix</h1>
           <h6>Word association game powered by machine learning</h6>
         </div> */}
-        <div className='opacity'>
-          <div className="form-container">
+        <div className="opacity">
+          <div className="form-container" id="form-container">
             <h2>Welcome, Player</h2>
             <div className="splashButtonContainer">
               <animated.button
@@ -106,16 +110,17 @@ function SignInSplash({ setShowSidebar }) {
               </animated.button>
             </div>
             <hr />
-            <p>Already Have An Account?</p>
+            <p id="loadFont">Already Have An Account?</p>
             <Link className="link-styles" to="/login">
               Log In
             </Link>
             <hr />
-            <p>Want to register?</p>
+            <p id="loadFont">Want to register?</p>
             <Link className="link-styles" to="/SignUp">
               Sign Up
             </Link>
           </div>
+          <ThreeApp />
         </div>
       </>
     );
