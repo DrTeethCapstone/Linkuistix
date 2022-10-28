@@ -21,6 +21,7 @@ export class GameOverInput extends PIXI.Text {
       const container = new PIXI.Container();
       const containerBG = new PIXI.Sprite(PIXI.Texture.WHITE);
       containerBG.tint = "#ff71ce";
+      containerBG.alpha = 0
       containerBG.width = this.parent.width;
       containerBG.height = this.parent.height / 2;
       container.position.y = -containerBG.height;
